@@ -1,13 +1,14 @@
 import { Outlet,useLocation,useNavigation } from 'react-router-dom';
 import { Toolbar } from '../../components/toolbar/Toolbar';
-import { PBUser } from '../../utils/types/types';
+
 import { useAuthGuard } from './../../utils/hooks/useAuthGuard';
 import { ReactProgress } from './../../shared/loaders/ReactProgress';
+import { AppUser } from '../../utils/types/base';
 
 
 
 interface RootLayoutProps {
-  user: PBUser;
+  user: AppUser;
  
 }
 

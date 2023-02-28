@@ -1,5 +1,5 @@
-import { BrowserRouter, Route, Routes, createBrowserRouter} from 'react-router-dom';
-import { AppUser } from '../types/base';
+import {  createBrowserRouter} from 'react-router-dom';
+import { AppUser } from '../utils/types/base';
 import { QueryClient } from '@tanstack/react-query';
 import { Redirect } from '../components/auth/Redirect';
 import { AuthLayout } from '../pages/auth/AuthLayout';

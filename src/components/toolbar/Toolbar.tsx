@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineHome } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
-import { PBUser } from "../../utils/types/types";
 import { ProfileMenu } from './ProfileMenu';
 import { ReactModalWrapper } from './../../shared/wrappers/ReactModalWrapper';
 import { TheIcon } from './../../shared/wrappers/TheIcon';
+import { AppUser } from "../../utils/types/base";
 
 interface ToolbarProps {
-  user: PBUser
+  user: AppUser
 }
 
 export const Toolbar = (

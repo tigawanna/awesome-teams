@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { AppUser } from "../../types/base";
+import { AppUser } from "../../utils/types/base";
 
 interface TestLayoutProps {
 user:AppUser

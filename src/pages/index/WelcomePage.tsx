@@ -1,9 +1,9 @@
-import React from 'react';
 import { Hero } from '../../components/index/Hero';
-import { PBUser } from '../../utils/types/types';
+import { AppUser } from '../../utils/types/base';
+
 
 interface WelcomePageProps {
-  user?: PBUser;
+  user?: AppUser;
 }
 
 export const WelcomePage = () => (

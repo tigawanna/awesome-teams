@@ -1,14 +1,13 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
-import { PBUser } from '../../utils/types/types';
 import { getProviders} from '../../utils/pb/config';
 import { useQuery } from '@tanstack/react-query';
 import { TheIcon } from './../../shared/wrappers/TheIcon';
 import { redirect_url } from '../../utils/env';
+import { AppUser } from '../../utils/types/base';
 
 interface OAuthLoginProps {
-  user?: PBUser;
+  user?: AppUser;
 }
 interface ProvType {
   name: string;

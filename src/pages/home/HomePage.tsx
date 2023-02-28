@@ -1,5 +1,5 @@
 
-import { AppUser } from "../../types/base";
+import { AppUser } from "../../utils/types/base";
 
 interface HomePageProps {
 user:AppUser

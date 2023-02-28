@@ -1,14 +1,14 @@
 import React from 'react'
-import { PBUser } from '../../utils/types/types';
 import { BsSunFill,BsFillMoonFill,} from "react-icons/bs";
 import { useQueryClient } from '@tanstack/react-query';
 import { client } from '../../utils/pb/config';
 import { useTheme } from '../../utils/hooks/themeHook';
 import { Link } from 'react-router-dom';
 import { TheIcon } from './../../shared/wrappers/TheIcon';
+import { AppUser } from '../../utils/types/base';
 
 interface ProfileMenuProps {
-user?:PBUser
+user?:AppUser
 setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 

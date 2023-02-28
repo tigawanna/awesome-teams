@@ -1,11 +1,12 @@
 import React from 'react';
 // import { useNavigate, Link } from 'react-router-dom';
-import { PBUser } from '../../utils/types/types';
+
 import { OAuthLogin } from '../../components/auth/OAuthLogin';
+import { AppUser } from '../../utils/types/base';
 
 interface LoginProps {
   // eslint-disable-next-line react/require-default-props
-  user?: PBUser;
+  user?: AppUser;
 }
 
 export const Login = ({user}: LoginProps) => (

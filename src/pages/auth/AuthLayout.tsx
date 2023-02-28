@@ -1,9 +1,9 @@
 import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { PBUser } from '../../utils/types/types';
+import { AppUser } from '../../utils/types/base';
 
 interface AuthLayoutProps {
-  user: PBUser;
+  user: AppUser;
 }
 
 export const AuthLayout = ({user}: AuthLayoutProps) => {

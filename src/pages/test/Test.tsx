@@ -1,4 +1,4 @@
-import { AppUser } from "../../types/base";
+import { AppUser } from "../../utils/types/base";
 
 interface TestProps {
     user: AppUser
