@@ -52,6 +52,7 @@ export const OAuthLogin = ({user}: OAuthLoginProps) => {
   return (
     <div className="w-full  h-full flex flex-wrap items-center justify-center gap-2 ">
       {provs &&
+      // @ts-expect-error
         provs?.map((item) => {
           if(item.name === 'github')
           return (

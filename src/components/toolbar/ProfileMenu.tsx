@@ -1,6 +1,5 @@
 import React from 'react'
 import { BsSunFill,BsFillMoonFill,} from "react-icons/bs";
-import { useQueryClient } from '@tanstack/react-query';
 import { client } from '../../utils/pb/config';
 import { useTheme } from '../../utils/hooks/themeHook';
 import { Link } from 'react-router-dom';
@@ -14,9 +13,7 @@ setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 
 export const ProfileMenu = ({user,setIsOpen}: ProfileMenuProps) => {
 
-
-    const queryClient = useQueryClient();
-    const theme = useTheme();
+const theme = useTheme();
     const nextTheme = theme.theme === "dark" ? "light" : "dark";
     const mode = theme.theme === "dark" ? BsSunFill : BsFillMoonFill;
     const toggle = () => { theme.setTheme(nextTheme) };
@@ -24,7 +21,7 @@ export const ProfileMenu = ({user,setIsOpen}: ProfileMenuProps) => {
         client.authStore.clear();
       
         localStorage.removeItem('provider')
-        queryClient.invalidateQueries(["user"]);
+        // queryClient.invalidateQueries(["user"]);
         setIsOpen(prev => !prev)
     };
 

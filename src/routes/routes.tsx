@@ -1,22 +1,19 @@
 import {  createBrowserRouter} from 'react-router-dom';
 import { AppUser } from '../utils/types/base';
-import { QueryClient } from '@tanstack/react-query';
 import { Redirect } from '../components/auth/Redirect';
 import { AuthLayout } from '../pages/auth/AuthLayout';
 import { Login } from '../pages/auth/Login';
 import { Signup } from '../pages/auth/Signup';
 import { RootLayout } from '../pages/index/RootLayout';
-
 import { TestLayout } from '../pages/test/TestLayout';
 import { Test } from '../pages/test/Test';
 import { ReactRouterError } from '../shared/errorboundary/ReactRouterError';
-import { WelcomePage } from '../pages/index/WelcomePage';
 import { HomeLayout } from './../pages/home/HomeLayout';
 import { HomePage } from './../pages/home/HomePage';
 
 
 
-export const appRoutes=(user:AppUser,qc:QueryClient)=>{
+export const appRoutes=(user:AppUser)=>{
 
    return createBrowserRouter([
         {
