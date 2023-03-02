@@ -19,15 +19,15 @@ export const Toolbar = (
 
 const [isOpen, setIsOpen] = React.useState(false);
 const avatar = user?.avatar
-// //no-console("profile ===",avatar)
+console.log("profile ===",user)
 
 return (
-    <div className="w-full h-8 flex justify-between items-center">
+    <div className="w-full h-full flex flex-col justify-between items-center">
 
       <div className=" h-full flex justify-start items-center">
         <div className="m-1 w-fit h-full p-1 flex justify-center items-center ">
           <Link to="/">
-            <div className="w-fit p-1 mx-5 flex justify-center items-centertext-white  ">
+            <div className="w-fit p-1 flex justify-center items-centertext-white  ">
               <TheIcon
                 Icon={AiOutlineHome}
                 size={"25"}
@@ -57,8 +57,8 @@ return (
       }}
        />
 
-    <div className="min-w-[10%] md:px-2 h-full flex justify-center items-center gap-1 md:gap-2
-         md:border-2 rounded-xl  font-bold dark:font-normal ">
+    <div className="h-full flex flex-col justify-center items-center gap-2
+          rounded-xl  font-bold dark:font-normal ">
 
         <div className="w-full  h-full flex justify-center items-center
          hover:text-blue-700">
@@ -66,13 +66,13 @@ return (
        </div>
 
 
-      <div className="w-full px-1 h-full flex justify-center items-center 
+      <div className="w-full h-full flex justify-center items-center 
       hover:text-rose-700">
           <Link to="/test">test</Link>
       </div> 
 
 
-      <div className="w-full px-1 h-full flex justify-center items-center 
+      <div className="w-full  h-full flex justify-center items-center 
       hover:text-rose-700">
         <Link to="/about">About</Link>
       </div> 

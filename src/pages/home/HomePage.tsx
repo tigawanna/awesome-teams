@@ -7,10 +7,13 @@ user:AppUser
 
 export const HomePage = ({}:HomePageProps) => {
 return (
- <div className='w-full min-h-screen'>
-<div className="h-full w-full bg-green-500 p-4">
-    HELLO
-</div>
+    <div className='w-full h-full 
+    flex items-center justify-center
+    bg-gradient-to-r from-purple-900 via-slate-500 to-orange-800
+    '>
+    <div className="p-4 text-4xl font-bold">
+        HELLO
+    </div>
  </div>
 );
 }

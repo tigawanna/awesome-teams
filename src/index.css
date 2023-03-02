@@ -21,13 +21,13 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(45, 2, 65, 0.3);
+  box-shadow: inset 0 0 6px #e09853;
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: rgb(70, 40, 100);
+  background-color: #e09853;
 }
 
 .scroll-bar {
-  @apply scrollbar-thin scrollbar-thumb-[#d44cd4] scrollbar-track-gray-100;
+  @apply scrollbar-thin scrollbar-thumb-[#e09853] scrollbar-track-gray-100;
 }
