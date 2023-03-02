@@ -1,23 +1,27 @@
 import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useNavigation } from 'react-router-dom';
 import { AppUser } from '../../utils/types/base';
+import { useLocation } from 'react-router-dom';
 
 interface AuthLayoutProps {
   user: AppUser;
 }
 
 export const AuthLayout = ({user}: AuthLayoutProps) => {
-  const navigate = useNavigate();
-  // //no-console("user in auth layout ===", user)
+  const navigation = useNavigation();
 
-  React.useEffect(() => {
-    if (user) {
-      if (user?.email && user?.isNew) {
-        navigate('/profile')
-      }
-        navigate('/')
-      }
-  }, [user])
+  
+  // console.log(navigation.location)
+  //no-console("user in auth layout ===", user)
+  // console.log("AUTH LAYOUT +++++>>>>> ",useLocation()) 
+  // React.useEffect(() => {
+  //   if (user) {
+  //     if (user?.email && user?.isNew) {
+  //       navigate('/profile')
+  //     }
+  //       navigate('/')
+  //     }
+  // }, [user])
 
 
   return (

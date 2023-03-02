@@ -14,11 +14,9 @@ interface RootLayoutProps {
 export const RootLayout = ({user}: RootLayoutProps) => {
 useAuthGuard(user,false)
 const navigation = useNavigation()
-  const location = useLocation()
+const location = useLocation()
 
-  // console.log(" transitiononig ?=== >", navigation.state === "loading")
-
-  return (
+return (
     <div className="w-full h-full dark:bg-slate-900 ">
 
       <div
@@ -26,7 +24,7 @@ const navigation = useNavigation()
          bg-opacity-70 dark:bg-opacity-90 max-h-[50px] p-1 
          fixed top-0 z-40 text-white"
       >
-        <Toolbar user={user} />
+      <Toolbar user={user} />
         <ReactProgress isAnimating={navigation.state === "loading"} key={location.key} />
       </div>
       <main className=" w-full  mt-10 min-h-screen bg-red-900 ">

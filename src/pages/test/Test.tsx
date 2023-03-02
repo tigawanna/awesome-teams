@@ -7,7 +7,7 @@ interface TestProps {
 export const Test = ({user}:TestProps) => {
 return (
  <div className='w-full h-full flex items-center justify-center'>
-
+        TEST
  </div>
 );
 }

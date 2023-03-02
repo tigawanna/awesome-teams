@@ -3,13 +3,21 @@ import React from 'react';
 
 import { OAuthLogin } from '../../components/auth/OAuthLogin';
 import { AppUser } from '../../utils/types/base';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 interface LoginProps {
   // eslint-disable-next-line react/require-default-props
   user?: AppUser;
 }
 
-export const Login = ({user}: LoginProps) => (
+export const Login = ({user}: LoginProps) =>{ 
+  
+const loaction  = useLocation()
+const search =  useSearchParams()
+console.log(" serach  ======== > ",loaction)
+
+return (
+
 <div
   className="w-full  h-full flex flex-col items-center justify-center dark:bg-black bg-white "
 >
@@ -20,6 +28,6 @@ export const Login = ({user}: LoginProps) => (
     <div className="w-full text-3xl text-center font-bold p-2 text-slate-900 dark:text-slate-100">
       Login
     </div>
-    <OAuthLogin user={user} />
+    {/* <OAuthLogin user={user} /> */}
   </div>
-</div>);
+</div>);}
