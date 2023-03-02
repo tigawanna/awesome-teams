@@ -3,7 +3,7 @@ import React from 'react';
 
 import { OAuthLogin } from '../../components/auth/OAuthLogin';
 import { AppUser } from '../../utils/types/base';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import {  useSearchParams } from 'react-router-dom';
 
 interface LoginProps {
   // eslint-disable-next-line react/require-default-props
@@ -12,22 +12,20 @@ interface LoginProps {
 
 export const Login = ({user}: LoginProps) =>{ 
   
-const loaction  = useLocation()
-const search =  useSearchParams()
-console.log(" serach  ======== > ",loaction)
+// const loaction  = useLocation()
+const [searchBarParams, setSearchBarParams] = useSearchParams();
+// console.log("callback url  === ",searchBarParams.get('callbackUrl'))
 
 return (
 
 <div
-  className="w-full  h-full flex flex-col items-center justify-center dark:bg-black bg-white "
+  className="w-full  min-h-screen h-full flex flex-col items-center justify-center dark:bg-black bg-white "
 >
-  <div
-  className="h-[70%] w-[90%]   m-2 p-3 flex flex-col 
-  items-center justify-evenly text-slate-100  border  shadow-slate-600  shadow-lg rounded-xl"
-  >
-    <div className="w-full text-3xl text-center font-bold p-2 text-slate-900 dark:text-slate-100">
-      Login
-    </div>
-    {/* <OAuthLogin user={user} /> */}
+<div className='text-6xl font-bold border rounded-lg shadow p-5'>  
+Login
+</div>
+<div className='w-full h-full flex flex-col items-center justify-center dark:bg-black bg-white '>
+      was going to 
+      {searchBarParams.get('callbackUrl')}
   </div>
 </div>);}

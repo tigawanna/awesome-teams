@@ -22,7 +22,7 @@ const avatar = user?.avatar
 // //no-console("profile ===",avatar)
 
 return (
-    <div className="w-full h-10 flex justify-between items-center">
+    <div className="w-full h-8 flex justify-between items-center">
 
       <div className=" h-full flex justify-start items-center">
         <div className="m-1 w-fit h-full p-1 flex justify-center items-center ">
@@ -69,6 +69,12 @@ return (
       <div className="w-full px-1 h-full flex justify-center items-center 
       hover:text-rose-700">
           <Link to="/test">test</Link>
+      </div> 
+
+
+      <div className="w-full px-1 h-full flex justify-center items-center 
+      hover:text-rose-700">
+        <Link to="/about">About</Link>
       </div> 
      </div>
       

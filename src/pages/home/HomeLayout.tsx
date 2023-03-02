@@ -7,7 +7,7 @@ user:AppUser
 }
 
 export const HomeLayout = ({user}:HomeLayoutProps) => {
-// useAuthGuard(user,false)
+useAuthGuard(user,false)
 return (
  <div className='w-full'>
     <Outlet/>
