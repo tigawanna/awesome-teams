@@ -7,7 +7,7 @@ user:AppUser
 
 export const AboutLayout= ({}:AboutLayoutProps) => {
   return (
-    <div className='w-full h-full'>
+    <div className='w-full h-full '>
       <Outlet/>
     </div>
   );

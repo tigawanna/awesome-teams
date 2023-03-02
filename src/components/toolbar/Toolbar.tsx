@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineHome } from "react-icons/ai";
-import { FaUserCircle } from "react-icons/fa";
+import { FaBars, FaUserCircle } from "react-icons/fa";
 import { ProfileMenu } from './ProfileMenu';
 import { ReactModalWrapper } from './../../shared/wrappers/ReactModalWrapper';
 import { TheIcon } from './../../shared/wrappers/TheIcon';
@@ -22,9 +22,13 @@ const avatar = user?.avatar
 console.log("profile ===",user)
 
 return (
-    <div className="w-full h-full flex flex-col justify-between items-center">
+    <div className="w-full h-full flex flex-col justify-start items-center">
 
-      <div className=" h-full flex justify-start items-center">
+
+
+
+
+      <div className="flex justify-start items-center">
         <div className="m-1 w-fit h-full p-1 flex justify-center items-center ">
           <Link to="/">
             <div className="w-fit p-1 flex justify-center items-centertext-white  ">
