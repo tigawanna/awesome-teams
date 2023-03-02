@@ -10,6 +10,8 @@ import { Test } from '../pages/test/Test';
 import { ReactRouterError } from '../shared/errorboundary/ReactRouterError';
 import { HomeLayout } from './../pages/home/HomeLayout';
 import { HomePage } from './../pages/home/HomePage';
+import { AboutLayout } from '../pages/About/AboutLayout';
+import { About } from '../pages/About/About';
 
 
 
@@ -63,6 +65,20 @@ export const appRoutes=(user:AppUser)=>{
                 {
                   index: true,
                   element: <Test user={user} />,
+                  // loader: deferredBlogPostsLoader,
+                },
+              ],
+            },
+
+
+
+            {
+              path: '/about',
+              element: <AboutLayout user={user} />,
+              children: [
+                {
+                  index: true,
+                  element: <About user={user} />,
                   // loader: deferredBlogPostsLoader,
                 },
               ],

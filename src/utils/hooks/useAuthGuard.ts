@@ -16,7 +16,7 @@ export const useAuthGuard = (user:AppUser,test_mode:boolean) => {
   
 
     // console.log("navigation ======>>> ",navigation)
-    // console.log("location ======>>> ",location)
+    console.log("location ======>>> ",location)
     // console.log(" window location ======>>> ",window.location)
 
     useEffect(() => {
