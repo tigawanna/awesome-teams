@@ -10,9 +10,12 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
-    "page":"node ./scripts/newRoute.cjs"
+    "page": "node ./scripts/newRoute.cjs"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@mantine/core": "^6.0.0",
+    "@mantine/hooks": "^6.0.0",
     "@tanem/react-nprogress": "^5.0.30",
     "@tanstack/react-query": "^5.0.0-alpha.0",
     "dayjs": "^1.11.7",
