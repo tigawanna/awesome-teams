@@ -126,18 +126,7 @@ export const ToDoForm = ({ updating }: ToDoFormProps) => {
                     label="Description"
                     prop="description"
                 /> 
-                <div className="w-full flex">
-                    <FormCheckBox<TaskMutationFields>
-                        error={error}
-                        setInput={setInput}
-                        input={input}
-                        label="Send email"
-                        prop="should_email"
-                        type="checkbox"
-                        input_props={{
-                            checked: input.should_email,
-                        }}
-                    />
+                <div className="w-[95%] flex items-center justify-center">
                     <FormInput<TaskMutationFields>
                         error={error}
                         handleChange={handleChange}
@@ -146,10 +135,27 @@ export const ToDoForm = ({ updating }: ToDoFormProps) => {
                         prop="deadline"
                         type="date"
                         input_props={{
-                        min: new Date().toISOString().split('T')[0],
-            
+                            min: new Date().toISOString().split('T')[0],
+                            max: new Date('2025').toISOString().split('T')[0],
+                            style: {
+                                width:'min-content'
+                            }
                         }}
                     />
+                    <FormCheckBox<TaskMutationFields>
+                        error={error}
+                        setInput={setInput}
+                        input={input}
+                        label="Send email"
+                        prop="should_email"
+                        input_props={{
+                            checked: input.should_email,
+                            style:{
+                                width: "40%",
+                            }
+                        }}
+                    />
+
                 </div>
    
 

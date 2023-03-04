@@ -4,10 +4,8 @@ interface FormCheckBoxPropsProps<T> {
   label: string;
   prop: keyof T;
   error: { name: string; message: string };
-
-  input: T;
-  type?: React.HTMLInputTypeAttribute;
-  setInput: React.Dispatch<React.SetStateAction<T>>;
+ input: T;
+ setInput: React.Dispatch<React.SetStateAction<T>>;
   input_props?:React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 }
 
@@ -18,7 +16,7 @@ export const FormCheckBox = <T,>({
   input,
   label,
   input_props,
-  type = "text",
+
 }: FormCheckBoxPropsProps<T>) => {
 
 
@@ -36,15 +34,15 @@ export const FormCheckBox = <T,>({
   return (
     <div 
     style={input_props?.style??{width:"100%"}}
-    className="flex flex-col items-center justify-center">
-      <label className="text-md capitalize  w-[90%] flex items-start">
+    className="flex items-center justify-center gap-2">
+      <label className="text-md capitalize  w-fit">
         {label}
       </label>
 
       <input
        {...input_props}
         style={{ borderColor: isError(error, prop) ? "red" : "" }}
-        className="w-[90%] p-[6px] m-1 border border-black 
+        className="w-5 p-2 m-1 border border-black 
                 dark:border-white h-10 rounded-sm   dark:bg-slate-700
                 focus:border-2 dark:focus:border-4 focus:border-purple-700 dark:focus:border-purple-600 "
         id={prop as string}
