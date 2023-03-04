@@ -1,6 +1,6 @@
 import {  createBrowserRouter} from 'react-router-dom';
 import { AppUser } from '../utils/types/base';
-import { Redirect } from '../components/auth/Redirect';
+
 import { AuthLayout } from '../pages/auth/AuthLayout';
 import { Login } from '../pages/auth/Login';
 import { Signup } from '../pages/auth/Signup';
@@ -49,10 +49,7 @@ export const appRoutes=(user:AppUser)=>{
                   path: '/auth/signup',
                   element: <Signup />,
                 },
-                {
-                  path: '/auth/redirect',
-                  element: <Redirect />,
-                }
+      
               ],
             },
    

@@ -12,7 +12,7 @@ export const useAuthGuard = (user:AppUser,test_mode:boolean) => {
 
 // navigation.state
    useEffect(() => {
-        if (user?.email ) {
+        if (!user?.email ) {
             navigate({
                pathname: '/auth',
                search: createSearchParams({

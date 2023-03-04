@@ -4,12 +4,13 @@
 import PocketBase from 'pocketbase';
 import { QueryClient } from '@tanstack/react-query';
 import { pb_url } from '../env';
+import { AppUser } from '../types/base';
 
 export const client = new PocketBase(pb_url);
 
 export const getProviders =async()=> await client.collection('devs').listAuthMethods();
 
-export const getUser = async () => client.authStore.model;
+export const getUser = async () => client.authStore.model as AppUser
 
 export const appendToCache = async (
   index: [string],

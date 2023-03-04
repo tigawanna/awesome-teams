@@ -9,7 +9,7 @@ user:AppUser
 export const HomeLayout = ({user}:HomeLayoutProps) => {
 useAuthGuard(user,false)
 return (
- <div className='w-full h-full'>
+ <div className='w-full  h-full'>
     <Outlet/>
  </div>
 );

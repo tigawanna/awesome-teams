@@ -5,10 +5,6 @@ import { AppUser } from '../../utils/types/base';
 import { ReactProgress } from '../../shared/loaders/ReactProgress';
 import { FaBars } from 'react-icons/fa';
 import { TheIcon } from '../../shared/wrappers/TheIcon';
-import { useState } from 'react';
-import { ProfileMenu } from '../../components/toolbar/ProfileMenu';
-import { ReactModalWrapper } from '../../shared/wrappers/ReactModalWrapper';
-import { Sidebar } from '../../components/toolbar/Sidebar';
 import { Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { NavElemets } from '../../components/toolbar/NavElemets';
@@ -57,7 +53,7 @@ return (
     <NavElemets user={user}/>
     </Drawer>
 
-      <main className=" w-full  h-full   mt-[7%] md:mt-0">
+      <main className=" w-full min-h-screen z-50 h-full mt-[7%] md:mt-0">
         <Outlet />
        </main>
 
