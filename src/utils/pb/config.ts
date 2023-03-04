@@ -9,7 +9,16 @@ import { AppUser } from '../types/base';
 
 export const pb = new PocketBase(pb_url);
 
-export const getUser = async () => pb.authStore.model as AppUser
+export const getUser = async () => pb.authStore.model as unknown as AppUser
+
+export const loginUser = async ({email,password}:{email:string; password:string}) => {
+try {
+   return await pb.collection('staff').authWithPassword(email,password);
+} catch (error) {
+  throw error;
+}
+
+}
 
 export const appendToCache = async (
   index: [string],

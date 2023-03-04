@@ -47,7 +47,8 @@ export const QueryStateWrapper = (
             </div>
         );
     }
-    if (length && length === 0) {
+
+    if (length === 0) {
         return (
             <div className="w-full  flex items-center justify-center ">
                 <div className="max-w-[90%] w-fit h-fit p-2 flex items-center justify-center 
@@ -56,7 +57,6 @@ export const QueryStateWrapper = (
                 </div>
             </div>)
     }
-
     return (
         <>{children}</>
     );

@@ -6,10 +6,14 @@ import { FormTextArea } from "../../shared/form/FormTextArea";
 import { FormSelect } from "../../shared/form/FormSelect";
 import { FormCheckBox } from "../../shared/form/FormCheckbox";
 import { useMutation } from "@tanstack/react-query";
+import { AppUser } from "../../utils/types/base";
+import { PlainFormButton } from "../../shared/form/FormButton";
+import { concatErrors } from "../../utils/utils";
 
 
 interface ToDoFormProps {
     updating?: boolean
+    user: AppUser
 }
 // type TaskTypes = "todo" | "repairs" | "recurring" | "other"
 interface TaskStatus {
@@ -21,13 +25,13 @@ interface TaskFrequencyTypes {
     label: string
 }
 
-export const TaskForm = ({ updating }: ToDoFormProps) => {
+export const TaskForm = ({ updating,user }: ToDoFormProps) => {
     const default_tasks: TaskMutationFields = {
         title: "",
         description: "",
         status: "submited",
         type: "todo",
-        created_by: '',
+        created_by: user?.id as string,
         should_email:false,
         quotation:"",
         deadline: new Date().toISOString().split('T')[0]
@@ -70,19 +74,25 @@ export const TaskForm = ({ updating }: ToDoFormProps) => {
         }
     };
 
+    
+    const mutation = useMutation({
+        mutationFn:(input: TaskMutationFields) => addTask(input),
+        onError(error, variables, context) {
+            setError({ name: "", message:concatErrors(error)});
+        },
+        onSuccess(data, variables, context) {
+          console.log("context=====>",context)
+        },
+        meta: {
+            updates:['tasks']
+        }
+    })
+    // const timeline = ['approved_on', 'funded_on', 'completed_on']
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         // console.log("about to save ",input)
-        // mutation.mutate(input);
+        mutation.mutate(input);
     };
-
-    const mutation = useMutation({
-    mutationFn:(input: TaskMutationFields) => addTask(input),
-    meta: {
-    updates:['tasks']
-    }
-    })
-    // const timeline = ['approved_on', 'funded_on', 'completed_on']
     // console.log("input ======= ",input)
     return (
 <div className='w-full min-h-screen  flex flex-col items-center justify-center bg-purple-900 
@@ -97,7 +107,8 @@ export const TaskForm = ({ updating }: ToDoFormProps) => {
                     }
                 }}
             />
-            <form className="w-full md:w-[60%] h-full flex flex-col items-center justify-center  p-2 ">
+            <form onSubmit={handleSubmit}
+            className="w-full md:w-[60%] h-full flex flex-col items-center justify-center  p-2 ">
 
                 {
                     updating ?
@@ -179,9 +190,22 @@ export const TaskForm = ({ updating }: ToDoFormProps) => {
                 />
       
 
+                    <PlainFormButton
+                    disabled={mutation.isPending}
+                    isSubmitting={mutation.isPending}
+                    label="Submit"
+                    />
 
-
-
+                <div className="m-1 w-[90%] flex  flex-col items-center justify-center">
+                    {error?.message !== "" ? (
+                        <div
+                            className="m-1 w-full text-center  line-clamp-4 p-2 bg-red-100 border-2 
+                        border-red-800 text-red-900  rounded-xl"
+                        >
+                            {error.message}
+                        </div>
+                    ) : null}
+                </div>
             </form>
 
 

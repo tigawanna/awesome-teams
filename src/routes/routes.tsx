@@ -10,8 +10,7 @@ import { Test } from '../pages/test/Test';
 import { ReactRouterError } from '../shared/errorboundary/ReactRouterError';
 import { HomeLayout } from './../pages/home/HomeLayout';
 import { HomePage } from './../pages/home/HomePage';
-import { AboutLayout } from '../pages/About/AboutLayout';
-import { About } from '../pages/About/About';
+import { TasksEdit } from '../pages/home/TasksEdit';
 
 
 
@@ -29,6 +28,10 @@ export const appRoutes=(user:AppUser)=>{
               {
                 index:true,
                 element:<HomePage user={user}/>
+              },
+              {
+                path:"/io",
+                element:<TasksEdit user={user}/>
               }
             ]
             },
@@ -69,17 +72,7 @@ export const appRoutes=(user:AppUser)=>{
 
 
 
-            {
-              path: '/about',
-              element: <AboutLayout user={user} />,
-              children: [
-                {
-                  index: true,
-                  element: <About user={user} />,
-                  // loader: deferredBlogPostsLoader,
-                },
-              ],
-            },
+
           ],
         },
       ]);

@@ -35,7 +35,7 @@ return (
 
       
       <div
-      className="h-screen w-[5%] sticky top-0 
+      className="h-screen w-[7%] sticky top-0 
          bg-opacity-70 dark:bg-opacity-90  p-1 hidden md:block
         text-white z-40"
       >

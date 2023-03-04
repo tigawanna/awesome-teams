@@ -19,8 +19,10 @@ const queryClient:QueryClient = new QueryClient({
           queryKey:mutation.meta?.invalidates
         })
       }
-      if (Array.isArray(mutation.meta?.updates)) {
-        return queryClient.setQueryData([mutation.meta?.invalidates], data)
+      //@ts-expect-error
+      if (Array.isArray(mutation.meta?.updates)&& data.id) {
+        //@ts-expect-error
+        return queryClient.setQueryData([mutation.meta?.invalidates,data?.id], data)
       }
     }
   }),

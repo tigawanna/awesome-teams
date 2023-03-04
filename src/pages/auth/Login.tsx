@@ -1,3 +1,4 @@
+import { LoginForm } from '../../components/auth/LoginForm';
 import { AppUser } from '../../utils/types/base';
 import {  useSearchParams } from 'react-router-dom';
 
@@ -11,18 +12,9 @@ const [searchBarParams, setSearchBarParams] = useSearchParams();
 return (
 
 <div
-  className="w-full min-h-screen  bg-blue-800 h-full 
+  className="w-full min-h-screen   h-full 
   flex flex-col items-center justify-center  ">
-
-<div className='text-6xl font-bold border rounded-lg shadow p-5'>  
-Login
-</div>
-
-<div className=' text-lg p-3 w-full h-full 
-  flex flex-col items-center justify-center dark:bg-black bg-white '>
-      was going to {" "}
-      {searchBarParams.get('callbackUrl')}
-  </div>
+<LoginForm/>
 </div>
 
 )}
