@@ -69,22 +69,28 @@ export interface TasksResponse {
 
   type:"todo" |"repairs" | "maintenance" | "recurring" | "other";
   status: "submited" | "approved" | "funded" |"in_progress" | "completed" | "cancelled";
-  frequency?:"daily"|"weekly"|"monthly"|"yearly"|"calculated"
+  frequency?:"once"|"daily"|"weekly"|"monthly"|"yearly"|"calculated"
 
   created_by: string
   updated_by?: string
-  approved_by?: string
-  financed_by?: string
-  marked_completed_by?: string
 
   approved_on?: string
-  funded_by?:string
+  approved_by?: string
+
   funded_on?: string
+  funded_by?: string
+  
+  
   completed_on?: string
-  quotaion?: string
+  marked_completed_by?: string
+  
+  quotation?: string
   deadline?: string
+  should_email:boolean
 
 }
+
+
 export type TaskMutationFields = Omit<TasksResponse, 'id' | 'collectionId' | 'collectionName' | 'created' | 'updated'>
 //  export type TodoTaskSubType = Omit<TasksResponse, 'id' | 'collectionId' | 'collectionName' | 'created' | 'updated' |
 //  'approved_by'|'approved_on'|'funded_by'|'funded_on'|'quotaion'|''>
