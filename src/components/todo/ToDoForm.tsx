@@ -7,14 +7,14 @@ import { FormSelect } from "../../shared/form/FormSelect";
 
 
 interface ToDoFormProps {
-
+updating?:boolean
 }
 // type TaskTypes = "todo" | "repairs" | "recurring" | "other"
 interface TaskStatus{
     value:TaskMutationFields['status'],
     label:string
 }
-export const ToDoForm = ({}:ToDoFormProps) => {
+export const ToDoForm = ({updating}:ToDoFormProps) => {
 const default_tasks:TaskMutationFields={
     title:"",
     description:"",
@@ -58,7 +58,8 @@ const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElemen
     };
 
 return (
- <div className='w-full h-full min-h-screen  flex flex-col items-center justify-center bg-purple-900'>
+ <div className='w-full min-h-screen  flex flex-col items-center justify-center bg-purple-900 
+ scroll-bar overflow-y-scroll'>
         <Select 
         options={task_type_options}
         defaultValue={task_type_options[0]}
@@ -69,8 +70,21 @@ return (
         }
         }}
         />
-    <form className="w-full flex flex-col items-center justify-center">
-        
+    <form className="w-full md:w-[60%] h-full flex flex-col items-center justify-center  p-2 ">
+
+{
+    updating?<FormSelect<TaskMutationFields>
+    error={error}
+    input={input}
+    label="Status"
+    prop="status"
+    select_options={status_options}
+    setInput={setInput}
+    />
+    :null
+}
+
+
         <FormInput
         error={error}
         handleChange={handleChange}
@@ -87,17 +101,15 @@ return (
         label="Description"
         prop="description"
         />
-        <FormSelect<TaskMutationFields>
-        error={error}
-        input={input}
-        label="Status"
-        prop="status"
-        select_options={status_options}
-        setInput={setInput}
-        />
+
+
 
 
     </form>
+
+
+
+
  </div>
 );
 }

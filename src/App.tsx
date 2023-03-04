@@ -11,7 +11,7 @@ function App() {
 const query = useQuery({queryKey:['user'],queryFn:getUser});
   
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
+    // <MantineProvider withGlobalStyles withNormalizeCSS>
       <QueryStateWrapper query={query} loader={<LoaderElipse />}>
         <div className=" dark:bg-slate-900 h-full dark:text-white dark:shadow-white ">
           <RouterProvider router={appRoutes(query.data)} />
@@ -20,7 +20,7 @@ const query = useQuery({queryKey:['user'],queryFn:getUser});
           {/* <Notification /> */}
         </div>
       </QueryStateWrapper>
-    </MantineProvider>
+
 
   )
 }
