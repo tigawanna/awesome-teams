@@ -7,11 +7,9 @@ import { pb_url } from '../env';
 import { AppUser } from '../types/base';
 
 
-export const client = new PocketBase(pb_url);
+export const pb = new PocketBase(pb_url);
 
-export const getProviders =async()=> await client.collection('devs').listAuthMethods();
-
-export const getUser = async () => client.authStore.model as AppUser
+export const getUser = async () => pb.authStore.model as AppUser
 
 export const appendToCache = async (
   index: [string],
@@ -42,7 +40,7 @@ export const makeImageUrl = (
 };
 
 export const realTime = async (index: [string], queryClient: QueryClient) =>
-  client.realtime.subscribe(index[0], (e) => {
+  pb.realtime.subscribe(index[0], (e) => {
     //no-console('new real time response', e.record);
     appendToCache(index, queryClient, e.record);
 

@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { TaskMutationFields } from "../../utils/api/tasks";
+import { TaskMutationFields, addTask } from "../../utils/api/tasks";
 import Select from 'react-select'
 import { FormInput } from "../../shared/form/FormInput";
 import { FormTextArea } from "../../shared/form/FormTextArea";
 import { FormSelect } from "../../shared/form/FormSelect";
 import { FormCheckBox } from "../../shared/form/FormCheckbox";
+import { useMutation } from "@tanstack/react-query";
 
 
 interface ToDoFormProps {
@@ -57,7 +58,7 @@ export const ToDoForm = ({ updating }: ToDoFormProps) => {
         { value: "calculated", label: "Calculated" },
     ] satisfies TaskFrequencyTypes[]
 
-
+  
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setInput((prev) => {
             return { ...prev, [e.target.id]: e.target.value };
@@ -72,6 +73,13 @@ export const ToDoForm = ({ updating }: ToDoFormProps) => {
         // console.log("about to save ",input)
         // mutation.mutate(input);
     };
+
+    const mutation = useMutation({
+    mutationFn:(input: TaskMutationFields) => addTask(input),
+    meta: {
+    updates:['tasks']
+    }
+    })
     // const timeline = ['approved_on', 'funded_on', 'completed_on']
     console.log("input ======= ",input)
     return (

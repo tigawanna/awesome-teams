@@ -5,6 +5,8 @@
 //   created: string
 //   updated: string
 
+import { pb } from "../pb/config"
+
 
 //   title: string
 //   description: string
@@ -100,3 +102,20 @@ export type TaskResponeseSubType = Pick<TasksResponse, 'id' | 'collectionId' | '
 |'title'|'description'|'status'|'frequency'|'completed_on'|'marked_completed_by'|'deadline'>
 
 
+
+export const getTasks = async()=> {
+  return await pb.collection('tasks').getList<TasksResponse>(1, 50, {
+    // filter: 'created >= "2022-01-01 00:00:00" && someField1 != someField2',
+})
+}
+
+export const addTask = async (data: TaskMutationFields) => {
+try {
+    const record = await pb.collection('tasks').create(data);
+    return record as unknown as TasksResponse;
+} catch (error) {
+
+  console.log("error adding new task ===== ", error);
+  throw error;
+}
+}

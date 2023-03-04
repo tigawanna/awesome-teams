@@ -16,8 +16,11 @@ const queryClient:QueryClient = new QueryClient({
     onSuccess: async (data, variable, context, mutation) => {
       if (Array.isArray(mutation.meta?.invalidates)) {
         return queryClient.invalidateQueries({
-          queryKey: mutation.meta?.invalidates
+          queryKey:mutation.meta?.invalidates
         })
+      }
+      if (Array.isArray(mutation.meta?.updates)) {
+        return queryClient.setQueryData([mutation.meta?.invalidates], data)
       }
     }
   }),
