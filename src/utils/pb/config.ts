@@ -6,6 +6,7 @@ import { QueryClient } from '@tanstack/react-query';
 import { pb_url } from '../env';
 import { AppUser } from '../types/base';
 
+
 export const client = new PocketBase(pb_url);
 
 export const getProviders =async()=> await client.collection('devs').listAuthMethods();
@@ -29,10 +30,15 @@ export const appendToCache = async (
   });
 };
 
-export const makeUrl = (coll_name: string, coll_id: string, media: string) => {
-  if (media) {
-    return `${pb_url}/api/files/${coll_name}/${coll_id}/${media}`;
+export const makeImageUrl = (
+  coll_name: string,
+  record_id: string,
+  media_name: string
+) => {
+  if (media_name) {
+    return `${pb_url}/api/files/${coll_name}/${record_id}/${media_name}`;
   }
+  return;
 };
 
 export const realTime = async (index: [string], queryClient: QueryClient) =>

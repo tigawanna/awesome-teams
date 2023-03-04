@@ -8,12 +8,13 @@ interface FormSelectProps<T> {
     input: T;
     setInput: React.Dispatch<React.SetStateAction<T>>
     select_options: { value: string; label: string }[];
+    styles?: React.CSSProperties | undefined
 }
 
 
 type  SelectedOption = { value: string; label: string } | null;
 
-export const FormSelect = <T,>({ error,prop,input,label,setInput,select_options}: FormSelectProps<T>) => {
+export const FormSelect = <T,>({ error,prop,input,label,setInput,select_options,styles}: FormSelectProps<T>) => {
     const isError = (err: typeof error, prop: keyof T) => {
         if (err.name === prop && err.message !== "") {
             return true;
@@ -28,7 +29,9 @@ export const FormSelect = <T,>({ error,prop,input,label,setInput,select_options}
     }
 
     return (
-        <div className="flex flex-col items-center justify-center w-full">
+        <div 
+        style={styles ?? { width: "100%" }}
+        className="flex flex-col items-center justify-center w-full">
             <label className="text-md capitalize  w-[90%] flex items-start">
                 {label}
             </label>

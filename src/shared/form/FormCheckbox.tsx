@@ -34,7 +34,9 @@ export const FormCheckBox = <T,>({
   // console.log("checkbox event  =======",e.target.checked)
   }
   return (
-    <div className="flex flex-col items-center justify-center w-full  ">
+    <div 
+    style={input_props?.style??{width:"100%"}}
+    className="flex flex-col items-center justify-center">
       <label className="text-md capitalize  w-[90%] flex items-start">
         {label}
       </label>

@@ -125,18 +125,33 @@ export const ToDoForm = ({ updating }: ToDoFormProps) => {
                     input={input}
                     label="Description"
                     prop="description"
-                />
-                <FormInput
-                    error={error}
-                    handleChange={handleChange}
-                    input={input}
-                    label="Deadline"
-                    prop="deadline"
-                    type="date"
-                    input_props={{
+                /> 
+                <div className="w-full flex">
+                    <FormCheckBox<TaskMutationFields>
+                        error={error}
+                        setInput={setInput}
+                        input={input}
+                        label="Send email"
+                        prop="should_email"
+                        type="checkbox"
+                        input_props={{
+                            checked: input.should_email,
+                        }}
+                    />
+                    <FormInput<TaskMutationFields>
+                        error={error}
+                        handleChange={handleChange}
+                        input={input}
+                        label="Deadline"
+                        prop="deadline"
+                        type="date"
+                        input_props={{
                         min: new Date().toISOString().split('T')[0],
-                    }}
-                />
+            
+                        }}
+                    />
+                </div>
+   
 
                 <FormInput
                     error={error}
@@ -146,17 +161,8 @@ export const ToDoForm = ({ updating }: ToDoFormProps) => {
                     prop="quotation"
                     type="url"
                 />
-                <FormCheckBox<TaskMutationFields>
-                    error={error}
-                    setInput={setInput}
-                    input={input}
-                    label="Send email"
-                    prop="should_email"
-                    type="checkbox"
-                    input_props={{
-                        checked: input.should_email,
-                    }}
-                />
+      
+
 
 
 

@@ -6,6 +6,7 @@ interface FormTextAreaProps<T> {
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
   input: T;
+  input_props?: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
 }
 
 export const FormTextArea = <T,>({
@@ -14,6 +15,7 @@ export const FormTextArea = <T,>({
   input,
   label,
   prop,
+  input_props,
 }: FormTextAreaProps<T>) => {
   const isError = (err: typeof error, prop: keyof T) => {
     if (err.name === prop && err.message !== "") {
@@ -22,12 +24,15 @@ export const FormTextArea = <T,>({
     return false;
   };
   return (
-    <div className="flex flex-col items-center justify-center w-full ">
+    <div 
+    style={input_props?.style ?? { width: "100%" }}
+    className="flex flex-col items-center justify-center">
       <label className="text-md capitalize  w-[90%] flex items-start">
         {label}
       </label>
 
       <textarea
+      {...input_props}
         id={prop as string}
         style={{ borderColor: isError(error, prop) ? "red" : "" }}
         className="w-[90%] min-h-[150px] md:h-[30%] scroll-bar

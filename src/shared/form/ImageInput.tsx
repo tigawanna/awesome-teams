@@ -2,15 +2,15 @@ import { useEffect, useRef, useState } from "react";
 import { TheIcon } from "../wrappers/TheIcon";
 import { AiOutlineCloseCircle } from "react-icons/ai/index.js";
 import { BiImageAdd } from "react-icons/bi/index.js";
-import { ListingFormInputs } from "../../../routes/admin/index.page";
-import { makeImageUrl } from "../../../utils/api/pocketbase";
+import { makeImageUrl } from "../../utils/pb/config";
+
 
 interface ImageInputProps<T> {
   label: string;
   error: { name: string; message: string };
-  input: ListingFormInputs;
-  setInput: React.Dispatch<React.SetStateAction<ListingFormInputs>>;
-  prop: keyof ListingFormInputs;
+  input: T;
+  setInput: React.Dispatch<React.SetStateAction<T>>;
+  prop: keyof T;
   max_images?: number;
 }
 
@@ -39,9 +39,10 @@ export const ImageInput = <T,>({
       prev?.splice(idx, 1);
       return prev;
     });
+     
     setInput((prev) => {
-      // @ts-expect-error
-      return { ...prev, [prop]: prev[prop]?.splice(idx, 1) };
+       // @ts-expect-error
+     return { ...prev, [prop]: prev[prop]?.splice(idx, 1) };
     });
   };
 
@@ -59,7 +60,7 @@ export const ImageInput = <T,>({
 
   useEffect(() => {
     if (pics) {
-      setInput((prev) => {
+    setInput((prev) => {
         return { ...prev, [prop]: pics };
       });
     }
@@ -95,6 +96,7 @@ export const ImageInput = <T,>({
                 input.id,
                 file as string
               );
+
               return (
                 <div
                   key={index}
