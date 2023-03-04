@@ -13,7 +13,6 @@
     "page": "node ./scripts/newRoute.cjs"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.6",
     "@mantine/core": "^6.0.0",
     "@mantine/hooks": "^6.0.0",
     "@tanem/react-nprogress": "^5.0.30",
@@ -25,6 +24,7 @@
     "react-icons": "^4.7.1",
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.8.2",
+    "react-select": "^5.7.0",
     "zustand": "^4.3.4"
   },
   "devDependencies": {

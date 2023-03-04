@@ -104,9 +104,14 @@ export type TaskResponeseSubType = Pick<TasksResponse, 'id' | 'collectionId' | '
 
 
 export const getTasks = async()=> {
-  return await pb.collection('tasks').getList<TasksResponse>(1, 50, {
-    // filter: 'created >= "2022-01-01 00:00:00" && someField1 != someField2',
-})
+try {
+    return await pb.collection('tasks').getList<TasksResponse>(1, 50, {
+      // filter: 'created >= "2022-01-01 00:00:00" && someField1 != someField2',
+  })
+} catch (error) {
+    console.log("error getting tasks ===== ", error);
+  throw error;
+}
 }
 
 export const addTask = async (data: TaskMutationFields) => {

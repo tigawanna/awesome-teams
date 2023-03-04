@@ -21,7 +21,7 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px #e09853;
+  box-shadow: inset 0 0 6px rgba(45, 2, 65, 0.3);
 }
 
 body::-webkit-scrollbar-thumb {

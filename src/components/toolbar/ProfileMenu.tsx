@@ -1,10 +1,11 @@
 import React from 'react'
 import { BsSunFill,BsFillMoonFill,} from "react-icons/bs";
-import { client } from '../../utils/pb/config';
+
 import { useTheme } from '../../utils/hooks/themeHook';
 import { Link } from 'react-router-dom';
 import { TheIcon } from './../../shared/wrappers/TheIcon';
 import { AppUser } from '../../utils/types/base';
+import { pb } from '../../utils/pb/config';
 
 interface ProfileMenuProps {
 user?:AppUser
@@ -18,8 +19,7 @@ const theme = useTheme();
     const mode = theme.theme === "dark" ? BsSunFill : BsFillMoonFill;
     const toggle = () => { theme.setTheme(nextTheme) };
     const logout = () => {
-        client.authStore.clear();
-      
+        pb.authStore.clear();
         localStorage.removeItem('provider')
         // queryClient.invalidateQueries(["user"]);
         setIsOpen(prev => !prev)

@@ -21,14 +21,16 @@ interface TaskFrequencyTypes {
     label: string
 }
 
-export const ToDoForm = ({ updating }: ToDoFormProps) => {
+export const TaskForm = ({ updating }: ToDoFormProps) => {
     const default_tasks: TaskMutationFields = {
         title: "",
         description: "",
         status: "submited",
         type: "todo",
         created_by: '',
-        should_email:false
+        should_email:false,
+        quotation:"",
+        deadline: new Date().toISOString().split('T')[0]
     }
     const [input, setInput] = useState<TaskMutationFields>(default_tasks)
     const [error, setError] = useState({ name: "", message: "" })
@@ -81,7 +83,7 @@ export const ToDoForm = ({ updating }: ToDoFormProps) => {
     }
     })
     // const timeline = ['approved_on', 'funded_on', 'completed_on']
-    console.log("input ======= ",input)
+    // console.log("input ======= ",input)
     return (
 <div className='w-full min-h-screen  flex flex-col items-center justify-center bg-purple-900 
  scroll-bar overflow-y-scroll'>

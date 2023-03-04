@@ -11,6 +11,7 @@ import { NavElemets } from '../../components/toolbar/NavElemets';
 
 
 
+
 interface RootLayoutProps {
   user: AppUser;
  
@@ -36,14 +37,14 @@ return (
       <div
       className="h-screen w-[5%] sticky top-0 
          bg-opacity-70 dark:bg-opacity-90  p-1 hidden md:block
-        text-white z-30"
+        text-white z-40"
       >
       <Toolbar user={user} />
    
       </div>
 
 
-    <Drawer
+   <Drawer
       opened={opened}
       size="85%"
       onClose={close}
@@ -53,7 +54,7 @@ return (
     <NavElemets user={user}/>
     </Drawer>
 
-      <main className=" w-full min-h-screen z-50 h-full mt-[7%] md:mt-0">
+      <main className=" w-full min-h-screen z-20 h-full mt-[8%] md:mt-0 ">
         <Outlet />
        </main>
 

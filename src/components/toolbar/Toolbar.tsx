@@ -8,7 +8,7 @@ interface ToolbarProps {
 export const Toolbar = ({user}: ToolbarProps) => {
 return (
 <div className="w-full h-full flex  justify-start items-center">
-<NavElemets user={user}/>
+  <NavElemets user={user}/>
 </div>
   );
 };

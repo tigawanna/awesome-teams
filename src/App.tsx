@@ -5,7 +5,7 @@ import { RouterProvider } from 'react-router-dom';
 import { appRoutes } from './routes/routes';
 import { LoaderElipse } from './shared/loaders/Loaders';
 import { QueryStateWrapper } from './shared/wrappers/QueryStateWrapper';
-import { MantineProvider } from '@mantine/core';
+
 function App() {
 
 const query = useQuery({queryKey:['user'],queryFn:getUser});

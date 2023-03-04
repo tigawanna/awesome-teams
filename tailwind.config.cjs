@@ -9,6 +9,7 @@ module.exports = {
     require("tailwind-scrollbar"),
     require("@tailwindcss/typography"),
     require("@tailwindcss/line-clamp"),
-    require("tailwindcss-animate"),
+    require("tailwindcss-animate")
+ 
   ],
 };

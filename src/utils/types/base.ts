@@ -14,5 +14,5 @@ interface STAFF {
   type: "manager"|"caretaker"|"cashier"
   avatar: string
 }
-export type AppUser = STAFF | Admin | null | undefined;
+export type AppUser = STAFF | undefined;
 
