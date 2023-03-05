@@ -1,6 +1,6 @@
 import React from 'react'
 import Modal from 'react-modal';
-import { AiOutlineCloseCircle } from 'react-icons/ai'
+import { AiOutlineClose } from 'react-icons/ai'
 import { IconContext } from "react-icons/lib";
 
 interface ReactModalWrapperProps {
@@ -87,8 +87,8 @@ export const ReactModalWrapper = (
             <div 
             onClick={(event) => event.stopPropagation()}
             className="w-full flex justify-end">
-                <IconContext.Provider value={{ size: '25' }}>
-                    <AiOutlineCloseCircle onClick={closeModal} />
+                <IconContext.Provider value={{ size: '30' }}>
+                    <AiOutlineClose onClick={closeModal} />
                 </IconContext.Provider>
             </div>
 

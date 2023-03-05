@@ -8,7 +8,7 @@ interface TasksEditProps {
 export const TasksEdit = ({user}:TasksEditProps) => {
 return (
  <div className='w-full min-h-screen h-full flex items-center justify-center'>
-    <TaskForm user={user}/>
+
  </div>
 );
 }
