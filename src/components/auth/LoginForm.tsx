@@ -4,8 +4,6 @@ import { concatErrors } from "../../utils/utils";
 import { loginUser } from "../../utils/pb/config";
 import { PlainFormButton } from "../../shared/form/FormButton";
 import { FormInput } from "../../shared/form/FormInput";
-import { useSearchParams } from "react-router-dom";
-
 
 interface LoginFormProps {
 
@@ -18,9 +16,7 @@ export const LoginForm = ({}:LoginFormProps) => {
     const [input, setInput] = useState<UserInputs>({ email: "", password: "" })
     const [error, setError] = useState({ name: "", message: "" })
 
-    const [searchBarParams, setSearchBarParams] = useSearchParams();
-    
-    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setInput((prev) => {
             return { ...prev, [e.target.id]: e.target.value };
         });
