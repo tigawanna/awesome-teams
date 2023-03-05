@@ -5,13 +5,9 @@ import { AppUser } from '../../utils/types/base';
 import { ReactProgress } from '../../shared/loaders/ReactProgress';
 import { FaBars } from 'react-icons/fa';
 import { TheIcon } from '../../shared/wrappers/TheIcon';
-import { Drawer } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
 import { NavElemets } from '../../components/toolbar/NavElemets';
 import { useState } from 'react';
 import { SideDrawer } from '../../components/toolbar/SideDrawer';
-
-
 
 
 interface RootLayoutProps {
@@ -47,18 +43,7 @@ return (
       <Toolbar user={user} />
    
       </div>
-
-
-   {/* <Drawer
-      opened={opened}
-      size="85%"
-      onClose={close}
-      title=""
-      overlayProps={{ opacity: 0.5, blur: 4 }}
-    >
-    <NavElemets user={user}/>
-    </Drawer> */}
-     <SideDrawer
+    <SideDrawer
      open={open}
      closeModal={()=>setOpen(false)}
      >
