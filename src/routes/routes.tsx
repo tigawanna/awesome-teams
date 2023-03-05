@@ -10,7 +10,7 @@ import { Test } from '../pages/test/Test';
 import { ReactRouterError } from '../shared/errorboundary/ReactRouterError';
 import { HomeLayout } from './../pages/home/HomeLayout';
 import { HomePage } from './../pages/home/HomePage';
-import { TasksEdit } from '../pages/home/TasksEdit';
+
 
 
 
@@ -29,10 +29,7 @@ export const appRoutes=(user:AppUser)=>{
                 index:true,
                 element:<HomePage user={user}/>
               },
-              {
-                path:"/io",
-                element:<TasksEdit user={user}/>
-              }
+     
             ]
             },
 
