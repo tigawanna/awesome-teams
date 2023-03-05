@@ -12,11 +12,7 @@ export const ReactProgress = ({ isAnimating }: ReactProgressProps) => {
   return (
     <Container animationDuration={animationDuration} isFinished={isFinished}>
       <Bar animationDuration={animationDuration} progress={progress} />
-      {/*
-      This example doesn't use a spinner component so the UI stays
-      tidy. You're free to render whatever is appropriate for your
-      use-case.
-      */}
+
     </Container>
   );
 };
@@ -33,7 +29,7 @@ const Container = ({
   isFinished,
 }: ContainerProps) => (
   <div
-    className="relative top-2"
+    className="relative top-0"
     style={{
       opacity: isFinished ? 0 : 1,
       pointerEvents: "none",
@@ -52,7 +48,7 @@ interface BarProps {
 const Bar = ({ animationDuration, progress }: BarProps) => (
   <div
     style={{
-      background: "#ad69b8",
+      background: "var(--accent-color)",
       height: 5,
       left: 0,
       marginLeft: `${(-1 + progress) * 100}%`,
