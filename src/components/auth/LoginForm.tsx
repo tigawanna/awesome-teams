@@ -33,13 +33,10 @@ export const LoginForm = ({}:LoginFormProps) => {
     const mutation = useMutation({
         mutationFn: (input:UserInputs) => loginUser(input),
         onError(error, variables, context) {
-            setError({ name: "", message: concatErrors(error) });
-        },
-        onSuccess(data, variables, context) {
-            console.log("context=====>", context)
+            setError({ name: "main", message: concatErrors(error) });
         },
         meta: {
-            updates: ['user']
+            invalidates: ['user']
         }
     })
     // const timeline = ['approved_on', 'funded_on', 'completed_on']
