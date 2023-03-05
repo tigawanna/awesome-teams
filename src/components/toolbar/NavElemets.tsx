@@ -65,10 +65,10 @@ return (
             </div>
 
 
-            <div className="w-full  h-full flex justify-center items-center 
+            {/* <div className="w-full  h-full flex justify-center items-center 
       hover:text-rose-700">
                 <Link to="/about">About</Link>
-            </div>
+            </div> */}
         </div>
 
         <div className="w-fit h-full flex justify-end items-center">

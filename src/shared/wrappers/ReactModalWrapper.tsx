@@ -96,7 +96,7 @@ export const ReactModalWrapper = (
                 onClick={(event) => event.stopPropagation()}
             className="h-full w-full overflow-auto scroll-bar">
                 {/* @ts-expect-error */}
-                {React.isValidElement(child) ? React.cloneElement(child, { deps, isOpen }) : child}
+                {React.isValidElement(child) ? React.cloneElement(child, { deps}) : child}
             </div>
 
         </Modal>
