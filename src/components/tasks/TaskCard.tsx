@@ -1,4 +1,5 @@
 import { TasksResponse } from "../../utils/api/tasks";
+import { TaskSatus } from "./TaskSatus";
 
 interface TaskCardProps {
     task: TasksResponse
@@ -13,6 +14,7 @@ return (
         <h1 className='text-xl font-bold w-full px-1'>{task.title}</h1>
             <p className=''>{task.description}</p>
      </div>
+<TaskSatus task={task}/>
 
  </div>
 );

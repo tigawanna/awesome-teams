@@ -107,6 +107,7 @@ export const getTasks = async()=> {
 try {
     return await pb.collection('tasks').getList<TasksResponse>(1, 50, {
       // filter: 'created >= "2022-01-01 00:00:00" && someField1 != someField2',
+      sort: '-created',
   })
 } catch (error) {
     console.log("error getting tasks ===== ", error);
