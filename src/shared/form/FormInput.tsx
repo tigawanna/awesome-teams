@@ -46,7 +46,7 @@ export const FormInput = <T,>({
         type={type}
         placeholder={prop as string}
         onChange={handleChange}
-        autoComplete={"off"}
+    
         value={input[prop] as string}
       />
 

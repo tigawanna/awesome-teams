@@ -7,7 +7,7 @@ interface LoginProps {
 }
 
 export const Login = ({user}: LoginProps) =>{ 
-const [searchBarParams, setSearchBarParams] = useSearchParams();
+
 
 return (
 

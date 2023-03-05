@@ -21,9 +21,9 @@ return (
     { tasks&&tasks.items.map((task)=>{    
         return(
         <div key={task.id} 
-        className='h-full border p-2 rounded-lg w-fit md:max-w-[40%] gap-2 line-clamp-10
+        className='h-full border p-2 rounded-lg w-fit md:max-w-[40%] gap-2 line-clamp-5
         flex flex-col items-center justify-center  flex-grow '>
-            <h1 className='text-xl font-bold'>{task.title}</h1>
+            <h1 className='text-xl font-bold w-full px-1'>{task.title}</h1>
             <p className=''>{task.description}</p>
         </div>
     )}
