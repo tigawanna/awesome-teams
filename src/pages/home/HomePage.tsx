@@ -19,8 +19,8 @@ return (
          {/* <TaskForm/> */}
          <Tasks/>
         <div 
- 
-        className='w-fit flex-center rounded-full aspect-square  p-2 bg-accent text-white 
+        className='flex items-center justify-center rounded-full aspect-square  
+        p-2 bg-accent text-white hover:bg-[#c09b35] 
         fixed bottom-[10%] right-[5%]'>
         <TheIcon Icon={FaPlus} size={'40'} iconAction={()=>setOpen(true)}/>
         </div>

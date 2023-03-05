@@ -17,9 +17,10 @@ export const PlainFormButton = ({
       disabled={disabled || isSubmitting}
       style={{ opacity: disabled ? "20%" : "100%" }}
       className="p-2 w-[60%] md:w-[30%]
-            border-2 dark:border border-slate-700 dark:border-slate-400 dark:bg-slate-800
+            border-2 dark:border border-accent dark:border-slate-400 dark:bg-slate-800
             flex items-center justify-center m-2 rounded-lg 
             hover:shadow-slate-900 dark:hover:shadow-slate-50 
+            text-accent
             hover:shadow-lg dark:hover:shadow
             hover:scale-105"
     >

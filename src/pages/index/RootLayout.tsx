@@ -25,7 +25,7 @@ const [open,setOpen]=useState(false)
 return (
     <div className="w-full min-h-screen  dark:bg-slate-900 flex ">
     
-    <div className=" flex justify-start items-center fixed md:hidden top-[1%] left-[1%] z-40 ">
+    <div className=" flex justify-start items-center fixed top-[1%] left-[2%] z-40 ">
       <TheIcon Icon={FaBars} iconAction={()=>setOpen(!open)} size='30px'/>
     </div>
     
@@ -36,7 +36,7 @@ return (
 
       
       <div
-      className="h-screen w-[7%] sticky top-0 
+      className="h-screen w-[7%] sticky top-[7%] 
          bg-opacity-70 dark:bg-opacity-90  p-1 hidden md:block
         text-white z-30"
       >

@@ -64,7 +64,7 @@ export const ReactModalWrapper = (
             overflow: 'hidden',
             WebkitOverflowScrolling: 'touch',
             border: styles?.content_border ?? '',
-            borderRadius: styles?.content_border_radius ?? '5%',
+            borderRadius: styles?.content_border_radius ?? '0%',
             outline: 'none',
             backgroundColor: styles?.content_bg_color ?? "",
 

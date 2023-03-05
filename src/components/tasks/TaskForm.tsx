@@ -102,12 +102,14 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
     };
 
     return (
-    <div className='w-full min-h-screen  flex flex-col items-center justify-center bg-purple-900 
-    scroll-bar overflow-y-scroll'>
+    <div className='w-full min-h-screen  flex flex-col items-center justify-center bg-white
+    scroll-bar overflow-y-scroll rounded-lg'>
+            <div className="text-4xl font-bold p-5 text-accent">Task Form</div>
+
             <Select
                 options={task_type_options}
                 defaultValue={task_type_options[0]}
-                className="w-[90%] md:w-[60%] "
+                className="w-[90%] md:w-[50%] "
                 onChange={(e) => {
                     if (e) {
                         setTaskType(e.value)
@@ -115,7 +117,7 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
                 }}
             />
             <form onSubmit={handleSubmit}
-            className="w-full md:w-[60%] h-full flex flex-col items-center justify-center  p-2 ">
+            className="w-full md:w-[50%] h-full flex flex-col items-center justify-center p-2 ">
 
                 {
                     updating ?
