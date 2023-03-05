@@ -16,7 +16,7 @@ export const NavElemets = ({user}:NavElemetsProps) => {
 const [isOpen, setIsOpen] = useState(false);
 const avatar = user?.avatar
 return (
-    <div className='w-full h-screen bg-[#833f07] flex flex-col items-center justify-center '>
+    <div className='w-full h-screen bg-accent flex flex-col items-center justify-center '>
         <div className="flex justify-start items-center">
             <div className="m-1 w-fit h-full p-1 flex justify-center items-center ">
                 <Link to="/">
@@ -34,7 +34,7 @@ return (
 
         <ReactModalWrapper
             child={
-                <ProfileMenu user={user} setIsOpen={setIsOpen} />}
+            <ProfileMenu user={user} setIsOpen={setIsOpen} />}
             closeModal={() => setIsOpen(false)}
             isOpen={isOpen}
             styles={{

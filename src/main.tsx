@@ -14,17 +14,14 @@ import ErrorBoundary from './shared/errorboundary/ErrorBoundary';
 const queryClient:QueryClient = new QueryClient({
   mutationCache:new MutationCache({
     onSuccess: async (data, variable, context, mutation) => {
+      // console.group("global success  data,variable,context,mutation==== ",data,variable,context,mutation)
       if (Array.isArray(mutation.meta?.invalidates)) {
         return queryClient.invalidateQueries({
           queryKey:mutation.meta?.invalidates
         })
       }
-      //@ts-expect-error
-      if (Array.isArray(mutation.meta?.updates)&& data.id) {
-        //@ts-expect-error
-        return queryClient.setQueryData([mutation.meta?.invalidates,data?.id], data)
+
       }
-    }
   }),
 
   defaultOptions: {

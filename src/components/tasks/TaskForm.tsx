@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { TaskMutationFields, addTask } from "../../utils/api/tasks";
+import { TaskMutationFields, TasksResponse, addTask } from "../../utils/api/tasks";
 import Select from 'react-select'
 import { FormInput } from "../../shared/form/FormInput";
 import { FormTextArea } from "../../shared/form/FormTextArea";
 import { FormSelect } from "../../shared/form/FormSelect";
 import { FormCheckBox } from "../../shared/form/FormCheckbox";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AppUser } from "../../utils/types/base";
 import { PlainFormButton } from "../../shared/form/FormButton";
 import { concatErrors } from "../../utils/utils";
+import { ListResult } from "pocketbase";
 
 
 interface ToDoFormProps {
@@ -26,6 +27,7 @@ interface TaskFrequencyTypes {
 }
 
 export const TaskForm = ({ updating,user }: ToDoFormProps) => {
+    const queryClient = useQueryClient()
     const default_tasks: TaskMutationFields = {
         title: "",
         description: "",
@@ -76,27 +78,32 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
 
     
     const mutation = useMutation({
-        mutationFn:(input: TaskMutationFields) => addTask(input),
+        mutationFn:(input:TaskMutationFields) => addTask(input),
         onError(error, variables, context) {
             setError({ name: "", message:concatErrors(error)});
         },
         onSuccess(data, variables, context) {
-          console.log("context=====>",context)
+         queryClient.setQueryData<ListResult<TasksResponse> | undefined>(['tasks'], (oldData)=>{
+            if(data.id && oldData){
+                return {
+                ...oldData,
+                items: [...oldData?.items,data]
+             }
+          }
+           return oldData
+         })
         },
-        meta: {
-            updates:['tasks']
-        }
     })
-    // const timeline = ['approved_on', 'funded_on', 'completed_on']
+   
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         // console.log("about to save ",input)
         mutation.mutate(input);
     };
-    // console.log("input ======= ",input)
+
     return (
-<div className='w-full min-h-screen  flex flex-col items-center justify-center bg-purple-900 
- scroll-bar overflow-y-scroll'>
+    <div className='w-full min-h-screen  flex flex-col items-center justify-center bg-purple-900 
+    scroll-bar overflow-y-scroll'>
             <Select
                 options={task_type_options}
                 defaultValue={task_type_options[0]}

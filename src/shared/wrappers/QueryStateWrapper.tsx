@@ -25,7 +25,7 @@ export const QueryStateWrapper = (
 
 
 
-    if (query?.isLoading ) {
+    if (query?.isPending ) {
           return (
                 <div className="w-full  flex items-center justify-center">
                     <div className="w-[100%] h-full flex items-center justify-center  ">

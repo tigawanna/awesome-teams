@@ -15,6 +15,15 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+
+
+:root{
+  --primary-color: #f33131;
+  --accent-color: #a7682d;
+}
+
 body::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -25,9 +34,9 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #e09853;
+  background-color:var(--accent-color);
 }
 
 .scroll-bar {
-  @apply scrollbar-thin scrollbar-thumb-[#e09853] scrollbar-track-gray-100;
+  @apply scrollbar-thin scrollbar-thumb-accent scrollbar-track-gray-100;
 }
