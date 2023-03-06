@@ -103,12 +103,16 @@ export type TaskResponeseSubType = Pick<TasksResponse, 'id' | 'collectionId' | '
 
 
 
-export const getTasks = async()=> {
+export const getTasks = async(keyword?:string)=> {
 try {
-    return await pb.collection('tasks').getList<TasksResponse>(1, 50, {
-      // filter: 'created >= "2022-01-01 00:00:00" && someField1 != someField2',
+    const res = await pb.collection('tasks').getList<TasksResponse>(1, 5, {
+      filter: `title  ~ "${keyword}"`,
       sort: '-created',
+     
   })
+  console.log("keyword  ===== ",keyword)
+  console.log("tasks response  === ",res)
+  return res
 } catch (error) {
     console.log("error getting tasks ===== ", error);
   throw error;
