@@ -1,4 +1,4 @@
-import { Outlet,useLocation,useNavigation } from 'react-router-dom';
+import { Link, Outlet,useLocation,useNavigation } from 'react-router-dom';
 import { Toolbar } from '../../components/toolbar/Toolbar';
 import { useAuthGuard } from './../../utils/hooks/useAuthGuard';
 import { AppUser } from '../../utils/types/base';
@@ -25,8 +25,9 @@ const [open,setOpen]=useState(false)
 return (
     <div className="w-full min-h-screen  dark:bg-slate-900 flex ">
     
-    <div className=" flex justify-start items-center fixed top-[1%] left-[2%] z-40 ">
+    <div className=" flex justify-start items-center fixed top-[1%] left-[2%] z-50 gap-3">
       <TheIcon Icon={FaBars} iconAction={()=>setOpen(!open)} size='30px'/>
+      <Link to='/' className='text-2xl font-bold'>AWESOME</Link>
     </div>
     
     <div className='fixed top-0 right-0 left-0 z-40'>
@@ -36,13 +37,14 @@ return (
 
       
       <div
-      className="h-screen w-[7%] sticky top-[7%] 
+      className="h-screen w-[7%] sticky top-[9%]
          bg-opacity-70 dark:bg-opacity-90  p-1 hidden md:block
-        text-white z-30"
+        z-30"
       >
       <Toolbar user={user} />
-   
-      </div>
+     </div>
+
+    
     <SideDrawer
      open={open}
      closeModal={()=>setOpen(false)}
@@ -51,7 +53,7 @@ return (
      </SideDrawer>
 
 
-      <main className=" w-full min-h-screen z-20 h-full mt-[8%] md:mt-0 ">
+    <main className=" w-full min-h-screen z-20 h-full mt-[15%]  sm:mt-[4%]">
         <Outlet />
        </main>
 

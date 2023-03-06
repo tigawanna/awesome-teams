@@ -37,6 +37,19 @@ body::-webkit-scrollbar-thumb {
   background-color:var(--accent-color);
 }
 
+.ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 300ms ease-in;
+}
+
+.ReactModal__Overlay--after-open{
+    opacity: 1;
+}
+
+.ReactModal__Overlay--before-close{
+    opacity: 0;
+}
+
 .scroll-bar {
   @apply scrollbar-thin scrollbar-thumb-accent scrollbar-track-gray-100;
 }

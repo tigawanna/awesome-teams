@@ -2,6 +2,9 @@ import React from 'react'
 import Modal from 'react-modal';
 import { AiOutlineClose } from 'react-icons/ai'
 import { IconContext } from "react-icons/lib";
+import { TheIcon } from '../../shared/wrappers/TheIcon';
+import { FaBars } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 interface SideDrawerProps {
 open: boolean;
@@ -16,10 +19,7 @@ export const SideDrawer = ({
 
 }:SideDrawerProps) => {
 
-    const { isMobile } = useCheckInMobile()
-    const adjustSize = (size: string, mobile_size: string) => {
-        return isMobile ? mobile_size : size
-    }
+
     interface ModalStyles {
         overlay: React.CSSProperties,
         content: React.CSSProperties
@@ -37,7 +37,7 @@ export const SideDrawer = ({
         },
         content: {
             position: 'absolute',
-            minWidth: '300px',
+            minWidth: '200px',
             top:0,
             bottom:0,
             left:0,
@@ -47,6 +47,7 @@ export const SideDrawer = ({
             border:'',
             // borderRadius: styles?.content_border_radius ?? '5%',
             outline: 'none',
+            backgroundColor: '',
             // backgroundColor: styles?.content_bg_color ?? "",
 
         }
@@ -69,6 +70,10 @@ return (
 
 
         >
+        <div className=" flex justify-start items-center fixed top-[1%] left-[2%] z-50 gap-3">
+            <TheIcon Icon={FaBars} iconAction={() => closeModal()} size='30px' />
+            <Link to='/' className='text-2xl font-bold'>AWESOME</Link>
+        </div>
             <div onClick={(event) => event.stopPropagation()}
                 className="fixed right-[2%] top-[2%] w-full flex justify-end">
                 <IconContext.Provider value={{ size: '20' }}>
@@ -77,7 +82,8 @@ return (
             </div>
 
             <div onClick={(event) => event.stopPropagation()}
-                className="h-full w-full  scroll-bar">
+                className="h-full w-[70%] md:w-[20%]
+                fixed left-0 right-auto top-[8%] ">
                 {children}
             </div>
 
@@ -87,26 +93,5 @@ return (
 }
 
 
-const useCheckInMobile = () => {
-    const [width, setWidth] =
-        React.useState<number>(window.innerWidth);
 
-    function handleWindowSizeChange() {
-        setWidth(window.innerWidth);
-    }
-    React.useEffect(() => {
-        window.addEventListener(
-            "resize",
-            handleWindowSizeChange
-        );
-        return () => {
-            window.removeEventListener(
-                "resize",
-                handleWindowSizeChange
-            );
-        };
-    }, []);
 
-    const isMobile = width <= 700;
-    return { width, isMobile };
-};

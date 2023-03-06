@@ -3,7 +3,6 @@ import { ReactModalWrapper } from './../../shared/wrappers/ReactModalWrapper';
 import { TheIcon } from './../../shared/wrappers/TheIcon';
 import { AppUser } from "../../utils/types/base";
 import { useState } from 'react';
-import { AiOutlineHome } from 'react-icons/ai';
 import { FaUserCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
@@ -16,21 +15,10 @@ export const NavElemets = ({user}:NavElemetsProps) => {
 const [isOpen, setIsOpen] = useState(false);
 const avatar = user?.avatar
 return (
-    <div className='w-full h-screen bg-accent flex flex-col items-center justify-center '>
-        <div className="flex justify-start items-center">
-            <div className="m-1 w-fit h-full p-1 flex justify-center items-center ">
-                <Link to="/">
-                    <div className="w-fit p-1 flex justify-center items-centertext-white  ">
-                        <TheIcon
-                            Icon={AiOutlineHome}
-                            size={"25"}
-                            color={""}
-                            iconstyle={""}
-                        />
-                    </div>
-                </Link>
-            </div>
-        </div>
+    <div className='w-full h-screen bg-accent 
+     text-white
+    flex flex-col items-center justify-center '>
+
 
         <ReactModalWrapper
             child={
