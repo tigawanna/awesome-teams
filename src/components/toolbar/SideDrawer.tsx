@@ -5,6 +5,7 @@ import { IconContext } from "react-icons/lib";
 import { TheIcon } from '../../shared/wrappers/TheIcon';
 import { FaBars } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { HeaderToggle } from '../index/HeaderToggle';
 
 interface SideDrawerProps {
 open: boolean;
@@ -70,10 +71,7 @@ return (
 
 
         >
-        <div className=" flex justify-start items-center fixed top-[1%] left-[2%] z-50 gap-3">
-            <TheIcon Icon={FaBars} iconAction={() => closeModal()} size='30px' />
-            <Link to='/' className='text-2xl font-bold'>AWESOME</Link>
-        </div>
+        <HeaderToggle setOpen={()=>closeModal()} />
             <div onClick={(event) => event.stopPropagation()}
                 className="fixed right-[2%] top-[2%] w-full flex justify-end">
                 <IconContext.Provider value={{ size: '20' }}>

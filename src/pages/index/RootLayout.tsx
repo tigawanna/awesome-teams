@@ -8,6 +8,7 @@ import { TheIcon } from '../../shared/wrappers/TheIcon';
 import { NavElemets } from '../../components/toolbar/NavElemets';
 import { useState } from 'react';
 import { SideDrawer } from '../../components/toolbar/SideDrawer';
+import { HeaderToggle } from '../../components/index/HeaderToggle';
 
 
 interface RootLayoutProps {
@@ -25,10 +26,7 @@ const [open,setOpen]=useState(false)
 return (
     <div className="w-full min-h-screen  dark:bg-slate-900 flex ">
     
-    <div className=" flex justify-start items-center fixed top-[1%] left-[2%] z-50 gap-3">
-      <TheIcon Icon={FaBars} iconAction={()=>setOpen(!open)} size='30px'/>
-      <Link to='/' className='text-2xl font-bold'>AWESOME</Link>
-    </div>
+    <HeaderToggle setOpen={setOpen}/>
     
     <div className='fixed top-0 right-0 left-0 z-40'>
     <ReactProgress isAnimating={navigation.state === "loading"} key={location.key} />
