@@ -58,12 +58,12 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
     ] satisfies TaskStatus[]
 
     const task_frequency_options = [
+        { value: "never", label: "Never" },
         { value: "once", label: "Once" },
         { value: 'daily', label: 'Daily' },
         { value: 'weekly', label: 'Weekly' },
         { value: 'monthly', label: 'Monthly' },
         { value: 'yearly', label: 'Yearly' },
-        { value: "custom", label: "Custom" },
     ] satisfies TaskFrequencyTypes[]
 
   
@@ -140,6 +140,7 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
                     select_options={task_frequency_options}
                     setInput={setInput}
                 />
+                \
                 <FormInput
                     error={error}
                     handleChange={handleChange}

@@ -7,14 +7,7 @@ task:TasksResponse
 }
 
 export const StatusManager = ({task,user}:StatusManagerProps) => {
-    const statusColors = {
-        "created": "#330c4a",
-        "approved": "#FFC107",
-        "funded": "#00BCD4",
-        "in_progress": "#22fa0a",
-        "completed": "#d0aae6",
-        "cancelled": "#F44336"
-    };
+
 
 return (
  <div className='w-full h-full flex flex-wrap items-center justify-center gap-2'>

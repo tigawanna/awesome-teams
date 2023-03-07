@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { AppUser } from "../../utils/types/base";
 import { useQuery } from "@tanstack/react-query";
-import { getOneTask } from "../../utils/api/tasks";
+import { getOneTask, statusColors } from "../../utils/api/tasks";
 import { QueryStateWrapper } from "../../shared/wrappers/QueryStateWrapper";
 import { StatusManager } from "./StatusManager";
 
@@ -18,14 +18,6 @@ const query = useQuery({
     
 })
 
-    const statusColors = {
-        "created": "#330c4a",
-        "approved": "#FFC107",
-        "funded": "#00BCD4",
-        "in_progress": "#22fa0a",
-        "completed": "#d0aae6",
-        "cancelled": "#F44336"
-    };
 if(query.isPending){
 return(
     <div className='h-screen w-full flex flex-col items-center justify-center '>

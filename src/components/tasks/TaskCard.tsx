@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { TasksResponse } from "../../utils/api/tasks";
+import { TasksResponse, statusColors } from "../../utils/api/tasks";
 
 
 interface TaskCardProps {
@@ -7,14 +7,7 @@ interface TaskCardProps {
 }
 
 export const TaskCard = ({ task }: TaskCardProps) => {
-    const statusColors = {
-        "created": "#330c4a",
-        "approved": "#FFC107",
-        "funded": "#00BCD4",
-        "in_progress": "#22fa0a",
-        "completed": "#d0aae6",
-        "cancelled": "#F44336"
-    };
+
 
     return (
         <Link

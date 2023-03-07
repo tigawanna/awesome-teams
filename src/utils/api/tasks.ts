@@ -38,7 +38,7 @@ export interface TasksResponse {
 
   type:"todo" |"repairs" | "maintenance" | "recurring" | "other";
   status: "created" | "approved" | "funded" |"in_progress" | "completed" | "cancelled";
-  frequency?:"once"|"daily"|"weekly"|"monthly"|"yearly"|"custom"
+  frequency?:"once"|"daily"|"weekly"|"monthly"|"yearly"|"never"
 
   created_by: string
   updated_by?: string
@@ -70,7 +70,17 @@ export type TaskResponeseSubType = Pick<TasksResponse, 'id' | 'collectionId' | '
 |'title'|'description'|'status'|'frequency'|'completed_on'|'marked_completed_by'|'deadline'>
 
 
-
+type TaskStatusColor = {
+  [key in TasksResponse['status']]: string
+}
+  export const statusColors:TaskStatusColor = {
+        "created": "#330c4a",
+        "approved": "#FFC107",
+        "funded": "#00BCD4",
+        "in_progress": "#22fa0a",
+        "completed": "#d0aae6",
+        "cancelled": "#F44336"
+    } 
 
 
 
