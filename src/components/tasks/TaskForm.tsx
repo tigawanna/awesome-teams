@@ -31,7 +31,7 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
     const default_tasks: TaskMutationFields = {
         title: "",
         description: "",
-        status: "submited",
+        status: "created",
         type: "todo",
         created_by: user?.id as string,
         should_email:false,
@@ -49,7 +49,7 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
         { value: 'other', label: 'Other' },
     ]
     const status_options = [
-        { value: 'submited', label: 'Submited' },
+        { value: 'created', label: 'Created' },
         { value: 'in_progress', label: 'In Progress' },
         { value: 'completed', label: 'Completed' },
         { value: "cancelled", label: "Cancelled" },
@@ -63,7 +63,7 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
         { value: 'weekly', label: 'Weekly' },
         { value: 'monthly', label: 'Monthly' },
         { value: 'yearly', label: 'Yearly' },
-        { value: "calculated", label: "Calculated" },
+        { value: "custom", label: "Custom" },
     ] satisfies TaskFrequencyTypes[]
 
   

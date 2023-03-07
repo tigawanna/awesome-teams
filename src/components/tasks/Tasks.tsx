@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getTasks } from "../../utils/api/tasks";
 import { QueryStateWrapper } from "../../shared/wrappers/QueryStateWrapper";
 import { TaskCard } from "./TaskCard";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TheIcon } from "../../shared/wrappers/TheIcon";
 import { FaSearch } from "react-icons/fa";
 import { useDebouncedValue } from "../../utils/hooks/useDebouncedValue";
@@ -14,30 +14,17 @@ interface TasksProps {
 export const Tasks = ({ }: TasksProps) => {
 
 const [keyword, setKeyword] = useState(" ");
-const value = useDebouncedValue(keyword, 2000);
+    const value = useDebouncedValue(keyword, 2000);
 
 
-    const query = useQuery({
-        queryKey: ['tasks', value],
-        queryFn: () => getTasks(value),
-    })
+const query = useQuery({ queryKey: ['tasks', value], queryFn: () => getTasks(value),})
 
-    function handleChage(e: any) {
+function handleChage(e: any) {
         setKeyword(e.target.value)
     }
 
     const tasks = query.data
-
-    // useEffect(()=>{
-    // if (keyword && keyword.length > 3 && tasks?.items.length === 0){
-    //     console.log("re-fetching")
-    //     setFetchKeyword(keyword)
-    //    } 
-    // },[tasks,keyword])
-
-    console.log(" fetch keyword", keyword)
-    // console.log("keyword  ===== ",keyword)
-    return (
+   return (
 
         <div className='w-full min-h-screen flex  items-center justify-center '>
 

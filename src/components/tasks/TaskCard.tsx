@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { TasksResponse } from "../../utils/api/tasks";
 
 
@@ -7,7 +8,7 @@ interface TaskCardProps {
 
 export const TaskCard = ({ task }: TaskCardProps) => {
     const statusColors = {
-        "submited": "#330c4a",
+        "created": "#330c4a",
         "approved": "#FFC107",
         "funded": "#00BCD4",
         "in_progress": "#22fa0a",
@@ -16,7 +17,8 @@ export const TaskCard = ({ task }: TaskCardProps) => {
     };
 
     return (
-        <div
+        <Link
+            to={`/${task.id}`}
             style={{ border: `1px solid ${statusColors[task.status]}` }}
             className='h-full p-2 rounded-lg w-[95%] md:w-[40%] gap-2 
         flex flex-col  justify-center  '>
@@ -33,6 +35,6 @@ export const TaskCard = ({ task }: TaskCardProps) => {
                 <p className=' px-1 rounded-xl font-bold font-mono '>{task.status}</p>
             </div>
 
-        </div>
+        </Link>
     );
 }

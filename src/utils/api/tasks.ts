@@ -1,62 +1,29 @@
-// interface TodoTasksDetails{
-//   id: string
-//   collectionId: string
-//   collectionName: string
-//   created: string
-//   updated: string
-
 import { pb } from "../pb/config"
 
 
-//   title: string
-//   description: string
+export interface Staff {
+  avatar: string
+  collectionId: string
+  collectionName: string
+  created: string
+  email: string
+  emailVisibility: boolean
+  id: string
+  name: string
+  type: string
+  updated: string
+  username: string
+  verified: boolean
+  expand:{}
+}
 
-//     completed: boolean;
-//     created_by:string
-//     updated_by:string
-//      status:"in_progress" | "completed" | "cancelled";
-//     deadline:string;
+interface StaffExpand{
+  created_by:Staff;
+  funded_by?:Staff;
+  approved_by?:Staff;
+  marked_completed_by?:Staff;
+}
 
-// }
-
-// interface RepairsTaskRDetails {
-//   id: string
-//   collectionId: string
-//   collectionName: string
-//   created: string
-//   updated: string
-
-
-//   title: string
-//   description: string
-//     completed: boolean;
-//     status: "submited" | "approved" | "funded" |"in_progress" | "completed" | "cancelled";
-    
-//     approved_on?:string,
-//     funded_on?:string,
-//     completed_on?:string,
-//     quotation?:string
-//     deadline: string;
-
-// }
-
-
-// interface RecurringTaskDetails{
-//   id: string
-//   collectionId: string
-//   collectionName: string
-//   created: string
-//   updated: string
-
-
-// title: string
-// description: string
-// completed: boolean;
-// completed_on:string
-// marked_completed_by:string;
-// status: "in_progress" | "completed" | "cancelled";
-// frequency?:"daily"|"weekly"|"monthly"|"yearly"|"calculated"
-// }
 
 export interface TasksResponse {
   id: string
@@ -64,14 +31,14 @@ export interface TasksResponse {
   collectionName: string
   created: string
   updated: string
-
+  
 
   title: string
   description: string
 
   type:"todo" |"repairs" | "maintenance" | "recurring" | "other";
-  status: "submited" | "approved" | "funded" |"in_progress" | "completed" | "cancelled";
-  frequency?:"once"|"daily"|"weekly"|"monthly"|"yearly"|"calculated"
+  status: "created" | "approved" | "funded" |"in_progress" | "completed" | "cancelled";
+  frequency?:"once"|"daily"|"weekly"|"monthly"|"yearly"|"custom"
 
   created_by: string
   updated_by?: string
@@ -89,7 +56,8 @@ export interface TasksResponse {
   quotation?: string
   deadline?: string
   should_email:boolean
-
+  
+  expand?:StaffExpand
 }
 
 
@@ -103,15 +71,33 @@ export type TaskResponeseSubType = Pick<TasksResponse, 'id' | 'collectionId' | '
 
 
 
+
+
+
+export const getOneTask = async(id?:string)=> {
+try {
+const record = await pb.collection('tasks').getFirstListItem<TasksResponse>(`id  = "${id}"`, {
+    expand:'created_by,funded_by,marked_completed_by,approved_by'
+});
+  // console.log("record  ======= >>> ",record)
+  return record
+} catch (error) {
+    console.log("error getting tasks ===== ", error);
+  throw error;
+}
+}
+
+
 export const getTasks = async(keyword?:string)=> {
 try {
     const res = await pb.collection('tasks').getList<TasksResponse>(1, 5, {
       filter: `title  ~ "${keyword}"`,
       sort: '-created',
+      expand:'created_by,funded_by,marked_completed_by,approved_by'
      
   })
-  console.log("keyword  ===== ",keyword)
-  console.log("tasks response  === ",res)
+  // console.log("keyword  ===== ",keyword)
+  // console.log("tasks response  === ",res)
   return res
 } catch (error) {
     console.log("error getting tasks ===== ", error);

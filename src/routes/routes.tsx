@@ -10,6 +10,7 @@ import { Test } from '../pages/test/Test';
 import { ReactRouterError } from '../shared/errorboundary/ReactRouterError';
 import { HomeLayout } from './../pages/home/HomeLayout';
 import { HomePage } from './../pages/home/HomePage';
+import { OneTask } from '../components/tasks/OneTask';
 
 
 
@@ -29,6 +30,10 @@ export const appRoutes=(user:AppUser)=>{
                 index:true,
                 element:<HomePage user={user}/>
               },
+              {
+                path:':id',
+                element:<OneTask user={user}/>
+              }
      
             ]
             },
