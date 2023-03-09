@@ -100,7 +100,7 @@ const record = await pb.collection('tasks').getFirstListItem<TasksResponse>(`id 
 
 export const getTasks = async(keyword?:string)=> {
 try {
-    const res = await pb.collection('tasks').getList<TasksResponse>(1, 5, {
+    const res = await pb.collection('tasks').getList<TasksResponse>(1, 10, {
       filter: `title  ~ "${keyword}"`,
       sort: '-created',
       expand:'created_by,funded_by,marked_completed_by,approved_by'

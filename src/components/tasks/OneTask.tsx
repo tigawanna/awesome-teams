@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getOneTask, statusColors } from "../../utils/api/tasks";
 import { QueryStateWrapper } from "../../shared/wrappers/QueryStateWrapper";
 import { StatusManager } from "./StatusManager";
+import { TaskStatuses } from "./TaskStatuses";
 
 interface OneTaskProps {
 user:AppUser
@@ -21,7 +22,7 @@ const query = useQuery({
 if(query.isPending){
 return(
     <div className='h-screen w-full flex flex-col items-center justify-center '>
-        loading-------
+        loading......
     </div>
 ) 
 }
@@ -48,7 +49,7 @@ return (
             <p className=''>{query.data?.description}</p>
         </div>
 
-     <StatusManager task={query.data} user={user} />
+     <TaskStatuses task={query.data} user={user} />
 
     </div>
     </QueryStateWrapper>
