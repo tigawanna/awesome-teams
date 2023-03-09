@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { concatErrors } from "../../utils/utils";
 
 
+
 interface TaskStatusesProps {
     task: TasksResponse
     user: AppUser
@@ -22,7 +23,9 @@ type ButtonLabels = {
 export const TaskStatuses = ({ task, user }: TaskStatusesProps) => {
     // console.log("tasks === ",task)
 const [open,setOpen]=useState(false)
-    const tasks_steps = useTaskRepairStatus(task.status)
+
+    const tasks_steps = useTaskRepairStatus(task)
+    const [statusToUpdate, setStatusToupdate] = useState(tasks_steps.last_item)
     const label_map: ButtonLabels = {
         "created": "create",
         "approved": "Approve",
@@ -31,10 +34,17 @@ const [open,setOpen]=useState(false)
         "in_progress": "mark in progress",
         "completed": "mark completed"
     }
-  function toggleModal(is_last:boolean){
+  
+    function toggleModal(is_last:boolean,next_status:TasksResponse['status']){
+    console.log("toggle button === ",next_status)
+    setStatusToupdate((prev)=>{
+        return next_status
+    })
     if(is_last){
+        setStatusToupdate(next_status)
         setOpen(prev=>!prev)
     }
+
   }
 //  repairs type has possible statuss of created , approved , funded ,in_progress and completed
     if (task.type === "repairs") {
@@ -47,21 +57,23 @@ const [open,setOpen]=useState(false)
             if (item === "approved") {
                 return (
                     <div key={item} className="flex items-center justify-center gap-2 ">
+                        
                         <button 
                             style={{ backgroundColor: !is_last ? "green" : "" }}
-                            onClick={() =>toggleModal(is_last)}
+                            onClick={() =>toggleModal(is_last,tasks_steps.last_item)}
                             className={is_last ?
                                 `px-5 outline flex items-center justify-center gap-2 rounded-xl 
-                hover:outline-2 hover:outline-green-400`:
+                                    hover:outline-2 hover:outline-green-400`:
                                 `px-5 outline flex items-center justify-center gap-2 rounded-lg`
-                            }
-
-                            
-                            >
-                        <h1 className="text-lg">{is_last ? label_map[item] : item}</h1><MdDone />
+                            }>
+                         <h1 className="text-lg">{is_last ? label_map[item] : item}</h1><MdDone />
                         </button>
 
-                    {is_last ? <button className="px-5 flex items-center bg-red-700justify-center gap-2 rounded-xl hover:bg-red-600">
+                    {is_last?
+                    <button 
+                    onClick={() => toggleModal(is_last,"rejected")}
+                    className="px-5 flex items-center bg-red-700justify-center gap-2 
+                    rounded-xl hover:bg-red-600">
                     <h1 className="text-lg">{"reject"}</h1>
                         <MdCancel /></button> : null}
                     </div>)
@@ -71,10 +83,22 @@ const [open,setOpen]=useState(false)
                     return (
                     <button 
                     key={item}
-                    onClick={() => toggleModal(is_last)}
+                    onClick={() => toggleModal(is_last, tasks_steps.last_item)}
                     className="px-5 flex items-center bg-red-700 justify-center gap-2 rounded-lg">
                     <h1 className="text-lg">{"rejected"}</h1></button>)
             }
+                if (item === "completed") {
+                    return (
+                        <button
+                            key={item}
+                            style={{backgroundColor:"green"}}
+                            // onClick={() => toggleModal(is_last)}
+                            className={`px-5 outline flex items-center justify-center gap-2 rounded-xl `}>
+                            <h1 className="text-lg">{"Completed"}</h1>
+                            <MdDone />
+                            </button>)
+                }
+
 
 
 
@@ -82,7 +106,7 @@ const [open,setOpen]=useState(false)
       return( 
       <button key={item}
         style={{ backgroundColor: !is_last ? "green" : "" }}
-        onClick={() => toggleModal(is_last)}
+              onClick={() => toggleModal(is_last, tasks_steps.last_item)}
               className={is_last?
                 `px-5 outline flex items-center justify-center gap-2 rounded-xl 
                 hover:outline-2 hover:outline-green-400`:
@@ -97,10 +121,13 @@ const [open,setOpen]=useState(false)
 
     })
     }
-    <TaskUpdateStatusModal open={open} setOpen={setOpen} task={task} 
-    new_status={tasks_steps.last_item}
-    user={user}
-    />
+                <TaskUpdateStatusModal
+                    open={open}
+                    setOpen={setOpen}
+                    task={task}
+                    new_status={statusToUpdate}
+                    user={user}
+                />
     </div>
     );
 
@@ -111,7 +138,7 @@ const [open,setOpen]=useState(false)
         <div className='w-full h-full flex items-center justify-center'>
           <button
                 style={{ backgroundColor:task.status === "completed" ? "green" : "" }}
-                onClick={() => toggleModal(task.status !== "completed")}
+                onClick={() => toggleModal(task.status !== "completed",tasks_steps.last_item)}
                 className={task.status !== "completed"?
                 `px-5 outline flex items-center justify-center gap-2 rounded-xl 
                 hover:outline-2 hover:outline-green-400`:
@@ -122,8 +149,11 @@ const [open,setOpen]=useState(false)
                 </h1> <MdDone />
             </button>
 
-            <TaskUpdateStatusModal open={open} setOpen={setOpen} 
-            task={task} new_status={tasks_steps.last_item}
+            <TaskUpdateStatusModal 
+            open={open} 
+            setOpen={setOpen} 
+            task={task} 
+            new_status={statusToUpdate}
             user={user}
             />
         </div>
@@ -145,8 +175,9 @@ interface  TaskUpdateStatusModalProps {
 export const TaskUpdateStatusModal = ({open,setOpen,new_status,task,user }: TaskUpdateStatusModalProps) => {
     const queryClient = useQueryClient()
     const [error, setError] = useState({ name: "", message: "" })
-    
+    console.log("new status to update === ",new_status)
     function newStatus(sts:TasksResponse['status']):TasksResponse{
+        console.log("staus ",sts)
         if(sts === "approved"){
             return {...task,status:sts,approved_by:user?.id}
         }
