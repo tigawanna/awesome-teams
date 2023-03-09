@@ -37,7 +37,7 @@ export interface TasksResponse {
   description: string
 
   type:"todo" |"repairs" | "maintenance" | "recurring" | "other";
-  status: "created" | "approved" | "funded" |"in_progress" | "completed" | "cancelled";
+  status: "created" | "approved" | "funded" |"in_progress" | "completed" | "rejected";
   frequency?:"once"|"daily"|"weekly"|"monthly"|"yearly"|"never"
 
   created_by: string
@@ -52,11 +52,14 @@ export interface TasksResponse {
   
   completed_on?: string
   marked_completed_by?: string
+  rejected_by?:string
+  marked_in_progress_by?:string
+
   
   quotation?: string
   deadline?: string
   should_email:boolean
-  
+
   expand?:StaffExpand
 }
 
@@ -79,7 +82,7 @@ type TaskStatusColor = {
         "funded": "#00BCD4",
         "in_progress": "#22fa0a",
         "completed": "#d0aae6",
-        "cancelled": "#F44336"
+        "rejected": "#F44336"
     } 
 
 
@@ -122,6 +125,20 @@ try {
 } catch (error) {
 
   console.log("error adding new task ===== ", error);
+  throw error;
+}
+}
+
+
+export const updatetask=async(data:TaskMutationFields)=>{
+  console.log("updatiing  === ",data)
+try {
+  // @ts-expect-error
+  const record = await pb.collection('tasks').update(data?.id, data);
+  console.log("saved ====== ",record)
+   return record as unknown as TasksResponse;
+} catch (error) {
+    console.log("error adding new task ===== ", error);
   throw error;
 }
 }
