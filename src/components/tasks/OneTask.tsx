@@ -3,7 +3,6 @@ import { AppUser } from "../../utils/types/base";
 import { useQuery } from "@tanstack/react-query";
 import { getOneTask, statusColors } from "../../utils/api/tasks";
 import { QueryStateWrapper } from "../../shared/wrappers/QueryStateWrapper";
-import { StatusManager } from "./StatusManager";
 import { TaskStatuses } from "./TaskStatuses";
 
 interface OneTaskProps {
