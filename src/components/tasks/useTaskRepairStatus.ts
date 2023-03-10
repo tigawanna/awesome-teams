@@ -27,8 +27,12 @@ setTaskSlice((prev)=>{
    return other_steps.slice(0,endIndex)
 })
  },[task])
+const last_item  = taskSlice.slice(-1)[0]
+ console.log("task slice ",taskSlice,endIndex,taskSlice.slice(-1)[0])
 
 
-
-return {taskSlice,last_item:taskSlice.slice(-1)[0]}
+return {
+   taskSlice,
+   last_item,
+   end_of_steps:last_item==="completed"&&endIndex===5||task.type !=="repairs"&&last_item==="completed"&&endIndex===3 }
 }

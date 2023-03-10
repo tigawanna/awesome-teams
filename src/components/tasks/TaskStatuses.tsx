@@ -8,6 +8,7 @@ import { useState } from "react";
 import { IconContext } from "react-icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { concatErrors } from "../../utils/utils";
+import { ListResult } from "pocketbase";
 
 
 
@@ -59,7 +60,7 @@ const [open,setOpen]=useState(false)
                     <div key={item} className="flex items-center justify-center gap-2 ">
                         
                         <button 
-                            style={{ backgroundColor: !is_last ? "green" : "" }}
+                            style={{ backgroundColor: !is_last ? "green" : "", color: !is_last ? "white" : "" }}
                             onClick={() =>toggleModal(is_last,tasks_steps.last_item)}
                             className={is_last ?
                                 `px-5 outline flex items-center justify-center gap-2 rounded-xl 
@@ -73,7 +74,7 @@ const [open,setOpen]=useState(false)
                     <button 
                     onClick={() => toggleModal(is_last,"rejected")}
                     className="px-5 flex items-center bg-red-700justify-center gap-2 
-                    rounded-xl hover:bg-red-600">
+                    rounded-xl hover:bg-red-600 hover:text-white">
                     <h1 className="text-lg">{"reject"}</h1>
                         <MdCancel /></button> : null}
                     </div>)
@@ -87,11 +88,11 @@ const [open,setOpen]=useState(false)
                     className="px-5 flex items-center bg-red-700 justify-center gap-2 rounded-lg">
                     <h1 className="text-lg">{"rejected"}</h1></button>)
             }
-                if (item === "completed") {
+                if (item === "completed"&&tasks_steps.end_of_steps) {
                     return (
                         <button
                             key={item}
-                            style={{backgroundColor:"green"}}
+                            style={{backgroundColor:"green",color:'white'}}
                             // onClick={() => toggleModal(is_last)}
                             className={`px-5 outline flex items-center justify-center gap-2 rounded-xl `}>
                             <h1 className="text-lg">{"Completed"}</h1>
@@ -105,7 +106,7 @@ const [open,setOpen]=useState(false)
 
       return( 
       <button key={item}
-        style={{ backgroundColor: !is_last ? "green" : "" }}
+              style={{ backgroundColor: !is_last ? "green" : "", color: !is_last ? "white" : "" }}
               onClick={() => toggleModal(is_last, tasks_steps.last_item)}
               className={is_last?
                 `px-5 outline flex items-center justify-center gap-2 rounded-xl 
@@ -121,13 +122,13 @@ const [open,setOpen]=useState(false)
 
     })
     }
-                <TaskUpdateStatusModal
-                    open={open}
-                    setOpen={setOpen}
-                    task={task}
-                    new_status={statusToUpdate}
-                    user={user}
-                />
+        <TaskUpdateStatusModal
+            open={open}
+            setOpen={setOpen}
+            task={task}
+            new_status={statusToUpdate}
+            user={user}
+        />
     </div>
     );
 
@@ -137,7 +138,8 @@ const [open,setOpen]=useState(false)
     return (
         <div className='w-full h-full flex items-center justify-center'>
           <button
-                style={{ backgroundColor:task.status === "completed" ? "green" : "" }}
+                style={{ backgroundColor: task.status === "completed" ? "green" : "",
+                color: task.status === "completed" ? "white" : "" }}
                 onClick={() => toggleModal(task.status !== "completed",tasks_steps.last_item)}
                 className={task.status !== "completed"?
                 `px-5 outline flex items-center justify-center gap-2 rounded-xl 
@@ -203,39 +205,46 @@ export const TaskUpdateStatusModal = ({open,setOpen,new_status,task,user }: Task
             setError({ name: "", message: concatErrors(error) });
         },
         onSuccess(data, variables, context) {
+            //  update single task
         queryClient.setQueryData<TasksResponse|undefined>(['tasks',data.id],
         (oldData) => {
-            // console.log("old data  === ",oldData)
-            // console.log("new data  === ", data)
-            if(data){
-                return data
-            }
-            // console.log("old data ")
-                // if (data.id && oldData) {
-                //     return {
-                //         ...oldData,
-                //         items: [...oldData?.items, data]
-                //     }
-                // }
+         if(data) return data
+        return oldData
+        })
+            // update tasks list
+        queryClient.setQueryData<ListResult<TasksResponse> | undefined>(['tasks'], (oldData) => {
+                if (data.id && oldData) {
+                    return {
+                        ...oldData,
+                        items: [...oldData?.items, data]
+                    }
+                }
                 return oldData
             })
+        //  close the modal
+        setOpen(false)
         },
+    
 
     })
 
 return (
     <ReactModalWrapper
         child={
-        <div className="w-full h-full flex flex-col items-center justify-center border-2 rounded-lg shadow-xl">
+        <div className="w-full h-full flex flex-col items-center justify-center 
+        rounded-lg shadow-xl bg-orange-300 bg-opacity-40 ">
             
             <IconContext.Provider value={{size:"40px"}}>
             <div className="flex items-center justify-center gap-5">
                 <button 
                 onClick={()=>mutation.mutate(newStatus(new_status))}
-                className="px-5 py-2 text-xl rounded-full outline hover:outline-green-600">
+                className="px-6 py-1 text-2xl font-bold rounded-full shadow-lg 
+                outline hover:outline-green-600">
                     Yes
                 </button>
-                <button className="px-5 py-2 text-xl  rounded-full bg-red-600">
+                <button 
+                onClick={()=>setOpen(false)}
+                className="px-6 py-1 text-2xl  rounded-full bg-red-600 hover:bg-red-500 text-white">
                     Cancel
                 </button>
             </div>
@@ -263,10 +272,11 @@ return (
             overlay_right: '0%',
             overlay_left: '0%',
             overlay_bottom: '0%',
-            content_bottom: '10%',
+            content_bottom: '20%',
             content_right: '10%',
             content_left: '10%',
-            content_top: '10%'
+            content_top: '10%',
+            
 
         }}
     />

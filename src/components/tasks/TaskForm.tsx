@@ -52,7 +52,7 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
         { value: 'created', label: 'Created' },
         { value: 'in_progress', label: 'In Progress' },
         { value: 'completed', label: 'Completed' },
-        { value: "cancelled", label: "Cancelled" },
+        { value: "rejected", label: "Rejected" },
         { value: "approved", label: "Approved" },
         { value: "funded", label: "Funded" },
     ] satisfies TaskStatus[]
