@@ -5,7 +5,7 @@ import { useTheme } from '../../utils/hooks/themeHook';
 import { Link } from 'react-router-dom';
 import { TheIcon } from './../../shared/wrappers/TheIcon';
 import { AppUser } from '../../utils/types/base';
-import { pb } from '../../utils/pb/config';
+import { makeImageUrl, pb } from '../../utils/pb/config';
 
 interface ProfileMenuProps {
 user?:AppUser
@@ -25,7 +25,7 @@ const theme = useTheme();
         setIsOpen(prev => !prev)
     };
 
-const avatar = user?.avatar
+const avatar = makeImageUrl('staff', user?.id as string, user?.avatar as string);
 return (
  <div className='w-full h-full rounded-xl 
  dark:text-slate-100 bg-slate-200  dark:bg-slate-800 

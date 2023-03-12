@@ -5,6 +5,7 @@ import { AppUser } from "../../utils/types/base";
 import { useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { makeImageUrl } from '../../utils/pb/config';
 
 interface NavElemetsProps {
 user:AppUser
@@ -13,7 +14,7 @@ user:AppUser
 export const NavElemets = ({user}:NavElemetsProps) => {
 
 const [isOpen, setIsOpen] = useState(false);
-const avatar = user?.avatar
+const avatar = makeImageUrl('staff', user?.id as string, user?.avatar as string);
 return (
     <div className='w-full h-screen bg-accent 
      text-white
@@ -51,6 +52,12 @@ return (
                 <Link to="/staff">staff</Link>
             </div>
 
+
+            <div className="w-full  h-full flex justify-center items-center
+         hover:text-blue-700">
+                <Link to="/portal">portal</Link>
+            </div>
+
             <div className="w-full h-full flex justify-center items-center 
       hover:text-rose-700">
                 <Link to="/test">test</Link>
@@ -78,8 +85,8 @@ return (
                     <img
                         src={avatar}
                         alt={""}
-                        className="rounded-[50%] hover:rounded-sm max-h-[40px] h-10 w-10
-              border-2 border-slate-900 dark:border-slate-100 aspect-square"
+                        className="rounded-xl hover:rounded-sm h-[70px] 
+                        border-2 border-slate-900 dark:border-slate-100 aspect-square"
                         onClick={() => setIsOpen(true)}
                     />
                 )}
