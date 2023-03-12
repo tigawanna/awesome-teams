@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { AppUser } from "../../utils/types/base";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getOneTask, statusColors } from "../../utils/api/tasks";
 import { QueryStateWrapper } from "../../shared/wrappers/QueryStateWrapper";
 import { TaskStatuses } from "./TaskStatuses";
@@ -11,6 +11,13 @@ user:AppUser
 
 export const OneTask = ({user}:OneTaskProps) => {
 const param = useParams()
+const [searchparams,setSearchParams] = useSearchParams()
+
+const page_idx = parseInt(searchparams.get("page_idx") as string)
+
+// const queryClient = useQueryClient()
+// const data_hist = queryClient.getQueryData(['tasks'," "])
+// console.log("query data  === ",data_hist)
 
 const query = useQuery({
     queryKey: ["tasks", param.id],
@@ -48,7 +55,7 @@ return (
             <p className=''>{query.data?.description}</p>
         </div>
 
-     <TaskStatuses task={query.data} user={user} />
+     <TaskStatuses task={query.data} user={user} page_idx={page_idx}/>
 
     </div>
     </QueryStateWrapper>

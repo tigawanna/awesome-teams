@@ -100,10 +100,17 @@ const record = await pb.collection('tasks').getFirstListItem<TasksResponse>(`id 
 }
 }
 
+type InjectedQueryFnProps={
+    queryKey: any[];
+    signal: AbortSignal;
+    pageParam: number;
+    meta: Record<string, unknown> | undefined;
+}
 
-export const getTasks = async(keyword?:string)=> {
+export const getTasks = async(props:InjectedQueryFnProps,keyword?:string)=> {
+  console.log("keyworkd or something === ",props)
 try {
-    const res = await pb.collection('tasks').getList<TasksResponse>(1, 10, {
+    const res = await pb.collection('tasks').getList<TasksResponse>(props.pageParam, 10, {
       filter: `title  ~ "${keyword}"`,
       sort: '-created',
       expand:'created_by,funded_by,marked_completed_by,approved_by'

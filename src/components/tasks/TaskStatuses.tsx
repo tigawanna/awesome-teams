@@ -15,18 +15,21 @@ import { concatErrors } from "../../utils/utils";
 interface TaskStatusesProps {
     task: TasksResponse
     user: AppUser
+    page_idx: number
 }
 
 type ButtonLabels = {
     [key in TasksResponse['status']]: string
 }
 
-export const TaskStatuses = ({ task, user }: TaskStatusesProps) => {
+export const TaskStatuses = ({ task, user,page_idx }: TaskStatusesProps) => {
     // console.log("tasks === ",task)
 const [open,setOpen]=useState(false)
 
     const tasks_steps = useTaskRepairStatus(task)
+    
     const [statusToUpdate, setStatusToupdate] = useState(tasks_steps.last_item)
+    
     const label_map: ButtonLabels = {
         "created": "create",
         "approved": "Approve",
@@ -128,6 +131,7 @@ const [open,setOpen]=useState(false)
             task={task}
             new_status={statusToUpdate}
             user={user}
+            page_idx={page_idx}
         />
     </div>
     );
@@ -157,6 +161,7 @@ const [open,setOpen]=useState(false)
             task={task} 
             new_status={statusToUpdate}
             user={user}
+            page_idx={page_idx}
             />
         </div>
     );
@@ -171,10 +176,11 @@ interface  TaskUpdateStatusModalProps {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
     task:TasksResponse
     user:AppUser
+    page_idx:number
     new_status:TasksResponse['status']
 }
 
-export const TaskUpdateStatusModal = ({open,setOpen,new_status,task,user }: TaskUpdateStatusModalProps) => {
+export const TaskUpdateStatusModal = ({open,setOpen,new_status,task,user,page_idx }: TaskUpdateStatusModalProps) => {
     const queryClient = useQueryClient()
     const [error, setError] = useState({ name: "", message: "" })
     console.log("new status to update === ",new_status)
@@ -200,8 +206,13 @@ export const TaskUpdateStatusModal = ({open,setOpen,new_status,task,user }: Task
     
     const mutation=useMutation({
         mutationFn: (variables:TaskMutationFields)=>updatetask(variables),
+        
         meta:{
-            updatelistitems:['tasks', " "]
+         
+            infinitelist: {
+                key:['tasks', " "],
+                page:page_idx
+            }
         },
         
         onError(error, variables, context) {
