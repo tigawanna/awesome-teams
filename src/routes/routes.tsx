@@ -11,6 +11,8 @@ import { ReactRouterError } from '../shared/errorboundary/ReactRouterError';
 import { HomeLayout } from './../pages/home/HomeLayout';
 import { HomePage } from './../pages/home/HomePage';
 import { OneTask } from '../components/tasks/OneTask';
+import { StaffLayout } from '../pages/staff/StaffLayout';
+import { Staff } from '../pages/staff/Staff';
 
 
 
@@ -57,7 +59,17 @@ export const appRoutes=(user:AppUser)=>{
       
               ],
             },
-   
+            {
+              path: '/staff',
+              element: <StaffLayout user={user} />,
+              children: [
+                {
+                  index: true,
+                  element: <Staff user={user} />,
+                  // loader: deferredBlogPostsLoader,
+                },
+              ],
+            },
 
 
             {

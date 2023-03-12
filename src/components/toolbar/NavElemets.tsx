@@ -43,9 +43,13 @@ return (
 
             <div className="w-full  h-full flex justify-center items-center
          hover:text-blue-700">
-                <Link to="/">main</Link>
+                <Link to="/">tasks</Link>
             </div>
 
+            <div className="w-full  h-full flex justify-center items-center
+         hover:text-blue-700">
+                <Link to="/staff">staff</Link>
+            </div>
 
             <div className="w-full h-full flex justify-center items-center 
       hover:text-rose-700">
