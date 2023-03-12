@@ -6,7 +6,7 @@ interface TestLayoutProps {
 user:AppUser
 }
 
-export const TestLayout = ({user}:TestLayoutProps) => {
+export default function TestLayout({user}:TestLayoutProps){
 useAuthGuard(user,false)
 return (
  <div className='w-full h-full flex items-center justify-center'>

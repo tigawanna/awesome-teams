@@ -5,7 +5,7 @@ interface StaffLayoutProps {
   user: AppUser
 }
 
-export const StaffLayout= ({}:StaffLayoutProps) => {
+export default function StaffLayout({}:StaffLayoutProps){
   return (
     <div className='w-full h-full'>
       <Outlet/>
