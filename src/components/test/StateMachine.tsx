@@ -1,16 +1,20 @@
 import { useMachine } from "@xstate/react";
-import { testMachine } from "./testMachine";
-import { todosMachine } from "./todoMachine";
-import { tasksMachine } from "../../utils/api/taskMachine";
+import { TasksResponse } from "../../utils/api/tasks";
+import { repairTaskMachine } from "../../utils/api/machines/repairTaskMachine";
+
+
+
 
 interface StateMachineProps {
-
+task:TasksResponse
 }
 
-export const StateMachine = ({}:StateMachineProps) => {
-const [state,send]=useMachine(tasksMachine)
+export const StateMachine = ({task}:StateMachineProps) => {
 
-    console.log("state   = ",state.machine?.states['approved'].after)
+
+const [state,send]=useMachine(repairTaskMachine)
+
+console.log("state   = ",state.machine?.states['approved'].after)
 
 const states_obj=state.machine?.states
 return (
@@ -38,7 +42,7 @@ return (
                                     <button key={key} 
                                     style={{backgroundColor:event==="reject"?"red":"green"}}
                                     className="w-full px-5 p bg-slate-600 rounded-lg m-2"
-                                         onClick={() => send(event)}>
+                                         onClick={() =>send(event)}>
                                          {event}
                                      </button>
                                  )

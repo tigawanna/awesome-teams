@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { MutationCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import App from './App';
 import './index.css';
 import ErrorBoundary from './shared/errorboundary/ErrorBoundary';
@@ -38,7 +38,7 @@ const queryClient:QueryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <ErrorBoundary>
   <QueryClientProvider client={queryClient}>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <ReactQueryDevtools initialIsOpen={false} />
       <React.StrictMode>
         <App />
       </React.StrictMode>

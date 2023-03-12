@@ -211,14 +211,28 @@ export const TaskUpdateStatusModal = ({open,setOpen,new_status,task,user }: Task
          if(data) return data
         return oldData
         })
-            // update tasks list
-        queryClient.setQueryData<ListResult<TasksResponse> | undefined>(['tasks'], (oldData) => {
+        
+        // update tasks list
+        queryClient.setQueryData<ListResult<TasksResponse> | undefined>(['tasks'," "], (oldData) => {
+            // console.log("oldData === ",oldData)
                 if (data.id && oldData) {
+                    const updatedItems = oldData.items.map((item) => {
+                        if (item.id === data.id) {
+                            // Return the new object if the id matches
+                            return data;
+                        }
+                        // Otherwise, return the current item
+                        return item;
+                    });
+
+                    // Return the updated data with the new items array
                     return {
                         ...oldData,
-                        items: [...oldData?.items, data]
-                    }
+                        items: updatedItems,
+                    };
                 }
+
+                
                 return oldData
             })
         //  close the modal
