@@ -200,6 +200,9 @@ export const TaskUpdateStatusModal = ({open,setOpen,new_status,task,user }: Task
     
     const mutation=useMutation({
         mutationFn: (variables:TaskMutationFields)=>updatetask(variables),
+        meta:{
+            updatelistitems:['tasks', " "]
+        },
         
         onError(error, variables, context) {
             setError({ name: "", message: concatErrors(error) });
@@ -213,28 +216,30 @@ export const TaskUpdateStatusModal = ({open,setOpen,new_status,task,user }: Task
         })
         
         // update tasks list
-        queryClient.setQueryData<ListResult<TasksResponse> | undefined>(['tasks'," "], (oldData) => {
-            // console.log("oldData === ",oldData)
-                if (data.id && oldData) {
-                    const updatedItems = oldData.items.map((item) => {
-                        if (item.id === data.id) {
-                            // Return the new object if the id matches
-                            return data;
-                        }
-                        // Otherwise, return the current item
-                        return item;
-                    });
+        // queryClient.setQueryData<ListResult<TasksResponse> | undefined>(['tasks'," "], (oldData) => {
+        //     // console.log("oldData === ",oldData)
+        //         if (data.id && oldData) {
+        //             const updatedItems = oldData.items.map((item) => {
+        //                 if (item.id === data.id) {
+        //                     // Return the new object if the id matches
+        //                     return data;
+        //                 }
+        //                 // Otherwise, return the current item
+        //                 return item;
+        //             });
 
-                    // Return the updated data with the new items array
-                    return {
-                        ...oldData,
-                        items: updatedItems,
-                    };
-                }
+        //             // Return the updated data with the new items array
+        //             return {
+        //                 ...oldData,
+        //                 items: updatedItems,
+        //             };
+        //         }
 
                 
-                return oldData
-            })
+        //         return oldData
+        // })
+
+
         //  close the modal
         setOpen(false)
         },

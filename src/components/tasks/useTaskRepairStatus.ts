@@ -28,7 +28,7 @@ setTaskSlice((prev)=>{
 })
  },[task])
 const last_item  = taskSlice.slice(-1)[0]
- console.log("task slice ",taskSlice,endIndex,taskSlice.slice(-1)[0])
+//  console.log("task slice ",taskSlice,endIndex,taskSlice.slice(-1)[0])
 
 
 return {
