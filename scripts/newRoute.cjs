@@ -17,7 +17,7 @@ if (!componentName) {
 
 //  generate directory path for new page in /src/page/componentName
 // const pageDirectoryPath = path.join(__dirname, 'src', 'pages', componentName);
-const pageDirectoryPath = `./src/pages/${componentName}`;
+const pageDirectoryPath = `./src/pages/${componentName.toLocaleLowerCase()}`;
 
 // check if path already exists
 if (fs.existsSync(pageDirectoryPath)) {
