@@ -19,15 +19,7 @@ const [keyword, setKeyword] = useState(" ");
 
 
 // const query = useQuery({ queryKey: ['tasks', value], queryFn: () => getTasks(value),})
-    const {
-        data,
-        error,
-        fetchNextPage,
-        hasNextPage,
-        isFetching,
-        isFetchingNextPage,
-        status,
-    } = useInfiniteQuery({
+    const query = useInfiniteQuery({
         queryKey: ['tasks', value],
         queryFn: (props) => getTasks(props,value),
         defaultPageParam: 1,
@@ -41,7 +33,7 @@ function handleChage(e: any) {
         setKeyword(e.target.value)
     }
 
-    // const tasks = query.data
+    const tasks = query.data
     // console.log("tasks ==== ",tasks )
    return (
 
@@ -51,32 +43,17 @@ function handleChage(e: any) {
                 <input className="p-1 md:p-2 w-full" value={keyword} onChange={handleChage} />
                 <TheIcon Icon={FaSearch} size="25" iconstyle="m-2" />
             </div>
-            {/* <QueryStateWrapper query={query} length={tasks && tasks?.totalItems}>
-                <div className=' flex flex-wrap items-start justify-center gap-2 m-5 mt-14'>
-                    {
-                        tasks && tasks.items.map((task) => {
-                            return (<TaskCard key={task.id} task={task} />)
-                        })
-                    }
-                </div>
-            </QueryStateWrapper> */}
-            {/* {
-                keyword && keyword.length > 3 && tasks?.items.length === 0 && (
-                    <div className='w-full h-full flex items-center justify-center'>
-                        Items not found in current list
-                    </div>
-                )
 
-            } */}
            <div className=' flex flex-wrap items-start justify-center gap-2 m-5 mt-14'>
-               {data?.pages.map((tasks, page_idx) => 
+            <QueryStateWrapper query={query}>
+               {tasks?.pages.map((page, page_idx) => 
                {
                 
                 return (
                        <React.Fragment key={page_idx}>
                   
                            {
-                               tasks && tasks.items.map((task) => {
+                               tasks && page.items.map((task) => {
                                    return (<TaskCard key={task.id} task={task} page_idx={page_idx}/>)
                                })
                            }
@@ -85,25 +62,28 @@ function handleChage(e: any) {
                }
                )
                }
-
+               </QueryStateWrapper>
 
            </div>
 
 
 
            <div>
-               <button
-                   onClick={() => fetchNextPage()}
-                   disabled={!hasNextPage || isFetchingNextPage}
+            {!query.isPending&&
+            <button
+                   className="text-accent font-bold mb-2  rounded"
+                   onClick={() => query.fetchNextPage()}
+                   disabled={!query.hasNextPage || query.isFetchingNextPage}
                >
-                   {isFetchingNextPage
+                   {query.isFetchingNextPage
                        ? 'Loading more...'
-                       : hasNextPage
-                           ? 'Load More'
-                           : 'Nothing more to load'}
+                       : query.hasNextPage
+                           ? '... Load More ...'
+                           : '...Nothing more to load...'}
                </button>
+               }
            </div>
-           <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
+    
 
 
 

@@ -10,8 +10,6 @@ import { ListResult, Record } from 'pocketbase';
 
 
 
-
-
 const queryClient:QueryClient = new QueryClient({
   mutationCache:new MutationCache({
     onSuccess: async (data, variable, context, mutation) => {

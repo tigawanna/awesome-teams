@@ -108,7 +108,7 @@ type InjectedQueryFnProps={
 }
 
 export const getTasks = async(props:InjectedQueryFnProps,keyword?:string)=> {
-  console.log("keyworkd or something === ",props)
+  // console.log("keyworkd or something === ",props)
 try {
     const res = await pb.collection('tasks').getList<TasksResponse>(props.pageParam, 10, {
       filter: `title  ~ "${keyword}"`,
@@ -127,7 +127,9 @@ try {
 
 export const addTask = async (data: TaskMutationFields) => {
 try {
-    const record = await pb.collection('tasks').create(data);
+    const record = await pb.collection('tasks').create(data,{
+        expand:'created_by,funded_by,marked_completed_by,approved_by'
+    });
     return record as unknown as TasksResponse;
 } catch (error) {
 
@@ -138,11 +140,13 @@ try {
 
 
 export const updatetask=async(data:TaskMutationFields)=>{
-  console.log("updatiing  === ",data)
+  // console.log("updatiing  === ",data)
 try {
   // @ts-expect-error
-  const record = await pb.collection('tasks').update(data?.id, data);
-  console.log("saved ====== ",record)
+  const record = await pb.collection('tasks').update(data?.id, data,{
+        expand:'created_by,funded_by,marked_completed_by,approved_by'
+  });
+  // console.log("saved ====== ",record)
    return record as unknown as TasksResponse;
 } catch (error) {
     console.log("error adding new task ===== ", error);

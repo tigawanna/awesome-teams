@@ -40,7 +40,7 @@ const [open,setOpen]=useState(false)
     }
   
     function toggleModal(is_last:boolean,next_status:TasksResponse['status']){
-    console.log("toggle button === ",next_status)
+    // console.log("toggle button === ",next_status)
     setStatusToupdate((prev)=>{
         return next_status
     })
@@ -183,9 +183,9 @@ interface  TaskUpdateStatusModalProps {
 export const TaskUpdateStatusModal = ({open,setOpen,new_status,task,user,page_idx }: TaskUpdateStatusModalProps) => {
     const queryClient = useQueryClient()
     const [error, setError] = useState({ name: "", message: "" })
-    console.log("new status to update === ",new_status)
+    // console.log("new status to update === ",new_status)
     function newStatus(sts:TasksResponse['status']):TasksResponse{
-        console.log("staus ",sts)
+        // console.log("staus ",sts)
         if(sts === "approved"){
             return {...task,status:sts,approved_by:user?.id}
         }
