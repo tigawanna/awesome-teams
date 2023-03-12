@@ -261,15 +261,17 @@ export const TaskUpdateStatusModal = ({open,setOpen,new_status,task,user,page_id
 return (
     <ReactModalWrapper
         child={
-        <div className="w-full h-full flex flex-col items-center justify-center 
-        rounded-lg shadow-xl bg-orange-300 bg-opacity-40 ">
+        <div className="w-full  h-full flex flex-col items-center justify-center 
+        ">
             
             <IconContext.Provider value={{size:"40px"}}>
-            <div className="flex items-center justify-center gap-5">
+        <div className="w-full md:w-[40%] h-full md:h-[40%] flex flex-col items-center justify-center 
+        rounded-2xl shadow-xl bg-slate-500 bg-opacity-60">
+            <div className="flex  items-center justify-center gap-5">
                 <button 
                 onClick={()=>mutation.mutate(newStatus(new_status))}
-                className="px-6 py-1 text-2xl font-bold rounded-full shadow-lg 
-                outline hover:outline-green-600">
+                className="px-6 py-1 text-2xl text-white font-bold rounded-full shadow-lg 
+                border-2 hover:border-green-600 hover:border-2 hover:text-green-300">
                     Yes
                 </button>
                 <button 
@@ -289,7 +291,7 @@ return (
                             </div>
                         ) : null}
                 </div>
-
+                </div>
 
             </IconContext.Provider>
 
