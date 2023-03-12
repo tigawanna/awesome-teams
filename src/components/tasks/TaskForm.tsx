@@ -102,14 +102,17 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
     };
 
     return (
-    <div className='w-full min-h-screen  flex flex-col items-center justify-center bg-white
+    <div className='w-full min-h-screen  flex flex-col items-center justify-center dark:bg-slate-800 
+    bg-slate-300 bg-opacity-50 dark:text-white
     scroll-bar overflow-y-scroll rounded-lg'>
             <div className="text-4xl font-bold p-5 text-accent">Task Form</div>
 
             <Select
                 options={task_type_options}
                 defaultValue={task_type_options[0]}
-                className="w-[90%] md:w-[50%] "
+                className="w-full md:w-[45%]  p-[6px] m-1 text-black
+                border border-black dark:border-white h-10 rounded-sm dark:bg-slate-700
+                focus:border-2 dark:focus:border-4 "
                 onChange={(e) => {
                     if (e) {
                         setTaskType(e.value)
@@ -140,7 +143,7 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
                     select_options={task_frequency_options}
                     setInput={setInput}
                 />
-                \
+                
                 <FormInput
                     error={error}
                     handleChange={handleChange}

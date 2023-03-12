@@ -39,10 +39,10 @@ function handleChage(e: any) {
 
         <div className='w-full min-h-screen flex flex-col  items-center justify-center '>
 
-            <div className="w-[90%] md:w-[60%] fixed top-10 border shadow-xl z-50 flex rounded-lg gap-2">
-                <input className="p-1 md:p-2 w-full" value={keyword} onChange={handleChage} />
-                <TheIcon Icon={FaSearch} size="25" iconstyle="m-2" />
-            </div>
+           <div className="w-[90%] md:w-[40%] fixed top-10 border shadow-xl z-50 flex rounded-lg gap-2">
+               <input className="p-1 w-full  md:text-xl dark:bg-slate-800 " value={keyword} onChange={handleChage} />
+               <TheIcon Icon={FaSearch} size="20" iconstyle="m-2" />
+           </div>
 
            <div className=' flex flex-wrap items-start justify-center gap-2 m-5 mt-14'>
             <QueryStateWrapper query={query}>

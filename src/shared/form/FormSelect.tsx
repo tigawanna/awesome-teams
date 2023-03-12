@@ -38,9 +38,9 @@ export const FormSelect = <T,>({ error,prop,input,label,setInput,select_options,
             <Select
                 options={select_options}
                 defaultValue={select_options[0]}
-                className="w-[90%] p-[6px] m-1 border border-black
-                dark:border-white h-10 rounded-sm   dark:bg-slate-700
-                focus:border-2 dark:focus:border-4 focus:border-purple-700 dark:focus:border-purple-600 "
+                className="w-[90%] p-[6px] m-1 text-black
+                border border-black dark:border-white h-10 rounded-sm dark:bg-slate-700
+                focus:border-2 dark:focus:border-4 "
                 onChange={(e) => {
                     if (e) {
                         handleSelectChange(e)
