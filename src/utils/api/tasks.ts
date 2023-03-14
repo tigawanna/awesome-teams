@@ -140,7 +140,7 @@ try {
 
 
 export const updatetask=async(data:TaskMutationFields)=>{
-  // console.log("updatiing  === ",data)
+  console.log("updatiing status to === ",data.status)
 try {
   // @ts-expect-error
   const record = await pb.collection('tasks').update(data?.id, data,{

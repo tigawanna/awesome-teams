@@ -48,9 +48,17 @@ return (
          className="w-[90%] h-full md:w-[60%] border shadow-xl rounded-lg p-4
             flex flex-col items-center justify-center ">
         <div className='h-full  flex flex-col items-center justify-center  gap-2 p-2'>
-            <h1
-               
-                className='text-4xl font-bold w-full px-1'>{query.data?.title}</h1>
+                    
+                    <div className='h-full  flex items-center justify-center  gap-2 p-2'>
+                        <h1 className='text-4xl font-bold w-full px-1'>{query.data?.title}</h1>
+                        
+                        <div className='h-full  flex items-center justify-center  gap-2 p-2'>
+                        <h3 className='font-bold w-full px-1'>{query.data?.status}</h3>
+                        <h3 className='font-bold w-full px-1'>{query.data?.type}</h3>
+                       
+                        </div>
+                    </div>
+   
             <p className=''>{query.data?.description}</p>
         </div>
 
