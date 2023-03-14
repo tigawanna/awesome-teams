@@ -6,7 +6,7 @@ import { useState } from "react";
 import { IconContext } from "react-icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { concatErrors } from "../../utils/utils";
-import { ApprovedStatus, CompletedStatus, CreatedStatus, FundedStatus, InProgressStatus } from "./TaskStatusButtons";
+import { ApprovedStatus, CompletedStatus, CreatedStatus, FundedStatus, InProgressStatus, RejectedStatus } from "./TaskStatusButtons";
 
 
 interface TaskStatusesProps {
@@ -33,11 +33,12 @@ export const TaskStatuses = ({ task, user, page_idx }: TaskStatusesProps) => {
 
     return (
         <div className='w-full h-full flex items-center justify-center'>
-        {task.status === "created"&&<CreatedStatus is_last task={task} toggleModal={toggleModal}/>}
-        {task.status === "approved" && <ApprovedStatus is_last task={task} toggleModal={toggleModal} />}
-        {task.status === "funded" && <FundedStatus is_last task={task} toggleModal={toggleModal} />}
-        {task.status === "in_progress" && <InProgressStatus is_last task={task} toggleModal={toggleModal} />}
-        {task.status === "completed" && <CompletedStatus task={task} toggleModal={toggleModal} />}
+        {task.status === "rejected" && <RejectedStatus task={task} />}
+            {task.status === "created" && <CreatedStatus is_last task={task} user={user} toggleModal={toggleModal}/>}
+            {task.status === "approved" && <ApprovedStatus is_last task={task} user={user} toggleModal={toggleModal} />}
+            {task.status === "funded" && <FundedStatus is_last task={task} user={user} toggleModal={toggleModal} />}
+            {task.status === "in_progress" && <InProgressStatus is_last task={task} user={user}  toggleModal={toggleModal} />}
+            {task.status === "completed" && <CompletedStatus task={task} user={user}  toggleModal={toggleModal} />}
 
             <TaskUpdateStatusModal
                 open={open}

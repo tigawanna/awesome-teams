@@ -19,9 +19,12 @@ export interface Staff {
 
 interface StaffExpand{
   created_by:Staff;
+  rejected_by:Staff;
   funded_by?:Staff;
   approved_by?:Staff;
+  marked_in_progress_by?: Staff;
   marked_completed_by?:Staff;
+
 }
 
 
