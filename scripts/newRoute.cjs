@@ -54,7 +54,7 @@ interface ${componentName}Props {
 
 export function ${componentName}({}:${componentName}Props){
   return (
-    <div className='w-full h-full'>
+    <div className='w-full h-full min-h-screen  flex items-center justify-center'>
       ${componentName} component
     </div>
   );
