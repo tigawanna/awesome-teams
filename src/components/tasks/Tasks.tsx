@@ -7,6 +7,7 @@ import { TheIcon } from "../../shared/wrappers/TheIcon";
 import { FaSearch } from "react-icons/fa";
 import { useDebouncedValue } from "../../utils/hooks/useDebouncedValue";
 import React from "react";
+import { LoadMoreButton } from "../../shared/extra/LoadMoreButton";
 
 interface TasksProps {
 
@@ -40,7 +41,7 @@ function handleChage(e: any) {
         <div className='w-full min-h-screen flex flex-col  items-center justify-center '>
 
            <div className="w-[90%] md:w-[40%] fixed top-10 border shadow-xl z-50 flex rounded-lg gap-2">
-               <input className="p-1 w-full  md:text-xl dark:bg-slate-800 " value={keyword} onChange={handleChage} />
+               <input className="p-1 w-full  md:text-xl bg-slate-800 " value={keyword} onChange={handleChage} />
                <TheIcon Icon={FaSearch} size="20" iconstyle="m-2" />
            </div>
 
@@ -65,24 +66,7 @@ function handleChage(e: any) {
                </QueryStateWrapper>
 
            </div>
-
-
-
-           <div>
-            {!query.isPending&&
-            <button
-                   className="text-accent font-bold mb-2  rounded"
-                   onClick={() => query.fetchNextPage()}
-                   disabled={!query.hasNextPage || query.isFetchingNextPage}
-               >
-                   {query.isFetchingNextPage
-                       ? 'Loading more...'
-                       : query.hasNextPage
-                           ? '... Load More ...'
-                           : '...Nothing more to load...'}
-               </button>
-               }
-           </div>
+         <LoadMoreButton query={query}/>
     
 
 

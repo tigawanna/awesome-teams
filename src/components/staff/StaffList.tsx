@@ -6,6 +6,7 @@ import { useDebouncedValue } from "../../utils/hooks/useDebouncedValue";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getStaff } from "../../utils/api/staff";
 import { StaffCard } from "./StaffCard";
+import { LoadMoreButton } from "../../shared/extra/LoadMoreButton";
 
 interface StaffListProps {
 
@@ -63,23 +64,7 @@ return (
 
         </div>
 
-
-
-        <div>
-            {!query.isPending &&
-                <button
-                    className="text-accent font-bold mb-2  rounded"
-                    onClick={() => query.fetchNextPage()}
-                    disabled={!query.hasNextPage || query.isFetchingNextPage}
-                >
-                    {query.isFetchingNextPage
-                        ? 'Loading more...'
-                        : query.hasNextPage
-                            ? '... Load More ...'
-                            : '...Nothing more to load...'}
-                </button>
-            }
-        </div>
+        <LoadMoreButton query={query} />
 
 
 
