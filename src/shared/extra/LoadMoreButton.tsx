@@ -5,6 +5,12 @@ interface LoadMoreButtonProps<T> {
 }
 
 export function LoadMoreButton<T,>({query}:LoadMoreButtonProps<T>){
+ if(!query.hasNextPage){
+    return null
+ }   
+if(query.isFetchingNextPage){
+    return <div className="w-full h-10 flex items-center justify-center">Loading more...</div>
+}
 return (
 
     <div>
@@ -14,11 +20,7 @@ return (
                 onClick={() => query.fetchNextPage()}
                 disabled={!query.hasNextPage || query.isFetchingNextPage}
             >
-                {query.isFetchingNextPage
-                    ? 'Loading more...'
-                    : query.hasNextPage
-                        ? '... Load More ...'
-                        : '...Nothing more to load...'}
+                Load More
             </button>
         }
     </div>

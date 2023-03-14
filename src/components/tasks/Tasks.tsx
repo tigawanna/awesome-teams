@@ -41,7 +41,7 @@ const [keyword, setKeyword] = useState(" ");
 
         <SearchBox keyword={keyword} handleChage={handleChage}/>
 
-           <div className=' flex flex-wrap items-start  gap-2 m-5 mt-14'>
+           <div className='lg:w-[75%] flex flex-wrap items-start  gap-2 m-5 mt-14'>
             <QueryStateWrapper query={query}>
                {tasks?.pages.map((page, page_idx) => 
                {
