@@ -35,7 +35,7 @@ interface ${componentName}LayoutProps {
 
 }
 
-export const ${componentName}Layout= ({}:${componentName}LayoutProps) => {
+export function ${componentName}Layout({}:${componentName}LayoutProps){
   return (
     <div className='w-full h-full'>
       <Outlet/>
@@ -52,7 +52,7 @@ interface ${componentName}Props {
 
 }
 
-export const ${componentName}= ({}:${componentName}Props) => {
+export function ${componentName}({}:${componentName}Props){
   return (
     <div className='w-full h-full'>
       ${componentName} component
