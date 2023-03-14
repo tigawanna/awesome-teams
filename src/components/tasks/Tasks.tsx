@@ -8,6 +8,7 @@ import { FaSearch } from "react-icons/fa";
 import { useDebouncedValue } from "../../utils/hooks/useDebouncedValue";
 import React from "react";
 import { LoadMoreButton } from "../../shared/extra/LoadMoreButton";
+import { SearchBox } from "../../shared/form/SearchBox";
 
 interface TasksProps {
 
@@ -30,7 +31,7 @@ const [keyword, setKeyword] = useState(" ");
         },
     })
 
-function handleChage(e: any) {
+    function handleChage(e: React.ChangeEvent<HTMLInputElement>) {
         setKeyword(e.target.value)
     }
 
@@ -38,14 +39,15 @@ function handleChage(e: any) {
     // console.log("tasks ==== ",tasks )
    return (
 
-        <div className='w-full min-h-screen flex flex-col  items-center justify-center '>
-
+        <div className='w-full min-h-screen flex flex-col  items-center justify-start '>
+{/* 
            <div className="w-[90%] md:w-[40%] fixed top-10 border shadow-xl z-50 flex rounded-lg gap-2">
-               <input className="p-1 w-full  md:text-xl bg-slate-800 " value={keyword} onChange={handleChage} />
+               <input className="p-1 w-full  md:text-xl dark:bg-slate-800 " value={keyword} onChange={handleChage} />
                <TheIcon Icon={FaSearch} size="20" iconstyle="m-2" />
-           </div>
+           </div> */}
+        <SearchBox keyword={keyword} handleChage={handleChage}/>
 
-           <div className=' flex flex-wrap items-start justify-center gap-2 m-5 mt-14'>
+           <div className=' flex flex-wrap items-start  gap-2 m-5 mt-14'>
             <QueryStateWrapper query={query}>
                {tasks?.pages.map((page, page_idx) => 
                {
