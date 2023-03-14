@@ -15,27 +15,12 @@ interface TaskStatusesProps {
     page_idx: number
 }
 
-type ButtonLabels = {
-    [key in TasksResponse['status']]: string
-}
-
 export const TaskStatuses = ({ task, user, page_idx }: TaskStatusesProps) => {
-    // console.log("tasks === ",task)
     const [open, setOpen] = useState(false)
-
     const [statusToUpdate, setStatusToupdate] = useState(task.status)
 
-   const label_map: ButtonLabels = {
-        "created": "create",
-        "approved": "Approve",
-        "rejected": "rejected",
-        "funded": "fund",
-        "in_progress": "mark in progress",
-        "completed": "mark completed"
-    }
-
     function toggleModal(is_last: boolean, next_status: TasksResponse['status']) {
-        // console.log("toggle button === ",next_status,is_last)
+     
         setStatusToupdate((prev) => {
             return next_status
         })
@@ -121,10 +106,6 @@ export const TaskUpdateStatusModal = ({ open, setOpen, new_status, task, user, p
             setError({ name: "", message: concatErrors(error) });
         },
         onSuccess(data, variables, context) {
-            //  update single task
-            // console.log("data === ", data)
-            // console.log("variables === ", variables)
-
             queryClient.setQueryData<TasksResponse | undefined>(['tasks', data.id],
                 (oldData) => {
                     if (data) return data

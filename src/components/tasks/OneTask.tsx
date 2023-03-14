@@ -14,9 +14,6 @@ const param = useParams()
 const [searchparams,setSearchParams] = useSearchParams()
 const page_idx = parseInt(searchparams.get("page_idx") as string)
 
-// const queryClient = useQueryClient()
-// const data_hist = queryClient.getQueryData(['tasks'," "])
-// console.log("query data  === ",data_hist)
 
 const query = useQuery({
     queryKey: ["tasks", param.id],
