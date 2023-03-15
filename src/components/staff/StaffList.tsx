@@ -36,7 +36,7 @@ return (
     <div className='w-full min-h-screen flex flex-col  items-center justify-start '>
     <SearchBox keyword={keyword} handleChage={handleChage} />
 
-        <div className=' flex flex-wrap items-start justify-center gap-2 m-5 mt-14'>
+        <div className='w-full flex flex-wrap items-start justify-center gap-2 m-5 mt-14 '>
             <QueryStateWrapper query={query}>
                 {staff?.pages.map((page, page_idx) => {
 

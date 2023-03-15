@@ -64,7 +64,6 @@ return (
             <TheIcon
                 Icon={mode}
                 size={"30"}
-           
                 iconAction={toggle}
             />
         </div>

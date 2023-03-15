@@ -9,6 +9,7 @@ import { NavElemets } from '../../components/toolbar/NavElemets';
 import { useState } from 'react';
 import { SideDrawer } from '../../components/toolbar/SideDrawer';
 import { HeaderToggle } from '../../components/index/HeaderToggle';
+import useBodyScrollLock from '../../utils/hooks/useScrollLock';
 
 
 interface RootLayoutProps {
@@ -22,6 +23,7 @@ const navigation = useNavigation()
 const location = useLocation()
 
 const [open,setOpen]=useState(false)
+  // useBodyScrollLock(open)
   // const [opened, { open, close }] = useDisclosure(false);
 return (
     <div className="w-full min-h-screen  dark:bg-slate-900 flex ">
@@ -36,7 +38,7 @@ return (
       
       <div
       className="h-screen w-[5%] fixed top-[10%]
-         bg-opacity-70 dark:bg-opacity-90  p-1 hidden md:block
+         bg-opacity-80 dark:bg-opacity-90  p-1 hidden md:block
         z-30"
       >
       <Toolbar user={user} />
@@ -47,11 +49,11 @@ return (
      open={open}
      closeModal={()=>setOpen(false)}
      >
-      <NavElemets user={user} />
+      <NavElemets user={user} closeModal={() => setOpen(false)}  />
      </SideDrawer>
 
 
-      <main className=" w-full min-h-screen z-20 h-full mt-[15%]  sm:mt-[10%] md:mt-[5%]">
+      <main className=" w-full min-h-screen z-20 h-full mt-[15%] sm:ml-[8%] sm:mt-[10%] md:mt-[8%]">
         <Outlet />
        </main>
 

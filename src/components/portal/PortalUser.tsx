@@ -10,8 +10,11 @@ export const PortalUser = ({user}:PortalUserProps) => {
 return <div className="h-full flex items-center justify-center">No User</div>
  }   
 return (
- <div className='w-full h-full flex items-center justify-center'>
- <div className="w-fit p-2 flex flex-col items-center justify-center border rounded-xl gap-1 ">
+ <div className='w-full min-h-screen '>
+   
+   <div className="w-fit p-2 
+   flex flex-col items-center justify-center 
+   border rounded-xl gap-1 ">
             <img
                 src={makeImageUrl('staff', user?.id as string, user.avatar)}
                 alt="staff avatar"

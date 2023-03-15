@@ -38,7 +38,7 @@ export const ReactModalWrapper = (
     }: ReactModalWrapperProps
 ) => {
     const { isMobile } = useCheckInMobile()
-    useBodyScrollLock()
+    useBodyScrollLock(isOpen)
     const adjustSize = (size: string, mobile_size: string) => {
         return isMobile ? mobile_size : size
     }

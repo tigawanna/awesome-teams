@@ -8,8 +8,10 @@ interface StaffCardProps {
 
 export const StaffCard = ({staff,page_idx}:StaffCardProps) => {
 return (
- <div className='h-full flex items-center justify-center'>
-<div className="w-full flex flex-col items-center justify-center gap-1 m-2 rounded-lg shadow-xl">
+ <div className='h-full w-fullflex items-center justify-center'>
+<div className="w-full p-2 m-2 
+flex flex-col items-center justify-center gap-1 
+border rounded-lg shadow-xl">
 <img 
 src={makeImageUrl('staff',staff?.id as string,staff.avatar)}
 alt="staff avatar"

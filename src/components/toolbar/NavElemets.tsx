@@ -10,18 +10,23 @@ import { MdOutlineDashboard } from 'react-icons/md';
 import { RiTeamFill } from 'react-icons/ri';
 import { IconContext } from 'react-icons';
 import { GrTest } from 'react-icons/gr';
+import { useDarkMode } from '../../utils/hooks/useTheemeMode';
 
 interface NavElemetsProps {
 user:AppUser
+closeModal?: () => void
 }
 
-export const NavElemets = ({user}:NavElemetsProps) => {
+export const NavElemets = ({user,closeModal}:NavElemetsProps) => {
 
 const [isOpen, setIsOpen] = useState(false);
 const avatar = makeImageUrl('staff', user?.id as string, user?.avatar as string);
+const {modeIcon,theme,toggleTheme} = useDarkMode()
 return (
-    <div className='w-fit md:w-full mx-5 h-screen dark:text-white
-    flex flex-col items-center justify-center sticky '>
+    <div 
+    onClick={()=>closeModal?.()}
+    className='w-fit mx-5 h-screen dark:text-white
+    flex flex-col justify-start'>
 
 
         <ReactModalWrapper
@@ -42,13 +47,13 @@ return (
             }}
         />
 
-        <div className="h-full flex flex-col justify-center items-center gap-2
-          rounded-xl  font-bold dark:font-normal ">
+        <div className="h-[50%] flex flex-col justify-evenly items-center gap-2
+        rounded-xl  font-bold dark:font-normal ">
             <IconContext.Provider value={{
                 size: '1.5rem',
             }}>
-            <div className="w-full  h-full flex justify-center items-center
-         hover:text-blue-700">
+            <div className="w-full  flex justify-center items-center
+            hover:text-blue-700">
                     <Link 
                     className='w-fit h-fit flex items-center justify-center gap-2'
                     to="/"><FaTasks/>
@@ -56,7 +61,7 @@ return (
                     </Link>
             </div>
 
-            <div className="w-full  h-full flex justify-center items-center
+            <div className="w-full   flex justify-center items-center
          hover:text-blue-700">
             <Link 
             className='w-fit h-fit flex items-center justify-center gap-2'
@@ -66,7 +71,7 @@ return (
             </div>
 
 
-            <div className="w-full  h-full flex justify-center items-center
+            <div className="w-full  flex justify-center items-center
          hover:text-blue-700">
                 <Link 
                 className='w-fit h-fit flex items-center justify-center gap-2'
@@ -75,7 +80,7 @@ return (
                 </Link>
             </div>
 
-            <div className="w-full h-full flex justify-center items-center 
+            <div className="w-full  flex justify-center items-center 
       hover:text-rose-700">
             <Link 
             className='w-fit h-fit flex items-center justify-center gap-2'
@@ -92,8 +97,15 @@ return (
         </IconContext.Provider>
         </div>
 
-        <div className="w-fit h-full flex justify-end items-center">
+        <div className="h-[35%] w-fit  flex flex-col justify-end items-center">
 
+            <div className="w-fit h-full p-1 mx-5 flex justify-center items-center   ">
+                <TheIcon
+                    Icon={modeIcon}
+                    size={"30"}
+                    iconAction={toggleTheme}
+                />
+            </div>
             <div className="  rounded-md  flex justify-center items-center w-16 h-full  aspect-square">
                 {!avatar ? (
                     <TheIcon
@@ -107,7 +119,7 @@ return (
                     <img
                         src={avatar}
                         alt={""}
-                        className="rounded-full  h-[50px] hover:border-accent
+                        className="rounded-full  h-[40px] hover:border-accent
                         border-2 border-slate-900 dark:border-slate-100 aspect-square"
                         onClick={() => setIsOpen(true)}
                     />
@@ -117,3 +129,5 @@ return (
  </div>
 );
 }
+
+

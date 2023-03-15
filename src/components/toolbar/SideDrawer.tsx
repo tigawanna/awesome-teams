@@ -2,9 +2,6 @@ import React from 'react'
 import Modal from 'react-modal';
 import { AiOutlineClose } from 'react-icons/ai'
 import { IconContext } from "react-icons/lib";
-import { TheIcon } from '../../shared/wrappers/TheIcon';
-import { FaBars } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
 import { HeaderToggle } from '../index/HeaderToggle';
 import useBodyScrollLock from '../../utils/hooks/useScrollLock';
 
@@ -55,7 +52,6 @@ export const SideDrawer = ({
     };
 
 
-    useBodyScrollLock()
 
 return (
 
@@ -80,7 +76,7 @@ return (
             </div>
 
             <div onClick={(event) => event.stopPropagation()}
-                className="h-full w-[70%] md:w-[5%]
+                className="h-full w-[70%] md:w-[8%] bg-slate-200 dark:bg-slate-900
                 fixed left-0 right-auto top-[10%]  ">
                 {children}
             </div>
