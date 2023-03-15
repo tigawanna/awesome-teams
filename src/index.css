@@ -53,3 +53,9 @@ body::-webkit-scrollbar-thumb {
 .scroll-bar {
   @apply scrollbar-thin scrollbar-thumb-accent scrollbar-track-gray-100;
 }
+
+.border-shadow{
+  @apply border rounded-xl dark:border-0
+    shadow-md shadow-slate-400
+   dark:shadow-slate-500 dark:shadow-md
+}

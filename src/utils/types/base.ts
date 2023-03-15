@@ -1,6 +1,6 @@
 import { Admin } from "pocketbase";
 
-interface STAFF {
+export interface STAFF {
   id: string
   collectionId: string
   collectionName: string

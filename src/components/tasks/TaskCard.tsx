@@ -15,7 +15,7 @@ export const TaskCard = ({ task,page_idx }: TaskCardProps) => {
             to={{ pathname:`/${task.id}`,search:`?page_idx=${page_idx}`}}
             style={{ border: `1px solid ${statusColors[task.status]}` }}
             className='h-full p-2 rounded-lg w-[95%] md:w-[40%] gap-2 
-             flex flex-col flex-grow justify-center  '>
+             flex flex-col flex-grow justify-center  border-shadow'>
 
             <div className='h-full flex flex-col items-center justify-center  gap-2'>
                 <div className="w-full flex  gap-1 border-b p-1">

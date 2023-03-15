@@ -1,5 +1,5 @@
 import { MdCancel, MdDone } from "react-icons/md";
-import { TasksResponse, statusColors } from "../../utils/api/tasks";
+import { Staff, TasksResponse, statusColors } from "../../utils/api/tasks";
 import { AppUser } from "../../utils/types/base";
 
 interface CreatedStatusProps {
@@ -18,7 +18,7 @@ export const CreatedStatus = ({ task, is_last, toggleModal,user }: CreatedStatus
             <div className="flex flex-wrap items-center justify-center gap-2">
                 <button
                     className=' px-5 py-[1px] outline flex items-center justify-center rounded-lg border       
-                hover:border-green-500 hover:bg-green-900 hover:text-white'
+                        hover:border-green-500 hover:bg-green-900 hover:text-white'
                         >
                     <h1 className="text-lg">{"Approve" }</h1><MdDone />
                 </button>
@@ -29,6 +29,7 @@ export const CreatedStatus = ({ task, is_last, toggleModal,user }: CreatedStatus
                         <button
                             style={{ backgroundColor: !is_last ? "green" : "", color: !is_last ? "white" : "" }}
                             onClick={() => toggleModal(is_last, "rejected")}
+                            disabled={canChangeStatus("rejected", user?.type as string)}
                             className="px-5 py-1 flex items-center bg-red-700justify-center gap-2 border
                              rounded-xl hover:bg-red-600 hover:text-white">
                             <h1 className="text-lg">{"reject"}</h1>
@@ -44,6 +45,7 @@ export const CreatedStatus = ({ task, is_last, toggleModal,user }: CreatedStatus
     return (
         <div className="flex flex-col items-center justify-center">
         <button
+            disabled={canChangeStatus("completed", user?.type as string)}
             style={{ backgroundColor: !is_last ? "green" : "", color: !is_last ? "white" : "" }}
                 className=' px-5 py-[1px] outline flex items-center justify-center rounded-lg border       
                 hover:border-green-500 hover:bg-green-900 hover:text-white'>
@@ -72,7 +74,7 @@ return (
 <CreatedStatus task={task} is_last={false} toggleModal={toggleModal} user={user}/>
 <div className="flex flex-col items-center justify-center">
 <button  
-className='px-5 py-[2px] outline flex items-center justify-center rounded-lg text-white bg-green-700'>
+className='px-5 py-[2px] border flex items-center justify-center rounded-lg text-white bg-green-700'>
 <h1 className="text-lg">{"Approved"}</h1><MdDone />
 </button>
  <h3>by: {task.expand?.approved_by?.name}</h3>
@@ -81,6 +83,7 @@ className='px-5 py-[2px] outline flex items-center justify-center rounded-lg tex
     { is_last&&
             <div className="flex flex-col items-center justify-center">
             <button
+            disabled={canChangeStatus("funded", user?.type as string)}
             style={{ backgroundColor: !is_last ? "green" : "", color: !is_last ? "white" : "" }}
             onClick={() => toggleModal(is_last, "funded")}
             className=' px-5 py-[1px] outline flex items-center justify-center rounded-lg border       
@@ -112,7 +115,7 @@ export const FundedStatus = ({is_last, task, toggleModal,user }: FundedStatusBut
             <ApprovedStatus task={task} user={user} is_last={false} toggleModal={toggleModal}/>
             <div className="flex flex-col items-center justify-center">
             <button
-                    className='px-5 py-[2px] outline flex items-center justify-center rounded-lg text-white bg-green-700'>
+            className='px-5 py-[2px] border flex items-center justify-center rounded-lg text-white bg-green-700'>
             <h1 className="text-lg">{"Funded"}</h1><MdDone />
             </button>
             <h3>by: {task.expand?.funded_by?.name}</h3>
@@ -121,6 +124,7 @@ export const FundedStatus = ({is_last, task, toggleModal,user }: FundedStatusBut
             { is_last && 
             <div className="flex flex-col items-center justify-center">
             <button
+                disabled={canChangeStatus("in_progress", user?.type as string)}
                 style={{ backgroundColor: !is_last ? "green" : "", color: !is_last ? "white" : "" }}
                 onClick={() => toggleModal(is_last, "in_progress")}
                 className='px-5 py-[1px] outline flex items-center justify-center rounded-lg border       
@@ -153,7 +157,8 @@ export const InProgressStatus = ({ is_last, task, toggleModal,user }: InProgress
             <FundedStatus user={user} task={task} is_last={false} toggleModal={toggleModal} />
             <div className="flex flex-col items-center justify-center">
                 <button
-                    className={`px-5 py-[2px] outline flex items-center justify-center rounded-lg text-white bg-green-700`}>
+                     
+                    className={`px-5 py-[2px] border flex items-center justify-center rounded-lg text-white bg-green-700`}>
                     <h1 className="text-lg">{"In Progress"}</h1><MdDone />
                 </button>
                 <h3>by: {task.expand?.marked_in_progress_by?.name}</h3>
@@ -162,6 +167,7 @@ export const InProgressStatus = ({ is_last, task, toggleModal,user }: InProgress
             {is_last &&
             <div className="flex flex-col items-center justify-center"> 
             <button
+                disabled={canChangeStatus("completed", user?.type as string)}
                 style={{ backgroundColor: !is_last ? "green" : "", color: !is_last ? "white" : "" }}
                 onClick={() => toggleModal(is_last, "completed")}
                 className=' px-5 py-[1px] outline flex items-center justify-center rounded-lg border       
@@ -191,7 +197,7 @@ export const CompletedStatus = ({ task, toggleModal,user }: CompletedStatusButto
             <div className="flex flex-col items-center justify-center">
             <button
             style={{ border: `1px solid ${statusColors[task.status]}` }}
-            className={`px-5 py-[2px] outline flex items-center justify-center rounded-lg text-white bg-purple-700`}>
+            className={`px-5 py-[2px] border flex items-center justify-center rounded-lg text-white bg-purple-700`}>
             <h1 className="text-lg">{"Completed"}</h1><MdDone />
             </button>
             <h3>by: {task.expand?.marked_completed_by?.name}</h3>
@@ -211,6 +217,7 @@ export const RejectedStatus = ({ task}: RejectedStatusButtonsProps) => {
     
             <div className="flex flex-col items-center justify-center">
                 <button
+                    
                     style={{ border: `1px solid ${statusColors[task.status]}` }}
                     className={`px-5 py-[2px] outline flex items-center justify-center rounded-lg text-white bg-red-700`}>
                     <h1 className="text-lg">{"Rejected"}</h1><MdDone />
@@ -220,4 +227,18 @@ export const RejectedStatus = ({ task}: RejectedStatusButtonsProps) => {
 
         </div>
     );
+}
+
+
+function canChangeStatus(next_status: TasksResponse['status'],staff_type:Staff['type']){
+    if ((next_status === "approved" || next_status === "rejected") && staff_type==="manager"){
+        return true
+    }
+    if (next_status === "funded" && staff_type === "cashier") {
+        return true
+    }
+    if (next_status === "created" || next_status === "in_progress" || next_status === "completed"){
+        return true
+    }
+    return false
 }
