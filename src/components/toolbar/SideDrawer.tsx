@@ -6,6 +6,7 @@ import { TheIcon } from '../../shared/wrappers/TheIcon';
 import { FaBars } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { HeaderToggle } from '../index/HeaderToggle';
+import useBodyScrollLock from '../../utils/hooks/useScrollLock';
 
 interface SideDrawerProps {
 open: boolean;
@@ -54,7 +55,7 @@ export const SideDrawer = ({
     };
 
 
-
+    useBodyScrollLock()
 
 return (
 

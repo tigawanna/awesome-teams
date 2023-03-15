@@ -2,6 +2,7 @@ import React from 'react'
 import Modal from 'react-modal';
 import { AiOutlineClose } from 'react-icons/ai'
 import { IconContext } from "react-icons/lib";
+import useBodyScrollLock from '../../utils/hooks/useScrollLock';
 
 interface ReactModalWrapperProps {
     isOpen: boolean;
@@ -37,6 +38,7 @@ export const ReactModalWrapper = (
     }: ReactModalWrapperProps
 ) => {
     const { isMobile } = useCheckInMobile()
+    useBodyScrollLock()
     const adjustSize = (size: string, mobile_size: string) => {
         return isMobile ? mobile_size : size
     }
