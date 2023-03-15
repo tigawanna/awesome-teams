@@ -20,8 +20,8 @@ export const NavElemets = ({user}:NavElemetsProps) => {
 const [isOpen, setIsOpen] = useState(false);
 const avatar = makeImageUrl('staff', user?.id as string, user?.avatar as string);
 return (
-    <div className='w-full h-screen text-white
-    flex flex-col items-center justify-center '>
+    <div className='w-fit md:w-full mx-5 h-screen dark:text-white
+    flex flex-col items-center justify-center sticky '>
 
 
         <ReactModalWrapper
@@ -49,23 +49,39 @@ return (
             }}>
             <div className="w-full  h-full flex justify-center items-center
          hover:text-blue-700">
-                    <Link to="/"><FaTasks/></Link>
+                    <Link 
+                    className='w-fit h-fit flex items-center justify-center gap-2'
+                    to="/"><FaTasks/>
+                    <h3 className='text-sm font-normal'>Tasks</h3>
+                    </Link>
             </div>
 
             <div className="w-full  h-full flex justify-center items-center
          hover:text-blue-700">
-            <Link to="/staff"><RiTeamFill/></Link>
+            <Link 
+            className='w-fit h-fit flex items-center justify-center gap-2'
+            to="/staff"><RiTeamFill/>
+            <h3 className='text-sm font-normal'>Staff</h3>
+            </Link>
             </div>
 
 
             <div className="w-full  h-full flex justify-center items-center
          hover:text-blue-700">
-                <Link to="/portal"><MdOutlineDashboard/></Link>
+                <Link 
+                className='w-fit h-fit flex items-center justify-center gap-2'
+                to="/portal"><MdOutlineDashboard/>
+                        <h3 className='text-sm font-normal'>Portal</h3>
+                </Link>
             </div>
 
             <div className="w-full h-full flex justify-center items-center 
       hover:text-rose-700">
-            <Link to="/test"><GrTest/></Link>
+            <Link 
+            className='w-fit h-fit flex items-center justify-center gap-2'
+            to="/test"><GrTest/>
+            <h3 className='text-sm font-normal'>Test</h3>
+            </Link>
             </div>
 
 

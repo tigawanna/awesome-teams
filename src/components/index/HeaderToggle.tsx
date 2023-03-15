@@ -8,8 +8,8 @@ interface HeaderToggleProps {
 
 export const HeaderToggle = ({setOpen}:HeaderToggleProps) => {
 return (
-    <div className=" flex justify-start items-center fixed top-[1%] left-[2%] z-50 gap-3">
-        <TheIcon Icon={FaBars} iconAction={() => setOpen(prev=>!prev)} size='20px' />
+    <div className=" flex justify-start items-center fixed top-[2%] left-[2%] z-50 gap-3">
+        <TheIcon Icon={FaBars} iconAction={() => setOpen(prev=>!prev)} size='25px' />
         <Link to='/' className='text-xl font-bold'>AWESOME</Link>
     </div>
 );

@@ -38,7 +38,7 @@ export const SideDrawer = ({
         },
         content: {
             position: 'absolute',
-            minWidth: '200px',
+            minWidth: '100px',
             top:0,
             bottom:0,
             left:0,
@@ -48,8 +48,7 @@ export const SideDrawer = ({
             border:'',
             // borderRadius: styles?.content_border_radius ?? '5%',
             outline: 'none',
-            backgroundColor: '',
-            // backgroundColor: styles?.content_bg_color ?? "",
+           backgroundColor:'',
 
         }
     };
@@ -80,8 +79,8 @@ return (
             </div>
 
             <div onClick={(event) => event.stopPropagation()}
-                className="h-full w-[70%] md:w-[20%]
-                fixed left-0 right-auto top-[8%] ">
+                className="h-full w-[70%] md:w-[5%]
+                fixed left-0 right-auto top-[10%]  ">
                 {children}
             </div>
 

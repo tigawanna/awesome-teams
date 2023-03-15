@@ -35,7 +35,7 @@ return (
 
       
       <div
-      className="h-screen w-[7%] sticky top-[9%]
+      className="h-screen w-[5%] fixed top-[10%]
          bg-opacity-70 dark:bg-opacity-90  p-1 hidden md:block
         z-30"
       >
@@ -51,7 +51,7 @@ return (
      </SideDrawer>
 
 
-    <main className=" w-full min-h-screen z-20 h-full mt-[15%]  sm:mt-[10%] md:mt-[5%]">
+      <main className=" w-full min-h-screen z-20 h-full mt-[15%]  sm:mt-[10%] md:mt-[5%]">
         <Outlet />
        </main>
 
