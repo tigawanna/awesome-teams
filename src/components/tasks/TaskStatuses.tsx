@@ -17,15 +17,15 @@ interface TaskStatusesProps {
 
 export const TaskStatuses = ({ task, user, page_idx }: TaskStatusesProps) => {
     const [open, setOpen] = useState(false)
-    const [statusToUpdate, setStatusToupdate] = useState(task.status)
+    const [statusToUpdate, setStatusToupdate] = useState({next_status:task.status,message:"Accept action"})
 
-    function toggleModal(is_last: boolean, next_status: TasksResponse['status']) {
+    function toggleModal(is_last: boolean, next_status: TasksResponse['status'],message:string) {
      
         setStatusToupdate((prev) => {
-            return next_status
+            return { next_status,message }
         })
         if (is_last) {
-            setStatusToupdate(next_status)
+            setStatusToupdate({next_status, message })
             setOpen(prev => !prev)
         }
     }
@@ -56,13 +56,17 @@ export const TaskStatuses = ({ task, user, page_idx }: TaskStatusesProps) => {
 
 
 
+type NewStatus={
+    next_status: TasksResponse['status'];
+    message: string;
+}
 interface TaskUpdateStatusModalProps {
     open: boolean
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
     task: TasksResponse
     user: AppUser
     page_idx: number
-    new_status: TasksResponse['status']
+    new_status:NewStatus
 }
 
 export const TaskUpdateStatusModal = ({ open, setOpen, new_status, task, user, page_idx }: TaskUpdateStatusModalProps) => {
@@ -70,25 +74,25 @@ export const TaskUpdateStatusModal = ({ open, setOpen, new_status, task, user, p
     const [error, setError] = useState({ name: "", message: "" })
     // console.log("new status to update === ",new_status)
 
-    function newStatus(sts: TasksResponse['status'], task_type: TasksResponse['type']): TasksResponse {
-        console.log("new status checker  ==== ",sts,task.type)
+    function newStatus(new_sts:NewStatus, task_type: TasksResponse['type']): TasksResponse {
+        
         if (task_type === "repairs") {
-            if (sts === "approved") {
-                return { ...task, status: sts, approved_by: user?.id }
+            if (new_sts.next_status === "approved") {
+                return { ...task, status: new_sts.next_status, approved_by: user?.id }
             }
-            if (sts === "funded") {
-                return { ...task, status: sts, funded_by: user?.id }
+            if (new_sts.next_status === "funded") {
+                return { ...task, status: new_sts.next_status, funded_by: user?.id }
             }
-            if (sts === "in_progress") {
-                return { ...task, status: sts, marked_in_progress_by: user?.id }
+            if (new_sts.next_status === "in_progress") {
+                return { ...task, status: new_sts.next_status, marked_in_progress_by: user?.id }
             }
-            if (sts === "rejected") {
-                return { ...task, status: sts, rejected_by: user?.id }
+            if (new_sts.next_status === "rejected") {
+                return { ...task, status: new_sts.next_status, rejected_by: user?.id }
             }
         }
 
-        if (sts === "completed") {
-            return { ...task, status: sts, marked_completed_by: user?.id }
+        if (new_sts.next_status === "completed") {
+            return { ...task, status: new_sts.next_status, marked_completed_by: user?.id }
         }
         return task
     }
@@ -123,15 +127,20 @@ export const TaskUpdateStatusModal = ({ open, setOpen, new_status, task, user, p
         <ReactModalWrapper
             child={
                 <div className="w-full  h-full flex flex-col items-center justify-center ">
-
+               
                     <IconContext.Provider value={{ size: "40px" }}>
-                        <div className="w-full md:w-[40%] h-full md:h-[40%] flex flex-col items-center justify-center 
-        rounded-2xl shadow-xl bg-slate-500 bg-opacity-60">
+                        <div className="w-full md:w-[40%] h-full md:h-[40%] flex flex-col items-center justify-between 
+                         rounded-2xl shadow-xl bg-slate-500 bg-opacity-60">
+                            
+                            <h1 className="w-full p-2 font-bold text-3xl flex flex-col items-center justify-center">
+                                {new_status.message}
+                            </h1>
+
                             <div className="flex  items-center justify-center gap-5">
                                 <button
-                                    onClick={() => mutation.mutate(newStatus(new_status, task.type))}
-                                    className="px-6 py-1 text-2xl text-white font-bold rounded-full shadow-lg 
-                border-2 hover:border-green-600 hover:border-2 hover:text-green-300">
+                    onClick={() => mutation.mutate(newStatus(new_status, task.type))}
+                    className="px-6 py-1 text-2xl text-white  rounded-full shadow-lg 
+                        border-2 hover:bg-green-500 hover:text-white">
                                     Yes
                                 </button>
                                 <button

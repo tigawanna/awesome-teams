@@ -6,7 +6,7 @@ interface CreatedStatusProps {
     task: TasksResponse
     is_last: boolean
     user:AppUser
-    toggleModal(is_last: boolean, next_status: TasksResponse['status']): void
+    toggleModal(is_last: boolean, next_status: TasksResponse['status'],message:string): void
 }
 
 export const CreatedStatus = ({ task, is_last, toggleModal,user }: CreatedStatusProps) => {
@@ -16,62 +16,39 @@ export const CreatedStatus = ({ task, is_last, toggleModal,user }: CreatedStatus
     if (task.type === "repairs") {
         return (
             <div className="flex flex-wrap items-center justify-center gap-2">
-                <div className="flex flex-col items-center justify-center">
-                <button
-                    onClick={() => toggleModal(is_last, "approved")}
-                    style={{
-                            backgroundColor: !is_last ? "green" : "", color: !is_last ? "white" : "",
-                            filter: !canChangeStatus("rejected", user?.type as string) ? "brightness(0.5)" : ""
-                        }}
-                    disabled={!canChangeStatus("approved", user?.type as string)}
-                    className=' px-5 py-[1px] outline flex items-center justify-center rounded-lg border       
-                        hover:border-green-500 hover:bg-green-900 hover:text-white'>
-                    <h1 className="text-lg">{"Approve" }</h1><MdDone />
-                    </button>
-                  <h3 className="text-xs">
-                    {!canChangeStatus("approved", user?.type as string) ? "Manager only action" : user?.name}
-                  </h3>
-                </div>
+                <ActionButton
+                    is_last={is_last}
+                    next_state="approved"
+                    toggleModal={toggleModal}
+                    has_authority={"manager"}
+                    user={user}
+                />
+
 
                 {
                     is_last ?
-                        <div className="flex flex-col items-center justify-center">
-                        <button
-                            style={{ backgroundColor: !is_last ? "green" : "", color: !is_last ? "white" : "" ,
-                            filter: !canChangeStatus("rejected", user?.type as string) ? "brightness(0.5)" : "" 
-                        }}
-                            onClick={() => toggleModal(is_last, "rejected")}
-                            disabled={!canChangeStatus("rejected", user?.type as string)}
-                            className="px-5 py-1 flex items-center bg-red-700justify-center gap-2 border
-                             rounded-xl hover:bg-red-600 hover:text-white">
-                            <h1 className="text-lg">{"reject"}</h1>
-                            <MdCancel />
-                            </button> 
-                           
-                           <h3 className="text-xs">
-                            {!canChangeStatus("rejected", user?.type as string)?"Manager only action":user?.name}
-                           </h3>
+                        <ActionButton
+                            is_last={is_last}
+                            next_state="rejected"
+                            toggleModal={toggleModal}
+                            has_authority={"manager"}
+                            user={user}
+                        />
+                        
+    
 
-                          </div>
                             : null
                 }
             </div>
         )
     }
     return (
-        <div className="flex flex-col items-center justify-center">
-        <button
-            disabled={!canChangeStatus("completed", user?.type as string)}
-             style={{ backgroundColor: !is_last ? "green" : "", color: !is_last ? "white" : "" ,
-                filter: !canChangeStatus("completed", user?.type as string) ? "brightness(0.5)" : "" 
-                 }}
-                className=' px-5 py-[1px] outline flex items-center justify-center rounded-lg border       
-                hover:border-green-500 hover:bg-green-900 hover:text-white'>
-            <h1 className="text-lg">{"Mark Complete"}</h1>
-            <MdDone />
-         </button>
-        <h3>by: {user?.name}</h3>
-        </div>
+        <ActionButton
+            is_last={is_last}
+            next_state="completed"
+            toggleModal={toggleModal}
+            user={user}
+        />
     );
 }
 
@@ -80,7 +57,7 @@ interface ApprovedStatusButtonsProps {
     task: TasksResponse
     is_last: boolean
     user: AppUser
-    toggleModal(is_last: boolean, next_status: TasksResponse['status']): void
+    toggleModal(is_last: boolean, next_status: TasksResponse['status'], message: string): void
 }
 
 export const ApprovedStatus = ({is_last,task,toggleModal,user}:ApprovedStatusButtonsProps) => {
@@ -99,22 +76,14 @@ className='px-5 py-[2px] border flex items-center justify-center rounded-lg text
 </div>
 
     { is_last&&
-            <div className="flex flex-col items-center justify-center">
-            <button
-            disabled={!canChangeStatus("funded", user?.type as string)}
-            style={{ backgroundColor: !is_last ? "green" : "", color: !is_last ? "white" : "" ,
-                filter: !canChangeStatus("funded", user?.type as string) ? "brightness(0.5)" : "" 
-        }}
-            onClick={() => toggleModal(is_last, "funded")}
-            className=' px-5 py-[1px] outline flex items-center justify-center rounded-lg border       
-                hover:border-green-500 hover:bg-green-900 hover:text-white'>
-            <h1 className="text-lg">{"Fund"}</h1><MdDone />
-            </button>
-                <h3 className="text-xs">
-                    {!canChangeStatus("funded", user?.type as string) ? "Cashier only action" : user?.name}
-                </h3>
-            </div>
-        }
+            <ActionButton
+                is_last={is_last}
+                next_state="funded"
+                toggleModal={toggleModal}
+                has_authority={"cashier"}
+                user={user}
+            />
+            }
  
  </div>
 );
@@ -125,7 +94,7 @@ interface FundedStatusButtonsProps {
     task: TasksResponse
     is_last: boolean
     user: AppUser
-    toggleModal(is_last: boolean, next_status: TasksResponse['status']): void
+    toggleModal(is_last: boolean, next_status: TasksResponse['status'], message: string): void
 }
 
 export const FundedStatus = ({is_last, task, toggleModal,user }: FundedStatusButtonsProps) => {
@@ -144,20 +113,12 @@ export const FundedStatus = ({is_last, task, toggleModal,user }: FundedStatusBut
             </div>
 
             { is_last && 
-            <div className="flex flex-col items-center justify-center">
-            <button
-                disabled={!canChangeStatus("in_progress", user?.type as string)}
-                style={{ backgroundColor: !is_last ? "green" : "", color: !is_last ? "white" : "" ,
-                    filter: !canChangeStatus("in_progress", user?.type as string) ? "brightness(0.5)" : "" 
-            }}
-                onClick={() => toggleModal(is_last, "in_progress")}
-                className='px-5 py-[1px] outline flex items-center justify-center rounded-lg border       
-                hover:border-green-500 hover:bg-green-900 hover:text-white'>
-
-                <h1 className="text-lg">{"Mark In Progress" }</h1><MdDone />
-            </button>
-            <h3>by: {user?.name}</h3>
-            </div>
+                <ActionButton
+                    is_last={is_last}
+                    next_state="in_progress"
+                    toggleModal={toggleModal}
+                    user={user}
+                />
             }
 
         </div>
@@ -169,7 +130,7 @@ interface InProgressStatusButtonsProps {
     task: TasksResponse
     is_last: boolean
     user: AppUser
-    toggleModal(is_last: boolean, next_status: TasksResponse['status']): void
+    toggleModal(is_last: boolean, next_status: TasksResponse['status'], message: string): void
 }
 
 export const InProgressStatus = ({ is_last, task, toggleModal,user }: InProgressStatusButtonsProps) => {
@@ -189,22 +150,14 @@ export const InProgressStatus = ({ is_last, task, toggleModal,user }: InProgress
             </div>
 
             {is_last &&
-            <div className="flex flex-col items-center justify-center"> 
-            <button
-                disabled={!canChangeStatus("completed", user?.type as string)}
-                style={{ backgroundColor: !is_last ? "green" : "", color: !is_last ? "white" : "",
-                filter: !canChangeStatus("completed", user?.type as string) ? "brightness(0.5)" : "" 
-            }
-            }
-                onClick={() => toggleModal(is_last, "completed")}
-                className=' px-5 py-[1px] outline flex items-center justify-center rounded-lg border       
-                hover:border-green-500 hover:bg-green-900 hover:text-white'
-                >
+            <ActionButton
+    
+            is_last={is_last}
+            next_state="completed"
+            toggleModal={toggleModal}
+            user={user}
+            />
 
-                <h1 className="text-lg">{"Mark Completed"}</h1><MdDone />
-            </button>
-            <h3>by: {user?.name}</h3>
-            </div>
             }
 
         </div>
@@ -213,7 +166,7 @@ export const InProgressStatus = ({ is_last, task, toggleModal,user }: InProgress
 interface CompletedStatusButtonsProps {
     task: TasksResponse
     user: AppUser
-   toggleModal(is_last: boolean, next_status: TasksResponse['status']): void
+    toggleModal(is_last: boolean, next_status: TasksResponse['status'], message: string): void
 }
 
 export const CompletedStatus = ({ task, toggleModal,user }: CompletedStatusButtonsProps) => {
@@ -244,8 +197,7 @@ export const RejectedStatus = ({ task}: RejectedStatusButtonsProps) => {
     
             <div className="flex flex-col items-center justify-center">
                 <button
-                    
-                    style={{ border: `1px solid ${statusColors[task.status]}` }}
+                 style={{ border: `1px solid ${statusColors[task.status]}` }}
                     className={`px-5 py-[2px] outline flex items-center justify-center rounded-lg text-white bg-red-700`}>
                     <h1 className="text-lg">{"Rejected"}</h1><MdDone />
                 </button>
@@ -257,7 +209,52 @@ export const RejectedStatus = ({ task}: RejectedStatusButtonsProps) => {
 }
 
 
+interface ActionButtonProps {
+    next_state: TasksResponse['status']
+    has_authority?:Staff['type']
+    user: AppUser
+    is_last: boolean
+    toggleModal(is_last: boolean, next_status: TasksResponse['status'], message: string): void
+}
 
+
+type StatusMap = {
+    [key in TasksResponse['status']]:string 
+}
+
+export function ActionButton({is_last,toggleModal,user,next_state,has_authority}:ActionButtonProps){
+   
+    const statusMap:StatusMap={
+    "created":"Approve",
+    "approved":"Approve",
+    "funded":"Fund",
+    "in_progress": "Mark in progress",
+    "completed":"Mark Completed",
+    "rejected":"Reject"
+   } 
+
+
+return (
+    <div className="flex flex-col items-center justify-center">
+        <button
+            disabled={!canChangeStatus(next_state, user?.type as string)}
+            style={{
+                backgroundColor: !is_last ? "green" : "", color: !is_last ? "white" : "",
+                filter: !canChangeStatus(next_state, user?.type as string) ? "brightness(0.5)" : ""
+            }
+            }
+            onClick={() => toggleModal(is_last, next_state, statusMap[next_state])}
+            className=' px-5 py-[1px]  flex items-center justify-center rounded-lg border       
+                hover:border-green-500 hover:bg-green-600 hover:text-white '
+        >
+            <h1 className="text-lg">{statusMap[next_state]}</h1><MdDone />
+        </button>
+           <h3 className="text-xs">
+              {!canChangeStatus(next_state, user?.type as string) ? `${has_authority} only action` : user?.name}
+            </h3>
+    </div>
+);
+}
 
 function canChangeStatus(next_status: TasksResponse['status'],staff_type:Staff['type']){
     if ((next_status === "approved" || next_status === "rejected") && staff_type==="manager"){
