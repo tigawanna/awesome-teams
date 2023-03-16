@@ -80,3 +80,76 @@ export async function deleteStaff(id: string) {
         throw error
     }
 }
+
+
+export interface StaffLeaveResponse {
+    id: string
+    collectionId: string
+    collectionName: string
+    created: string
+    updated: string
+
+    leave_type: "sick" | "annual" | "maternity" | "other";
+    leave_reason: string
+    leave_start: string
+    leave_end: string
+    leave_requested_by: string
+    leave_approved_by: string
+
+    leave_request_status: "approved" | "rejected" | "pending";
+    remaining_leave_days: number
+    remaining_sick_leave_days: number
+
+    expand:StaffLeaveResponseExpand
+}
+
+interface StaffLeaveResponseExpand{
+    leave_approved_by:StaffLeaveResponse;
+    leave_requested_by:StaffLeaveResponse;
+}
+
+
+export interface StaffLeaveMutationFields {
+    leave_type: "sick" | "annual" | "maternity" | "other";
+    leave_reason: string
+    leave_start: string
+    leave_end: string
+    leave_requested_by: string
+    leave_approved_by: string
+
+    leave_request_status: "approved" | "rejected" | "pending";
+    remaining_leave_days: number
+    remaining_sick_leave_days: number
+}
+
+
+export async function makeStaffLeaveRequest(data: StaffLeaveMutationFields) {
+   try {
+    const record = await pb.collection('staff_details').create<StaffLeaveResponse>(data);
+     return record
+   } catch (error) {
+    throw error;
+   }
+}
+
+export async function getStaffLeaveRequest(data : StaffLeaveResponse) {
+    try {
+        const record = await pb.collection('staff_details').update<StaffLeaveResponse>(data.id, data);
+        return record
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function searchForRequestedStaffLeave(staff:StaffResponse) {
+    try {
+        const record = await pb.collection('staff_details')
+            .getFirstListItem<StaffLeaveResponse>(`leave_requested_by="${staff.id}"`, {
+                sort: '-created',
+                expand:'leave_approved_by,leave_requested_by'
+        });
+        return record
+    } catch (error) {
+        throw error;
+    }
+}
