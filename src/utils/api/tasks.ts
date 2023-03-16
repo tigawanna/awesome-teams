@@ -80,7 +80,7 @@ type TaskStatusColor = {
   [key in TasksResponse['status']]: string
 }
   export const statusColors:TaskStatusColor = {
-        "created": "#330c4a",
+    "created": "#9c54c7",
         "approved": "#FFC107",
         "funded": "#00BCD4",
         "in_progress": "#22fa0a",

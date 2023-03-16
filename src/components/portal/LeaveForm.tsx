@@ -63,11 +63,11 @@ const leave_type_options = [
 
 
 return (
- <div className='w-full h-full p-10 rounded-xl
+ <div className='w-full h-full md:p-10 rounded-xl
  flex items-center justify-center 
  bg-slate-300 dark:bg-slate-900 bg-opacity-60'>
     
-    <div className="w-[80%] md:w-[60%] h-full dark:text-white">
+    <div className="w-[100%] md:w-[60%] h-full dark:text-white">
     <form onSubmit={handleSubmit}
     className="w-full h-full flex flex-col items-center justify-center p-2 ">
     
@@ -79,12 +79,12 @@ return (
                     select_options={leave_type_options}
                 setInput={setInput}
              />
-            <div className="w-[80%] p-2 flex items-center justify-center">
+            <div className="w-[100%] p-2 flex items-center justify-center">
                 <FormInput
                     error={error}
                     handleChange={handleChange}
                     input={input}
-                    label="Leave staring date"
+                    label="from"
                     prop="leave_start"
                     type="date"
                     input_props={{
@@ -99,7 +99,7 @@ return (
                     error={error}
                     handleChange={handleChange}
                     input={input}
-                    label="Leave ending date"
+                    label="to"
                     prop="leave_end"
                     type="date"
                     input_props={{
