@@ -1,4 +1,5 @@
-import { PortalUser } from "../../components/portal/PortalUser";
+
+import PortalUser from "../../components/portal/PortalUser";
 import { AppUser } from "../../utils/types/base";
 
 interface PortalProps {

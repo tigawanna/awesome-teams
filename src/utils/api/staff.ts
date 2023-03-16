@@ -115,7 +115,7 @@ export interface StaffLeaveMutationFields {
     leave_start: string
     leave_end: string
     leave_requested_by: string
-    leave_approved_by: string
+    leave_approved_by?: string
 
     leave_request_status: "approved" | "rejected" | "pending";
     remaining_leave_days: number
@@ -123,7 +123,7 @@ export interface StaffLeaveMutationFields {
 }
 
 
-export async function makeStaffLeaveRequest(data: StaffLeaveMutationFields) {
+export async function addStaffLeaveRequest(data: StaffLeaveMutationFields) {
    try {
     const record = await pb.collection('staff_details').create<StaffLeaveResponse>(data);
      return record

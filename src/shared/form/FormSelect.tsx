@@ -12,7 +12,7 @@ interface FormSelectProps<T> {
 }
 
 
-type  SelectedOption = { value: string; label: string } | null;
+type  SelectOption = { value: string; label: string } | null;
 
 export const FormSelect = <T,>({ error,prop,input,label,setInput,select_options,styles}: FormSelectProps<T>) => {
     const isError = (err: typeof error, prop: keyof T) => {
@@ -22,7 +22,7 @@ export const FormSelect = <T,>({ error,prop,input,label,setInput,select_options,
         return false;
     };
     
-    const handleSelectChange = (e:SelectedOption)=>{
+    const handleSelectChange = (e:SelectOption)=>{
         if(e){
             setInput({...input,[prop]:e.value})
         }

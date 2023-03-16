@@ -80,7 +80,7 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
     const mutation = useMutation({
         mutationFn:(input:TaskMutationFields) => addTask(input),
         onError(error, variables, context) {
-            setError({ name: "", message:concatErrors(error)});
+            setError({ name: "main", message:concatErrors(error)});
         },
         onSuccess(data, variables, context) {
          queryClient.setQueryData<ListResult<TasksResponse> | undefined>(['tasks'], (oldData)=>{
