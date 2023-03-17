@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
 import { TasksResponse, statusColors } from "../../utils/api/tasks";
 import dayjs from "dayjs";
+import { TaskStatuses } from "./TaskStatuses";
+import { TaskDeadline } from "./TaskDeadline";
+import { AppUser } from "../../utils/types/base";
 
 interface TaskCardProps {
     task: TasksResponse
     page_idx:number
+    user:AppUser
 }
 
-export const TaskCard = ({ task,page_idx }: TaskCardProps) => {
+export const TaskCard = ({ task,page_idx,user }: TaskCardProps) => {
 
 
     return (
@@ -40,6 +44,8 @@ export const TaskCard = ({ task,page_idx }: TaskCardProps) => {
                 className={''}>
                 <p className=' px-1 rounded-xl font-bold font-mono '>{task.status}</p>
             </div>
+     
+            <TaskDeadline task={task} />
 
         </Link>
     );

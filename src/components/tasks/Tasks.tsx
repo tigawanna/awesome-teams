@@ -7,12 +7,13 @@ import { useDebouncedValue } from "../../utils/hooks/useDebouncedValue";
 import React from "react";
 import { LoadMoreButton } from "../../shared/extra/LoadMoreButton";
 import { SearchBox } from "../../shared/form/SearchBox";
+import { AppUser } from "../../utils/types/base";
 
 interface TasksProps {
-
+user:AppUser
 }
 
-export const Tasks = ({ }: TasksProps) => {
+export const Tasks = ({user}: TasksProps) => {
 
 const [keyword, setKeyword] = useState(" ");
     const value = useDebouncedValue(keyword, 2000);
@@ -51,7 +52,8 @@ const [keyword, setKeyword] = useState(" ");
                   
                            {
                                tasks && page.items.map((task) => {
-                                   return (<TaskCard key={task.id} task={task} page_idx={page_idx}/>)
+                                   return (<TaskCard key={task.id} task={task} 
+                                    page_idx={page_idx} user={user}/>)
                                })
                            }
                        </React.Fragment>

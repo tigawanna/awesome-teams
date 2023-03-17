@@ -6,6 +6,7 @@ import { QueryStateWrapper } from "../../shared/wrappers/QueryStateWrapper";
 import { TaskStatuses } from "./TaskStatuses";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { TaskDeadline } from "./TaskDeadline";
 dayjs.extend(relativeTime)
 
 interface OneTaskProps {
@@ -65,6 +66,7 @@ return (
                                 <h1 className='text-accent font-bold'>{task.type}</h1>
                             </div>
                          <h1 className='text-xs'>{dayjs(task.created).format('dddd DD-MMM-YYYY')}</h1>
+                         
                          <h1 className='text-xs'>{dayjs().to(dayjs(task.created))}</h1>
                         </div>
                         </div>
@@ -74,7 +76,7 @@ return (
         </div>
 
      <TaskStatuses task={task} user={user} page_idx={page_idx}/>
-
+    <TaskDeadline task={task}/>
     </div>
     </QueryStateWrapper>
 
