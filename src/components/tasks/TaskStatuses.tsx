@@ -7,6 +7,7 @@ import { IconContext } from "react-icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { concatErrors } from "../../utils/utils";
 import { ApprovedStatus, CompletedStatus, CreatedStatus, FundedStatus, InProgressStatus, RejectedStatus } from "./TaskStatusButtons";
+import { useStroreValues } from "../../utils/zustand/store";
 
 
 interface TaskStatusesProps {
@@ -71,6 +72,7 @@ interface TaskUpdateStatusModalProps {
 
 export const TaskUpdateStatusModal = ({ open, setOpen, new_status, task, user, page_idx }: TaskUpdateStatusModalProps) => {
     const queryClient = useQueryClient()
+    const store = useStroreValues()
     const [error, setError] = useState({ name: "", message: "" })
     // console.log("new status to update === ",new_status)
 
@@ -117,6 +119,7 @@ export const TaskUpdateStatusModal = ({ open, setOpen, new_status, task, user, p
                     return oldData
                 })
             //  close the modal
+            store.updateNotification({ type: "success", message:`Task status updated to ${data.status}` })
             setOpen(false)
         },
 

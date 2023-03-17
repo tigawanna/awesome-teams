@@ -40,7 +40,7 @@ export const useStroreValues = create<LocalState>()(
                             hasNotification: false
                         }
                     }));
-                }, 2000);
+                }, 5000);
             }
         },
 
