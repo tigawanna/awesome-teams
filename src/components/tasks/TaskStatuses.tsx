@@ -80,21 +80,21 @@ export const TaskUpdateStatusModal = ({ open, setOpen, new_status, task, user, p
         
         if (task_type === "repairs") {
             if (new_sts.next_status === "approved") {
-                return { ...task, status: new_sts.next_status, approved_by: user?.id }
+                return { ...task, status: new_sts.next_status, approved_by: user?.id,approved_on:new Date().toISOString()}
             }
             if (new_sts.next_status === "funded") {
-                return { ...task, status: new_sts.next_status, funded_by: user?.id }
+                return { ...task, status: new_sts.next_status, funded_by: user?.id,funded_on:new Date().toISOString()}
             }
             if (new_sts.next_status === "in_progress") {
-                return { ...task, status: new_sts.next_status, marked_in_progress_by: user?.id }
+                return { ...task, status: new_sts.next_status, marked_in_progress_by: user?.id,marked_in_progress_on:new Date().toISOString()}
             }
             if (new_sts.next_status === "rejected") {
-                return { ...task, status: new_sts.next_status, rejected_by: user?.id }
+                return { ...task, status: new_sts.next_status, rejected_by: user?.id, rejected_on: new Date().toISOString() }
             }
         }
 
         if (new_sts.next_status === "completed") {
-            return { ...task, status: new_sts.next_status, marked_completed_by: user?.id }
+            return { ...task, status: new_sts.next_status, marked_completed_by: user?.id,completed_on:new Date().toISOString()}
         }
         return task
     }

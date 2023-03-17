@@ -51,7 +51,9 @@ export interface TasksResponse {
 
   funded_on?: string
   funded_by?: string
-  
+  marked_in_progress_on?:string
+  rejected_on?:string
+
   
   completed_on?: string
   marked_completed_by?: string
