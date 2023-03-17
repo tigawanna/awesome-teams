@@ -73,6 +73,7 @@ className='px-5 py-[2px] border flex items-center justify-center rounded-lg text
 <h1 className="text-lg">{"Approved"}</h1><MdDone />
 </button>
  <h3>by: {task.expand?.approved_by?.name}</h3>
+<h3>on: {task.approved_on ?? "--:--:--"}</h3>
 </div>
 
     { is_last&&
@@ -110,6 +111,7 @@ export const FundedStatus = ({is_last, task, toggleModal,user }: FundedStatusBut
             <h1 className="text-lg">{"Funded"}</h1><MdDone />
             </button>
             <h3>by: {task.expand?.funded_by?.name}</h3>
+                <h3>on: {task.funded_on ?? "--:--:--"}</h3>
             </div>
 
             { is_last && 
@@ -147,6 +149,7 @@ export const InProgressStatus = ({ is_last, task, toggleModal,user }: InProgress
                     <h1 className="text-lg">{"In Progress"}</h1><MdDone />
                 </button>
                 <h3>by: {task.expand?.marked_in_progress_by?.name}</h3>
+                <h3>on: {task.marked_in_progress_on ?? "--:--:--"}</h3>
             </div>
 
             {is_last &&
@@ -181,6 +184,7 @@ export const CompletedStatus = ({ task, toggleModal,user }: CompletedStatusButto
             <h1 className="text-lg">{"Completed"}</h1><MdDone />
             </button>
             <h3>by: {task.expand?.marked_completed_by?.name}</h3>
+            <h3>on: {task.completed_on ?? "--:--:--"}</h3>
             </div>
 
         </div>
@@ -202,6 +206,7 @@ export const RejectedStatus = ({ task}: RejectedStatusButtonsProps) => {
                     <h1 className="text-lg">{"Rejected"}</h1><MdDone />
                 </button>
                 <h3>by: {task.expand?.marked_completed_by?.name}</h3>
+                <h3>on: {task.rejected_on??"--:--:--"}</h3>
             </div>
 
         </div>
@@ -247,7 +252,7 @@ return (
             className=' px-5 py-[1px]  flex items-center justify-center rounded-lg border       
                 hover:border-green-500 hover:bg-green-600 hover:text-white '
         >
-            <h1 className="text-lg">{statusMap[next_state]}</h1><MdDone />
+        <h1 className="text-lg">{statusMap[next_state]}</h1><MdDone />
         </button>
            <h3 className="text-xs">
               {!canChangeStatus(next_state, user?.type as string) ? `${has_authority} only action` : user?.name}
