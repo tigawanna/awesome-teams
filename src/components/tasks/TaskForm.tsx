@@ -10,6 +10,7 @@ import { AppUser } from "../../utils/types/base";
 import { PlainFormButton } from "../../shared/form/FormButton";
 import { concatErrors } from "../../utils/utils";
 import { ListResult } from "pocketbase";
+import { useStroreValues } from "../../utils/zustand/store";
 
 
 interface ToDoFormProps {
@@ -40,7 +41,9 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
     }
     const [input, setInput] = useState<TaskMutationFields>(default_tasks)
     const [error, setError] = useState({ name: "", message: "" })
-    const [taskType, setTaskType] = useState("todo")
+    const [taskType, setTaskType] = useState<TasksResponse['type']>("todo")
+    
+    const store = useStroreValues()
 
     const task_type_options = [
         { value: 'todo', label: 'ToDo' },
@@ -92,6 +95,7 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
           }
            return oldData
          })
+            store.updateNotification({ type: "success", message: "New tasks succesfully added" })
         },
     })
    
@@ -115,6 +119,7 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
                 focus:border-2 dark:focus:border-4 "
                 onChange={(e) => {
                     if (e) {
+                        // @ts-expect-error
                         setTaskType(e.value)
                     }
                 }}
@@ -193,14 +198,14 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
                 </div>
    
 
-                <FormInput
+    { taskType!=="repairs"&&<FormInput
                     error={error}
                     handleChange={handleChange}
                     input={input}
                     label="Google Doc Quotaion link"
                     prop="quotation"
                     type="url"
-                />
+                />}
       
 
                     <PlainFormButton

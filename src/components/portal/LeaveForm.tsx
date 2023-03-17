@@ -7,6 +7,8 @@ import { StaffLeaveMutationFields, StaffLeaveResponse, addStaffLeaveRequest } fr
 import { concatErrors } from "../../utils/utils";
 import { AppUser } from "../../utils/types/base";
 import { PlainFormButton } from "../../shared/form/FormButton";
+import { useStroreValues } from "../../utils/zustand/store";
+
 
 interface LeaveFormProps {
 user:AppUser
@@ -16,12 +18,13 @@ setOpen:React.Dispatch<React.SetStateAction<boolean>>
 export function LeaveForm({user,setOpen}:LeaveFormProps){
 
 
+
 function getDayString(days_later:number){
     const today = new Date();
     today.setDate(today.getDate() + days_later);
     return today.toISOString().split('T')[0];
 }
- 
+ const store = useStroreValues()
 
 const mutation = useMutation({
         mutationFn: (input:StaffLeaveMutationFields) => addStaffLeaveRequest(input),
@@ -29,36 +32,39 @@ const mutation = useMutation({
             setError({ name: "main", message: concatErrors(error) });
         },
         onSuccess(data, variables, context) {
+            store.updateNotification({type:"success",message:"leave request successfully sent"})
             setOpen(false)
         },
 })
 
-const {error,handleChange,input,setError,setInput,handleSubmit,success} = useCustomForm<StaffLeaveMutationFields,StaffLeaveResponse>({
-initialValues:{
-    // user defined
-    leave_type:"annual",
-    leave_reason:"attending to personal matter",
-    leave_start:getDayString(0),
-    leave_end:getDayString(3),
-    
-    // backend defined
-    
-    leave_request_status:"pending",
-    leave_requested_by:user?.id as string,
-    remaining_leave_days:7,
-    remaining_sick_leave_days:28
-  
-},mutation
-})
+    const { error, handleChange, input, setError, setInput, handleSubmit, success }
+        =
+        useCustomForm<StaffLeaveMutationFields, StaffLeaveResponse>({
+            initialValues: {
+                // user defined
+                leave_type: "annual",
+                leave_reason: "attending to personal matter",
+                leave_start: getDayString(0),
+                leave_end: getDayString(3),
+
+                // backend defined
+
+                leave_request_status: "pending",
+                leave_requested_by: user?.id as string,
+                remaining_leave_days: 7,
+                remaining_sick_leave_days: 28
+
+            },mutation
+     })
 
 
 
-const leave_type_options = [
+    const leave_type_options = [
     { value: 'annual', label: 'Annual' },
     { value: 'sick', label: 'Sick' },
     { value: 'maternity', label: 'Maternity' },
     { value: 'other', label: 'Other' },
-]
+    ]
 
 
 
@@ -129,9 +135,8 @@ return (
                 <div className="m-1 w-[90%] flex  flex-col items-center justify-center">
                     {error?.message !== "" ? (
                         <div
-                            className="m-1 w-full text-center  line-clamp-4 p-2 bg-red-100 border-2 
-                        border-red-800 text-red-900  rounded-xl"
-                        >
+                        className="m-1 w-full text-center  line-clamp-4 p-2 bg-red-100 border-2 
+                        border-red-800 text-red-900  rounded-xl">
                             {error.message}
                         </div>
                     ) : null}

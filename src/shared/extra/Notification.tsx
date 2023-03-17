@@ -8,6 +8,10 @@ interface NotificationProps {
 
 export const Notification = ({}:NotificationProps) => {
     const store = useStroreValues()
+    // const notty={
+    //     type:'success',
+    //     message:'leave request successfully sent'
+    // }
     const notification = store.localValues?.notifocation
 
  if (!store.localValues.hasNotification ){

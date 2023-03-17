@@ -1,15 +1,13 @@
-import { Link, Outlet,useLocation,useNavigation } from 'react-router-dom';
+import { Outlet,useLocation,useNavigation } from 'react-router-dom';
 import { Toolbar } from '../../components/toolbar/Toolbar';
 import { useAuthGuard } from './../../utils/hooks/useAuthGuard';
 import { AppUser } from '../../utils/types/base';
 import { ReactProgress } from '../../shared/loaders/ReactProgress';
-import { FaBars } from 'react-icons/fa';
-import { TheIcon } from '../../shared/wrappers/TheIcon';
 import { NavElemets } from '../../components/toolbar/NavElemets';
 import { useState } from 'react';
 import { SideDrawer } from '../../components/toolbar/SideDrawer';
 import { HeaderToggle } from '../../components/index/HeaderToggle';
-import useBodyScrollLock from '../../utils/hooks/useScrollLock';
+
 
 
 interface RootLayoutProps {
@@ -55,7 +53,7 @@ return (
 
       <main className=" w-full min-h-screen z-20 h-full mt-[15%] sm:ml-[8%] sm:mt-[10%] md:mt-[8%]">
         <Outlet />
-       </main>
+        </main>
 
     </div>
   );
