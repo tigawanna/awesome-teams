@@ -153,3 +153,16 @@ export async function searchForRequestedStaffLeave(staff:StaffResponse) {
         throw error;
     }
 }
+
+export async function getStaffLeaves(props:InjectedQueryFnProps,filter_params:string) {
+    try{
+        const resultList = await pb.collection('staff_details').getList<StaffLeaveResponse>(props.pageParam, 50, {
+            filter:filter_params,
+            sort: '-created',
+            expand: 'leave_approved_by,leave_requested_by'
+        });
+        return resultList
+    }catch(error){
+        throw error
+    }
+}

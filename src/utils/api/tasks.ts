@@ -1,4 +1,5 @@
 import { pb } from "../pb/config"
+import { InjectedQueryFnProps } from "./types"
 
 
 export interface Staff {
@@ -105,12 +106,7 @@ const record = await pb.collection('tasks').getFirstListItem<TasksResponse>(`id 
 }
 }
 
-type InjectedQueryFnProps={
-    queryKey: any[];
-    signal: AbortSignal;
-    pageParam: number;
-    meta: Record<string, unknown> | undefined;
-}
+
 
 export const getTasks = async(props:InjectedQueryFnProps,keyword?:string)=> {
   // console.log("keyworkd or something === ",props)
@@ -145,7 +141,7 @@ try {
 
 
 export const updatetask=async(data:TaskMutationFields)=>{
-  console.log("updatiing status to === ",data.status)
+  // console.log("updatiing status to === ",data.status)
 try {
   // @ts-expect-error
   const record = await pb.collection('tasks').update(data?.id, data,{

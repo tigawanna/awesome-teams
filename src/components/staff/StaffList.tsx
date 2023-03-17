@@ -16,7 +16,7 @@ export const StaffList = ({}:StaffListProps) => {
     const value = useDebouncedValue(keyword, 2000);
 
 
-    // const query = useQuery({ queryKey: ['staff', value], queryFn: () => getstaff(value),})
+
     const query = useInfiniteQuery({ 
         queryKey: ['staff', value],
         queryFn: (props) => getStaff(props,value),
