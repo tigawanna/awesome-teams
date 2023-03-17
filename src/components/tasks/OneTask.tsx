@@ -4,9 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 import { getOneTask, statusColors } from "../../utils/api/tasks";
 import { QueryStateWrapper } from "../../shared/wrappers/QueryStateWrapper";
 import { TaskStatuses } from "./TaskStatuses";
+import { TaskDeadline } from "./TaskDeadline";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { TaskDeadline } from "./TaskDeadline";
 dayjs.extend(relativeTime)
 
 interface OneTaskProps {

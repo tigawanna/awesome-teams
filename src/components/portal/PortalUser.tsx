@@ -3,6 +3,7 @@ import { ReactModalWrapper } from "../../shared/wrappers/ReactModalWrapper";
 import { makeImageUrl } from "../../utils/pb/config";
 import { AppUser } from "../../utils/types/base";
 import { LeaveForm } from "./LeaveForm";
+import { LeaveList } from "./LeaveList";
 
 interface PortalUserProps {
 user:AppUser
@@ -21,7 +22,7 @@ return (
 <div className='w-full flex flex-col items-center gap-2'>
 <div className='w-[90%] md:w-[80%]  flex flex-col md:flex-row gap-2'>
     
-    <div className="min-w-[30%]  w-full md:w-[50%]  h-fit  p-2 
+<div className="min-w-[30%]  w-full md:w-[50%]  h-fit  p-2 
     flex flex-col roundend-lg border-shadow
    items-center  justify-start gap-5">
             <img
@@ -39,6 +40,7 @@ return (
     </div>
 
     <div className="w-full h-fit p-2 flex flex-wrap items-center border-shadow">
+    <LeaveList user={user}/>
     <button
     onClick={()=>setOpen(true)}
     className="px-2 py-1 bg-purple-800 text-white rounded-md"
@@ -52,7 +54,7 @@ return (
 
 
 </div>
-        <ReactModalWrapper
+    <ReactModalWrapper
             child={
                 <div className='z-50'>
                     <LeaveForm user={user} setOpen={setOpen}/>

@@ -104,8 +104,8 @@ export interface StaffLeaveResponse {
 }
 
 interface StaffLeaveResponseExpand{
-    leave_approved_by:StaffLeaveResponse;
-    leave_requested_by:StaffLeaveResponse;
+    leave_approved_by:StaffResponse;
+    leave_requested_by:StaffResponse;
 }
 
 
