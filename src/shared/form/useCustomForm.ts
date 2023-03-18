@@ -17,9 +17,13 @@ This hook is used to create a custom form with initial values and a react query 
 interface UseCustomFormProps<T,R> {
     initialValues:T;
     mutation:UseMutationResult<R, Error,T, unknown>
+    inputValidation(inpt: T, setError: React.Dispatch<React.SetStateAction<{
+        name: string;
+        message: string;
+    }>>): boolean
 }
 
-export function useCustomForm<T,R>({initialValues,mutation}:UseCustomFormProps<T,R>){
+export function useCustomForm<T,R>({initialValues,mutation,inputValidation}:UseCustomFormProps<T,R>){
     const [input, setInput] = useState<T>(initialValues);
     const [error, setError] = useState({ name: "", message: "" })
     const [success, setSuccess] = useState<R|undefined>()
@@ -34,11 +38,14 @@ export function useCustomForm<T,R>({initialValues,mutation}:UseCustomFormProps<T
     };
     function handleSubmit(e: React.ChangeEvent<HTMLFormElement>){
         e.preventDefault();
-        mutation.mutate(input,{
-         onSuccess(data, variables, context) {
-            setSuccess(data)
-        },
-        });
+        if(inputValidation(input,setError)){
+             mutation.mutate(input, {
+                onSuccess(data, variables, context) {
+                    setSuccess(data)
+                },
+            });
+        }
+ 
      
     };
     return { handleChange,handleSubmit,input, error, setError, setInput,success };

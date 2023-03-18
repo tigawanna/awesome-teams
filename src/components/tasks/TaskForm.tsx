@@ -16,6 +16,7 @@ import { useStroreValues } from "../../utils/zustand/store";
 interface ToDoFormProps {
     updating?: boolean
     user: AppUser
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 // type TaskTypes = "todo" | "repairs" | "recurring" | "other"
 interface TaskStatus {
@@ -25,9 +26,10 @@ interface TaskStatus {
 interface TaskFrequencyTypes {
     value: TaskMutationFields['frequency'],
     label: string
+
 }
 
-export const TaskForm = ({ updating,user }: ToDoFormProps) => {
+export const TaskForm = ({ updating,user,setOpen }: ToDoFormProps) => {
     const queryClient = useQueryClient()
     const default_tasks: TaskMutationFields = {
         title: "",
@@ -82,27 +84,40 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
     
     const mutation = useMutation({
         mutationFn:(input:TaskMutationFields) => addTask(input),
+        meta: {
+        invalidates: ['tasks']
+        },
         onError(error, variables, context) {
             setError({ name: "main", message:concatErrors(error)});
         },
         onSuccess(data, variables, context) {
-         queryClient.setQueryData<ListResult<TasksResponse> | undefined>(['tasks'], (oldData)=>{
-            if(data.id && oldData){
-                return {
-                ...oldData,
-                items: [...oldData?.items,data]
-             }
-          }
-           return oldData
-         })
+        //   console.log("oldData === ",data)
+        //   console.log("context  ===  ",context)
+        //   console.log("varaibles === ",variables)
+
+        //  queryClient.setQueryData<ListResult<TasksResponse> | undefined>(['tasks'], (oldData)=>{
+        //     if(data.id && oldData){
+        //         return {
+        //         ...oldData,
+        //         items: [...oldData?.items,data]
+        //      }
+        //   }
+        //    return oldData
+        //  })
             store.updateNotification({ type: "success", message: "New tasks succesfully added" })
+            setOpen(false)
         },
     })
    
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         // console.log("about to save ",input)
-        mutation.mutate(input);
+        if(input.title === "" || input.description === ""){
+            setError({ name: "title", message: "Title and description are required" })
+        }
+        else{
+            mutation.mutate(input)
+        }   
     };
 
     return (
@@ -198,7 +213,7 @@ export const TaskForm = ({ updating,user }: ToDoFormProps) => {
                 </div>
    
 
-    { taskType!=="repairs"&&<FormInput
+            { taskType==="repairs"&&<FormInput
                     error={error}
                     handleChange={handleChange}
                     input={input}

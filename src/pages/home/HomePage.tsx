@@ -30,7 +30,7 @@ return (
                 <div
                     // onClick={(event) => event.stopPropagation()}
                     className='z-50'>
-                    <TaskForm user={user} />
+                    <TaskForm user={user} setOpen={setOpen}/>
                 </div>
             }
             closeModal={() => setOpen(false)}

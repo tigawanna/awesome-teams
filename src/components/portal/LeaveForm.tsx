@@ -17,14 +17,32 @@ setOpen:React.Dispatch<React.SetStateAction<boolean>>
 
 export function LeaveForm({user,setOpen}:LeaveFormProps){
 
-
+const store = useStroreValues()
 
 function getDayString(days_later:number){
     const today = new Date();
     today.setDate(today.getDate() + days_later);
     return today.toISOString().split('T')[0];
 }
- const store = useStroreValues()
+
+function inputValidation(inpt:StaffLeaveMutationFields,
+    setError:React.Dispatch<React.SetStateAction<{ name: string, message: string }>>){
+
+if(inpt.leave_start>inpt.leave_end){
+    setError({name:'',message:'Start date cannot be after end date'})
+    return true
+}
+if(inpt.leave_start>getDayString(0)){
+    setError({name:'',message:'Start date cannot be in the past'})
+    return  true
+}
+if(inpt.leave_end>getDayString(0)){
+ setError({name:'',message:'End date cannot be in the past'})
+}
+setError({name:'',message:''})
+return false
+
+}
 
 const mutation = useMutation({
         mutationFn: (input:StaffLeaveMutationFields) => addStaffLeaveRequest(input),
@@ -46,15 +64,15 @@ const mutation = useMutation({
                 leave_reason: "attending to personal matter",
                 leave_start: getDayString(0),
                 leave_end: getDayString(3),
-
                 // backend defined
-
                 leave_request_status: "pending",
                 leave_requested_by: user?.id as string,
                 remaining_leave_days: 7,
                 remaining_sick_leave_days: 28
 
-            },mutation
+            },
+            mutation,
+            inputValidation
      })
 
 

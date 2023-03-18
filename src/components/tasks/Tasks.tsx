@@ -16,7 +16,7 @@ user:AppUser
 export const Tasks = ({user}: TasksProps) => {
 
 const [keyword, setKeyword] = useState(" ");
-    const value = useDebouncedValue(keyword, 2000);
+const value = useDebouncedValue(keyword, 2000);
 
 
 // const query = useQuery({ queryKey: ['tasks', value], queryFn: () => getTasks(value),})

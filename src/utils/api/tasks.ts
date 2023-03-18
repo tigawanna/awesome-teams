@@ -128,10 +128,10 @@ try {
 
 export const addTask = async (data: TaskMutationFields) => {
 try {
-    const record = await pb.collection('tasks').create(data,{
+  const record = await pb.collection('tasks').create<TasksResponse>(data,{
         expand:'created_by,funded_by,marked_completed_by,approved_by'
     });
-    return record as unknown as TasksResponse;
+    return record;
 } catch (error) {
 
   console.log("error adding new task ===== ", error);
