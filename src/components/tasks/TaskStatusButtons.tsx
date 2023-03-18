@@ -1,6 +1,7 @@
-import { MdCancel, MdDone } from "react-icons/md";
+import { MdDone } from "react-icons/md";
 import { Staff, TasksResponse, statusColors } from "../../utils/api/tasks";
 import { AppUser } from "../../utils/types/base";
+import { DateOutput } from "../../shared/extra/DateOutput";
 
 interface CreatedStatusProps {
     task: TasksResponse
@@ -33,11 +34,7 @@ export const CreatedStatus = ({ task, is_last, toggleModal,user }: CreatedStatus
                             toggleModal={toggleModal}
                             has_authority={"manager"}
                             user={user}
-                        />
-                        
-    
-
-                            : null
+                        /> : null
                 }
             </div>
         )
@@ -72,8 +69,8 @@ return (
 className='px-5 py-[2px] border flex items-center justify-center rounded-lg text-white bg-green-700'>
 <h1 className="text-lg">{"Approved"}</h1><MdDone />
 </button>
- <h3>by: {task.expand?.approved_by?.name}</h3>
-<h3>on: {task.approved_on ?? "--:--:--"}</h3>
+<h3 className="text-xs">by: {task.expand?.approved_by?.name}</h3>
+<DateOutput the_date={task.approved_on} />
 </div>
 
     { is_last&&
@@ -110,8 +107,8 @@ export const FundedStatus = ({is_last, task, toggleModal,user }: FundedStatusBut
             className='px-5 py-[2px] border flex items-center justify-center rounded-lg text-white bg-green-700'>
             <h1 className="text-lg">{"Funded"}</h1><MdDone />
             </button>
-            <h3>by: {task.expand?.funded_by?.name}</h3>
-                <h3>on: {task.funded_on ?? "--:--:--"}</h3>
+            <h3 className="text-xs">by: {task.expand?.funded_by?.name}</h3>
+                <DateOutput the_date={task.funded_on} />
             </div>
 
             { is_last && 
@@ -148,8 +145,8 @@ export const InProgressStatus = ({ is_last, task, toggleModal,user }: InProgress
                     className={`px-5 py-[2px] border flex items-center justify-center rounded-lg text-white bg-green-700`}>
                     <h1 className="text-lg">{"In Progress"}</h1><MdDone />
                 </button>
-                <h3>by: {task.expand?.marked_in_progress_by?.name}</h3>
-                <h3>on: {task.marked_in_progress_on ?? "--:--:--"}</h3>
+                <h3 className="text-xs">by: {task.expand?.marked_in_progress_by?.name}</h3>
+                <DateOutput the_date={task.marked_in_progress_on} />
             </div>
 
             {is_last &&
@@ -183,8 +180,8 @@ export const CompletedStatus = ({ task, toggleModal,user }: CompletedStatusButto
             className={`px-5 py-[2px] border flex items-center justify-center rounded-lg text-white bg-purple-700`}>
             <h1 className="text-lg">{"Completed"}</h1><MdDone />
             </button>
-            <h3>by: {task.expand?.marked_completed_by?.name}</h3>
-            <h3>on: {task.completed_on ?? "--:--:--"}</h3>
+            <h3 className="text-xs">by: {task.expand?.marked_completed_by?.name}</h3>
+                <DateOutput the_date={task.completed_on} />
             </div>
 
         </div>
@@ -205,8 +202,8 @@ export const RejectedStatus = ({ task}: RejectedStatusButtonsProps) => {
                     className={`px-5 py-[2px] outline flex items-center justify-center rounded-lg text-white bg-red-700`}>
                     <h1 className="text-lg">{"Rejected"}</h1><MdDone />
                 </button>
-                <h3>by: {task.expand?.marked_completed_by?.name}</h3>
-                <h3>on: {task.rejected_on??"--:--:--"}</h3>
+                <h3 className="text-xs">by: {task.expand?.rejected_by?.name}</h3>
+                <DateOutput the_date={task.rejected_on} />
             </div>
 
         </div>

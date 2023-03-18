@@ -110,7 +110,7 @@ export const TaskUpdateStatusModal = ({ open, setOpen, new_status, task, user, p
         },
 
         onError(error, variables, context) {
-            setError({ name: "", message: concatErrors(error) });
+            setError({ name: "main", message: concatErrors(error) });
         },
         onSuccess(data, variables, context) {
             queryClient.setQueryData<TasksResponse | undefined>(['tasks', data.id],
@@ -132,7 +132,7 @@ export const TaskUpdateStatusModal = ({ open, setOpen, new_status, task, user, p
                 <div className="w-full  h-full flex flex-col items-center justify-center ">
                
                     <IconContext.Provider value={{ size: "40px" }}>
-                        <div className="w-full md:w-[40%] h-full md:h-[40%] flex flex-col items-center justify-between 
+                        <div className="w-full md:w-[40%] h-full md:h-[40%] flex flex-col items-center justify-evenly 
                          rounded-2xl shadow-xl bg-slate-500 bg-opacity-60">
                             
                             <h1 className="w-full p-2 font-bold text-3xl flex flex-col items-center justify-center">

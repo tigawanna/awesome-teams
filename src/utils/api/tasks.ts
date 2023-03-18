@@ -114,7 +114,7 @@ try {
     const res = await pb.collection('tasks').getList<TasksResponse>(props.pageParam, 10, {
       filter: `title  ~ "${keyword}"`,
       sort: '-created',
-      expand:'created_by,funded_by,marked_completed_by,approved_by'
+      expand:'created_by,funded_by,marked_completed_by,approved_by,marked_in_progress_by'
      
   })
   // console.log("keyword  ===== ",keyword)
@@ -145,9 +145,9 @@ export const updatetask=async(data:TaskMutationFields)=>{
 try {
   // @ts-expect-error
   const record = await pb.collection('tasks').update(data?.id, data,{
-        expand:'created_by,funded_by,marked_completed_by,approved_by'
+        expand:'created_by,funded_by,marked_completed_by,approved_by,marked_in_progress_by'
   });
-  // console.log("saved ====== ",record)
+  console.log(" record update response ====== ",record)
    return record as unknown as TasksResponse;
 } catch (error) {
     console.log("error adding new task ===== ", error);

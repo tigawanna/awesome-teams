@@ -17,11 +17,11 @@ export function LeaveList({user}:LeaveListProps){
     const value = useDebouncedValue(keyword, 2000);
 
 
-    const leave_filter = `leave_requested_by = "${user?.id}"`
+    // const leave_filter = `leave_requested_by = "${user?.id}"`
 
     const query = useInfiniteQuery({
         queryKey: ['staff', value],
-        queryFn: (props) => getStaffLeaves(props,leave_filter),
+        queryFn: (props) => getStaffLeaves(props,''),
         defaultPageParam: 1,
         getNextPageParam: (lastPage, pages) => {
             if (lastPage.totalPages > lastPage.page)

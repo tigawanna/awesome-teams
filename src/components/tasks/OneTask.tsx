@@ -7,6 +7,7 @@ import { TaskStatuses } from "./TaskStatuses";
 import { TaskDeadline } from "./TaskDeadline";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { DateOutput } from "../../shared/extra/DateOutput";
 dayjs.extend(relativeTime)
 
 interface OneTaskProps {
@@ -65,9 +66,9 @@ return (
                                 <h3 className='font-bold w-full '>{task?.status}</h3>
                                 <h1 className='text-accent font-bold'>{task.type}</h1>
                             </div>
-                         <h1 className='text-xs'>{dayjs(task.created).format('dddd DD-MMM-YYYY')}</h1>
-                         
-                         <h1 className='text-xs'>{dayjs().to(dayjs(task.created))}</h1>
+                         {/* <h1 className='text-xs'>{dayjs(task.created).format('dddd DD-MMM-YYYY')}</h1>
+                         <h1 className='text-xs'>{dayjs().to(dayjs(task.created))}</h1> */}
+                         <DateOutput the_date={task.created}/>
                         </div>
                         </div>
         
