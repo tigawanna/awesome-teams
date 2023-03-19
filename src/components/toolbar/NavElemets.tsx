@@ -25,7 +25,7 @@ const {modeIcon,theme,toggleTheme} = useDarkMode()
 return (
     <div 
     onClick={()=>closeModal?.()}
-    className='w-fit mx-5 h-screen dark:text-white
+    className='w-full mx-5 h-screen dark:text-white
     flex flex-col justify-start'>
 
 
@@ -41,7 +41,7 @@ return (
                 overlay_bottom: '0%',
                 content_bottom: '20%',
                 content_right: '0%',
-                content_left: '60%',
+                content_left: '0%',
                 content_top: '0%'
 
             }}

@@ -9,14 +9,14 @@ export function LoadMoreButton<T,>({query}:LoadMoreButtonProps<T>){
     return null
  }   
 if(query.isFetchingNextPage){
-    return <div className="w-full h-10 flex items-center justify-center">Loading more...</div>
+    return <div className="w-full h-10  flex items-center justify-center">Loading more...</div>
 }
 return (
 
     <div>
         {(!query.isPending && !query.isError ) &&
             <button
-                className="text-accent font-bold mb-2  rounded"
+                className="text-accent font-bold m-3  rounded"
                 onClick={() => query.fetchNextPage()}
                 disabled={!query.hasNextPage || query.isFetchingNextPage}
             >

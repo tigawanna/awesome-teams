@@ -30,13 +30,15 @@ export function LeaveList({user}:LeaveListProps){
         },
     })
 const staff_leaves = query.data
+    console.log("staff leaves  ==== ",staff_leaves?.pages)
+
 return (
  <div className='w-full h-full flex items-center justify-center'>
 
         <div className='w-full flex flex-wrap items-start justify-center gap-2 m-5 mt-14 '>
             <QueryStateWrapper query={query}>
                 {staff_leaves?.pages.map((page, page_idx) => {
-
+       
                     return (
                         <React.Fragment key={page_idx}>
                             {

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { TheIcon } from './../../shared/wrappers/TheIcon';
 import { AppUser } from '../../utils/types/base';
 import { makeImageUrl, pb } from '../../utils/pb/config';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface ProfileMenuProps {
 user?:AppUser
@@ -14,6 +15,7 @@ setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 
 export const ProfileMenu = ({user,setIsOpen}: ProfileMenuProps) => {
 
+    const queryClient = useQueryClient();
 const theme = useTheme();
     const nextTheme = theme.theme === "dark" ? "light" : "dark";
     const mode = theme.theme === "dark" ? BsSunFill : BsFillMoonFill;
@@ -21,7 +23,7 @@ const theme = useTheme();
     const logout = () => {
         pb.authStore.clear();
         localStorage.removeItem('provider')
-        // queryClient.invalidateQueries(["user"]);
+        queryClient.invalidateQueries({queryKey:["user"]});
         setIsOpen(prev => !prev)
     };
 

@@ -37,7 +37,7 @@ export const TaskCard = ({ task,page_idx,user }: TaskCardProps) => {
                     <h1 className='px-1 text-xs'>{dayjs(task.created).format('dddd DD-MMM-YYYY')}</h1>
                     </div>
                 </div>
-                <p className='text-sm line-clamp-4 p-1'>{task.description}</p>
+                <p className='w-[96%] text-sm line-clamp-4 p-1 '>{task.description}</p>
             </div>
             <div
                 style={{ color: statusColors[task.status] }}

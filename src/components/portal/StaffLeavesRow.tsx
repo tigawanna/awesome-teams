@@ -11,11 +11,12 @@ interface StaffLeavesRowProps {
 }
 
 export function StaffLeavesRow({leave,page_idx,user}:StaffLeavesRowProps){
+    console.log("levaes === ",leave)
 return (
  <div 
   className = {
-                user?.id === leave.leave_requested_by ?
-                    `w-full h-full text-lg
+         user?.id === leave.leave_requested_by ?
+         `w-full h-full text-lg
                     flex items-center justify-center border border-purple-500 bg-purple-900 
                     shadow-md shadow-purple-700`
                     :
