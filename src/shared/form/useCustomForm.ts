@@ -39,7 +39,7 @@ export function useCustomForm<T,R>({initialValues,mutation,inputValidation}:UseC
     function handleSubmit(e: React.ChangeEvent<HTMLFormElement>){
         e.preventDefault();
         if(inputValidation(input,setError)){
-             mutation.mutate(input, {
+          mutation.mutate(input, {
                 onSuccess(data, variables, context) {
                     setSuccess(data)
                 },

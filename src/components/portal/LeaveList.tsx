@@ -1,4 +1,4 @@
-import { useDebouncedValue } from "@mantine/hooks";
+
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { getStaffLeaves } from "../../utils/api/staff";
@@ -7,20 +7,21 @@ import { QueryStateWrapper } from "../../shared/wrappers/QueryStateWrapper";
 import React from "react";
 import { StaffLeavesRow } from "./StaffLeavesRow";
 import { LoadMoreButton } from "../../shared/extra/LoadMoreButton";
+import { useDebouncedValue } from "../../utils/hooks/useDebouncedValue";
 
 interface LeaveListProps {
 user:AppUser
 }
 
 export function LeaveList({user}:LeaveListProps){
-    const [keyword, setKeyword] = useState("");
+    const [keyword, setKeyword] = useState(" ");
     const value = useDebouncedValue(keyword, 2000);
 
 
     // const leave_filter = `leave_requested_by = "${user?.id}"`
 
     const query = useInfiniteQuery({
-        queryKey: ['staff', value],
+        queryKey: ['staff_leaves', value],
         queryFn: (props) => getStaffLeaves(props,''),
         defaultPageParam: 1,
         getNextPageParam: (lastPage, pages) => {
@@ -41,7 +42,7 @@ return (
                             {
                                 staff_leaves && page.items.map((leave) => {
                                     return (
-                                        <StaffLeavesRow key={leave.id} leave={leave} page_idx={page_idx} />
+                                        <StaffLeavesRow key={leave.id} leave={leave} page_idx={page_idx} user={user} />
                                     )
                                 })
                             }

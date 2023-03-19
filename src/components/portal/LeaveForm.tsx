@@ -30,27 +30,31 @@ function inputValidation(inpt:StaffLeaveMutationFields,
 
 if(inpt.leave_start>inpt.leave_end){
     setError({name:'',message:'Start date cannot be after end date'})
-    return true
-}
-if(inpt.leave_start>getDayString(0)){
+    return false
+    }
+if(inpt.leave_start<getDayString(0)){
     setError({name:'',message:'Start date cannot be in the past'})
-    return  true
+    return  false
 }
-if(inpt.leave_end>getDayString(0)){
- setError({name:'',message:'End date cannot be in the past'})
+if(inpt.leave_end<getDayString(0)){
+    setError({name:'',message:'End date cannot be in the past'})
+    return false
 }
 setError({name:'',message:''})
-return false
+return true
 
 }
 
 const mutation = useMutation({
         mutationFn: (input:StaffLeaveMutationFields) => addStaffLeaveRequest(input),
+        meta: {
+            invalidates: ['staff_leaves',' ']
+       },
         onError(error, variables, context) {
             setError({ name: "main", message: concatErrors(error) });
         },
         onSuccess(data, variables, context) {
-            store.updateNotification({type:"success",message:"leave request successfully sent"})
+        store.updateNotification({type:"success",message:"leave request successfully sent"})
             setOpen(false)
         },
 })
