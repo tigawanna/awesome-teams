@@ -11,6 +11,9 @@ import { RiTeamFill } from 'react-icons/ri';
 import { IconContext } from 'react-icons';
 import { GrTest } from 'react-icons/gr';
 import { useDarkMode } from '../../utils/hooks/useTheemeMode';
+import { useDisclosure } from '@mantine/hooks';
+
+
 
 interface NavElemetsProps {
 user:AppUser
@@ -22,18 +25,21 @@ export const NavElemets = ({user,closeModal}:NavElemetsProps) => {
 const [isOpen, setIsOpen] = useState(false);
 const avatar = makeImageUrl('staff', user?.id as string, user?.avatar as string);
 const {modeIcon,theme,toggleTheme} = useDarkMode()
+
 return (
-    <div 
-    onClick={()=>closeModal?.()}
-    className='w-full mx-5 h-screen dark:text-white
+    <div className='w-full mx-5 h-screen dark:text-white
     flex flex-col justify-start'>
 
+        {/* <Modal opened={opened} onClose={close} title="Authentication">
+            <ProfileMenu user={user} setIsOpen={setIsOpen} />
+        </Modal> */}
 
         <ReactModalWrapper
             child={
             <ProfileMenu user={user} setIsOpen={setIsOpen} />}
             closeModal={() => setIsOpen(false)}
             isOpen={isOpen}
+
             styles={{
                 overlay_top: '0%',
                 overlay_right: '0%',
@@ -41,20 +47,25 @@ return (
                 overlay_bottom: '0%',
                 content_bottom: '20%',
                 content_right: '0%',
-                content_left: '0%',
-                content_top: '0%'
+                content_left: '50%',
+                content_top: '0%',
+                
+            
 
             }}
         />
 
-        <div className="h-[50%] flex flex-col justify-evenly items-center gap-2
+        <div 
+        onClick={() => closeModal?.()} 
+        className="h-[50%] flex flex-col justify-evenly items-center gap-2
         rounded-xl  font-bold dark:font-normal ">
             <IconContext.Provider value={{
                 size: '1.5rem',
             }}>
             <div className="w-full  flex justify-center items-center
             hover:text-blue-700">
-                    <Link 
+                    <Link
+                  
                     className='w-fit h-fit flex items-center justify-center gap-2'
                     to="/"><FaTasks/>
                     <h3 className='text-sm font-normal'>Tasks</h3>

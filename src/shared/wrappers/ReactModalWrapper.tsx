@@ -39,6 +39,7 @@ export const ReactModalWrapper = (
 ) => {
     const { isMobile } = useCheckInMobile()
     useBodyScrollLock(isOpen)
+    
     const adjustSize = (size: string, mobile_size: string) => {
         return isMobile ? mobile_size : size
     }
@@ -95,7 +96,7 @@ export const ReactModalWrapper = (
             </div>
 
             <div 
-                onClick={(event) => event.stopPropagation()}
+            onClick={(event) => event.stopPropagation()}
             className="h-full w-full overflow-auto scroll-bar">
                 {/* @ts-expect-error */}
                 {React.isValidElement(child) ? React.cloneElement(child, { deps}) : child}
