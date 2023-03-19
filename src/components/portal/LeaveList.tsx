@@ -30,7 +30,7 @@ export function LeaveList({user}:LeaveListProps){
         },
     })
 const staff_leaves = query.data
-    console.log("staff leaves  ==== ",staff_leaves?.pages)
+
 
 return (
  <div className='w-full h-full flex items-center justify-center'>

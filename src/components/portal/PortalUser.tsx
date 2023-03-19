@@ -45,11 +45,8 @@ return (
     </div>
 
     <div className="w-full h-fit p-2 flex flex-wrap items-center border-shadow">
-    <LeaveList user={user}/>
-
-
-
-   </div>
+        <LeaveList user={user}/>
+    </div>
 
 </div>
 

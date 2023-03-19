@@ -1,0 +1,23 @@
+.normal-tile{
+    background-color: brown;
+    color: white;
+    border-radius: 10px;
+}
+.selected-tile{
+ background-color: purple;
+ color: white;
+
+}
+.min-date-tile{
+     background-color: rgb(63, 7, 63);
+      color: white;
+}
+
+.max-date-tile{
+     background-color: rgb(90, 5, 90);
+      color: white;
+}
+.current-date-tile{
+    border: 2px green solid;
+    background-color: chartreuse;
+}
