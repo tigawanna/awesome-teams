@@ -30,9 +30,7 @@ return (
     <div className='w-full mx-5 h-screen dark:text-white
     flex flex-col justify-start'>
 
-        {/* <Modal opened={opened} onClose={close} title="Authentication">
-            <ProfileMenu user={user} setIsOpen={setIsOpen} />
-        </Modal> */}
+
 
         <ReactModalWrapper
             child={
