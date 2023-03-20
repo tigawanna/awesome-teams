@@ -10,6 +10,8 @@ import { PlainFormButton } from "../../shared/form/FormButton";
 import { useStroreValues } from "../../utils/zustand/store";
 import { useState } from "react";
 import { LeaveCalender } from "./LeaveCalender";
+import { useDateRange } from "./useDateRange";
+import { useDateRanges } from "./useDateRanges";
 
 
 
@@ -50,10 +52,6 @@ return true
 
 }
 
-
-
-
-
 const mutation = useMutation({
         mutationFn: (input:StaffLeaveMutationFields) => addStaffLeaveRequest(input),
         meta: {
@@ -68,9 +66,9 @@ const mutation = useMutation({
         },
 })
 
-    const { error, handleChange, input, setError, setInput, handleSubmit, success }
-        =
-        useCustomForm<StaffLeaveMutationFields, StaffLeaveResponse>({
+const { error, handleChange, input, setError, setInput, handleSubmit, success }
+=  
+useCustomForm<StaffLeaveMutationFields, StaffLeaveResponse>({
             initialValues: {
                 // user defined
                 leave_type: "annual",
@@ -86,36 +84,32 @@ const mutation = useMutation({
             },
             mutation,
             inputValidation
-     })
+})
     
     
-const filter_params= ``
+    const filter_params= ``
     const query = useQuery({
         queryKey: ['staff_leaves',filter_params],
         queryFn: () => getStaffLeavesFullList(filter_params),
     })
 
-//  console.log("query",query.data)
+
 
  const taken_leave_ranges=query.data?.map((leave:StaffLeaveResponse)=>{
-    // if(leave.leave_approved_by!==""&&leave.leave_approved_on!=""){
-    //     return [leave.leave_start,leave.leave_end]
-    // }
-     return [leave.leave_start, leave.leave_end]
-   
+//if(leave.leave_approved_on !=="" && leave.leave_approved_by!="")
+   return [leave.leave_start, leave.leave_end]
  })
  
 
-//  console.log("taken_leave_ranges",taken_leave_ranges)
-
-    const leave_type_options = [
+const leave_type_options = [
     { value: 'annual', label: 'Annual' },
     { value: 'sick', label: 'Sick' },
     { value: 'maternity', label: 'Maternity' },
     { value: 'other', label: 'Other' },
     ]
-const [date, setDate] = useState(new Date());
+const {date, setDate} = useDateRange(setInput)
 
+const rngs = useDateRanges({input,setInput})
 
 
 
@@ -143,6 +137,7 @@ return (
                     taken_leave_ranges={taken_leave_ranges}
                     date={date}
                     setDate={setDate}
+                    rngs={rngs}
          
                 />
 

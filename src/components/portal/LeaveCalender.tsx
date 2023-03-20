@@ -9,10 +9,15 @@ maxDate:Date
 taken_leave_ranges: string[][] | undefined
 date:Date
 setDate: React.Dispatch<React.SetStateAction<Date>>
+rngs: {
+    dateRange: Date[];
+    setDateRange: React.Dispatch<React.SetStateAction<Date[]>>;
+    updateDateRange: (ranges: Date[]) => void;
+}
 
 }
 
-export function LeaveCalender({minDate,maxDate,taken_leave_ranges,date,setDate}:LeaveCalenderProps){
+export function LeaveCalender({minDate,maxDate,taken_leave_ranges,date,setDate,rngs}:LeaveCalenderProps){
 
     const dateRange = getDateRange(minDate,maxDate);
 
@@ -51,8 +56,8 @@ console.log("date",date)
 return (
     <div className='w-full h-full flex dark:text-black  flex-col items-center justify-center gap-1'>
         <Calendar
-            value={date}
-            onChange={setDate}
+            value={rngs.dateRange as [Date | null, Date | null]}
+            onChange={rngs.updateDateRange}
             selectRange={true}
       
             // minDate={minDate}
