@@ -98,6 +98,9 @@ export interface StaffLeaveResponse {
     leave_approved_by: string
     leave_approved_on?: string
 
+    leave_rejected_on?: string
+    leave_rejected_by?: string
+
 
     leave_request_status: "approved" | "rejected" | "pending";
     remaining_leave_days: number
@@ -120,6 +123,8 @@ export interface StaffLeaveMutationFields {
     leave_requested_by: string
     leave_approved_by?: string
     leave_approved_on?:string
+    leave_rejected_on?:string
+    leave_rejected_by?:string
 
 
     leave_request_status: "approved" | "rejected" | "pending";
@@ -185,30 +190,15 @@ export async function getStaffLeavesFullList(filter_params:string) {
     }
 }
 
-export async function getStaffLeaveByMonth(leave_start:string) {
-    // const thisMonth = new Date().getMonth() + 2;
-    // const the_month_date = new Date();
-    // the_month_date.setMonth(month_num);
-    // console.log("the_month_date === ", the_month_date.toISOString())
-    console.log("leave starts ==== ",leave_start)
-    const url  = new URL(pb_url+'/custom_leaves');
-    url.searchParams.append('date',leave_start);
- 
-
-    try {
-    const result = await fetch(url.toString())
- 
-    const res = await result.json() as StaffLeaveResponse[]
-    const leavesSet = new Set<string>();
-        res.forEach(element=> {
-        if(element.leave_approved_on){
-            leavesSet.add(element.leave_approved_on) 
-        }
+export async function approveLeave(leave_request:StaffLeaveResponse){
+try{
+    const record = await pb.collection('staff_details').update<StaffLeaveResponse>(leave_request.id,leave_request,{
+        sort: '-created',
+        expand:'leave_approved_by,leave_requested_by'
     })
-console.log("leavesSet === ",leavesSet)
- const sorted_arr = Array.from(leavesSet).sort((a,b)=>(new Date(a)).getTime()- (new Date(b)).getTime())
- return sorted_arr[sorted_arr.length-1]
-    } catch (error) {
-        throw error;
-    }
+    return record
+}
+catch(error){
+throw error
+}
 }

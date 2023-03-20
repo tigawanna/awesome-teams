@@ -1,4 +1,4 @@
-import { StaffLeaveResponse } from "../../utils/api/staff";
+import { approveLeave, StaffLeaveResponse } from "../../utils/api/staff";
 
 
 import dayjs from "dayjs";
@@ -6,6 +6,12 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { AppUser } from "../../utils/types/base";
 
 import { ReactCalender } from "../../shared/extra/ReactCalender";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { concatErrors } from "../../utils/utils";
+import { useStroreValues } from "../../utils/zustand/store";
+import { ReactModalWrapper } from "../../shared/wrappers/ReactModalWrapper";
+import { ConsentModal } from "./ConsentModal";
 dayjs.extend(relativeTime)
 
 interface StaffLeavesRowProps {
@@ -14,8 +20,20 @@ interface StaffLeavesRowProps {
     user:AppUser
 }
 
-export function StaffLeavesRow({leave,page_idx,user}:StaffLeavesRowProps){
-    
+export function StaffLeavesRow({leave,user}:StaffLeavesRowProps){
+ const [error,setError] = useState<{name:string,message:string}>({name:'',message:''})
+const [open,setOpen] = useState(false)
+ const store = useStroreValues()
+
+const mutation = useMutation({
+    mutationFn: (input:StaffLeaveResponse) => approveLeave(input),
+    onSuccess: (data, variables, context) => {
+        store.updateNotification({type:"success",message:"leave request successfully approved"})
+    },
+    onError(error, variables, context) {
+        setError({ name: "main", message: concatErrors(error) });
+    }
+})
 
 return (
  <div 
@@ -57,12 +75,47 @@ return (
                 <h1 className='text-xs'>{dayjs().to(dayjs(leave.leave_end))}</h1>
          </div>
 
-         <div className="w-full  dark:text-black flex items-center justify-center gap-1 p-1 rounded-lg">
-            <ReactCalender 
+         <div className="w-full  dark:text-black flex flex-col items-center justify-center gap-1 p-1 rounded-lg">
+          <ReactCalender 
             minDate={new Date(leave.leave_start)}
             maxDate={new Date(leave.leave_end)}
             />
+                <button
+                    onClick={() => setOpen(true)}
+                    className="w-fit px-5 py-2 bg-accent rounded-lg text-lg">
+                    aprrove/reject
+                </button>
         </div>
+
+<ConsentModal
+error={error}
+handleAccept={() => {
+    if(user && user.type ==="manager"){
+    mutation.mutate({...leave,leave_request_status:'approved',
+        leave_approved_by:user.id,leave_approved_on:new Date().toISOString()})
+    setOpen(false)
+    }
+    else{
+        setError({name:"main",message:"Mangers only can approve/reject leaves"})
+        setOpen(false)
+    }
+}}
+handleReject={() => {
+    if (user && user.type === "manager") {
+        mutation.mutate({ ...leave,leave_request_status:"rejected",
+            leave_rejected_by:user.id,leave_rejected_on: new Date().toISOString() })
+        setOpen(false)
+    }
+    else {
+        setError({ name: "main", message: "Mangers only can approve/reject leaves" })
+        setOpen(false)
+    }
+}}
+open={open}
+prompt={`Are you sure you want to approve ${leave.leave_type} leave request from ${leave.expand.leave_requested_by.name}?`}
+setOpen={setOpen}
+
+/>
  
     
     </div>
