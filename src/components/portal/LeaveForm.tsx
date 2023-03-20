@@ -3,14 +3,13 @@ import { FormInput } from "../../shared/form/FormInput";
 import { FormSelect } from "../../shared/form/FormSelect";
 import { FormTextArea } from "../../shared/form/FormTextArea";
 import { useCustomForm } from "../../shared/form/useCustomForm";
-import { StaffLeaveMutationFields, StaffLeaveResponse, addStaffLeaveRequest, getStaffLeaves, getStaffLeaveByMonth, getStaffLeavesFullList } from "../../utils/api/staff";
+import { StaffLeaveMutationFields, StaffLeaveResponse, addStaffLeaveRequest, getStaffLeavesFullList } from "../../utils/api/staff";
 import { concatErrors } from "../../utils/utils";
 import { AppUser } from "../../utils/types/base";
 import { PlainFormButton } from "../../shared/form/FormButton";
 import { useStroreValues } from "../../utils/zustand/store";
-import { useState } from "react";
 import { LeaveCalender } from "./LeaveCalender";
-import { useDateRange } from "./useDateRange";
+
 import { useDateRanges } from "./useDateRanges";
 
 
@@ -107,7 +106,7 @@ const leave_type_options = [
     { value: 'maternity', label: 'Maternity' },
     { value: 'other', label: 'Other' },
     ]
-const {date, setDate} = useDateRange(setInput)
+
 
 const rngs = useDateRanges({input,setInput})
 
@@ -132,13 +131,8 @@ return (
              />
 
                 <LeaveCalender
-                    minDate={new Date()}
-                    maxDate={new Date('2025')}
                     taken_leave_ranges={taken_leave_ranges}
-                    date={date}
-                    setDate={setDate}
                     rngs={rngs}
-         
                 />
 
             <div className="w-[100%] p-2 flex items-center justify-center">
