@@ -62,16 +62,13 @@ body::-webkit-scrollbar-thumb {
 
 
 
+
 .dark {
   --background-color: #333333;
   --text-color: #ffffff;
 }
 
-
-
-
-
- .react-calendar {
+.react-calendar {
   width: 350px;
   max-width: 100%;
   background: white;
@@ -81,10 +78,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 /* Add the following styles to switch the colors for dark mode */
-.dark .react-calendar {
-  background: var(--text-color);
-  color: var(--background-color);
-}
+
 
 .react-calendar--doubleView {
   width: 700px;
@@ -163,9 +157,12 @@ body::-webkit-scrollbar-thumb {
   text-align: center;
   line-height: 16px;
 }
+
 .react-calendar__tile:disabled {
+  opacity: 0.4;
   filter: brightness(30%);
 }
+
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
   background-color: #e6e6e6;
