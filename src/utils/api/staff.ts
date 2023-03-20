@@ -1,5 +1,6 @@
 // fetch a paginated records list
 
+import { pb_url } from "../env";
 import { pb } from "../pb/config";
 
 export interface StaffResponse {
@@ -95,6 +96,8 @@ export interface StaffLeaveResponse {
     leave_end: string
     leave_requested_by: string
     leave_approved_by: string
+    leave_approved_on?: string
+
 
     leave_request_status: "approved" | "rejected" | "pending";
     remaining_leave_days: number
@@ -116,6 +119,8 @@ export interface StaffLeaveMutationFields {
     leave_end: string
     leave_requested_by: string
     leave_approved_by?: string
+    leave_approved_on?:string
+
 
     leave_request_status: "approved" | "rejected" | "pending";
     remaining_leave_days: number
@@ -164,5 +169,46 @@ export async function getStaffLeaves(props:InjectedQueryFnProps,filter_params:st
         return resultList
     }catch(error){
         throw error
+    }
+}
+
+export async function getStaffLeavesFullList(filter_params:string) {
+    try {
+        const resultList = await pb.collection('staff_details').getFullList<StaffLeaveResponse>({
+            filter: filter_params,
+            sort: '-created',
+            expand: 'leave_approved_by,leave_requested_by'
+        });
+        return resultList
+    } catch (error) {
+        throw error
+    }
+}
+
+export async function getStaffLeaveByMonth(leave_start:string) {
+    // const thisMonth = new Date().getMonth() + 2;
+    // const the_month_date = new Date();
+    // the_month_date.setMonth(month_num);
+    // console.log("the_month_date === ", the_month_date.toISOString())
+    console.log("leave starts ==== ",leave_start)
+    const url  = new URL(pb_url+'/custom_leaves');
+    url.searchParams.append('date',leave_start);
+ 
+
+    try {
+    const result = await fetch(url.toString())
+ 
+    const res = await result.json() as StaffLeaveResponse[]
+    const leavesSet = new Set<string>();
+        res.forEach(element=> {
+        if(element.leave_approved_on){
+            leavesSet.add(element.leave_approved_on) 
+        }
+    })
+console.log("leavesSet === ",leavesSet)
+ const sorted_arr = Array.from(leavesSet).sort((a,b)=>(new Date(a)).getTime()- (new Date(b)).getTime())
+ return sorted_arr[sorted_arr.length-1]
+    } catch (error) {
+        throw error;
     }
 }

@@ -1,6 +1,5 @@
 import Calendar, { CalendarTileProperties } from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import './calender.css'
+
 
 import { isSameDay } from "date-fns";
 
@@ -31,9 +30,11 @@ const dateRange = getDateRange(minDate,maxDate);
 return (
  <div className='w-full h-full flex items-center justify-center'>
         <Calendar
+            value={new Date()}
             minDate={minDate}
             maxDate={maxDate}
             tileClassName={tileClassName}
+           
         />
  </div>
 );

@@ -1,13 +1,16 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { FormInput } from "../../shared/form/FormInput";
 import { FormSelect } from "../../shared/form/FormSelect";
 import { FormTextArea } from "../../shared/form/FormTextArea";
 import { useCustomForm } from "../../shared/form/useCustomForm";
-import { StaffLeaveMutationFields, StaffLeaveResponse, addStaffLeaveRequest } from "../../utils/api/staff";
+import { StaffLeaveMutationFields, StaffLeaveResponse, addStaffLeaveRequest, getStaffLeaves, getStaffLeaveByMonth, getStaffLeavesFullList } from "../../utils/api/staff";
 import { concatErrors } from "../../utils/utils";
 import { AppUser } from "../../utils/types/base";
 import { PlainFormButton } from "../../shared/form/FormButton";
 import { useStroreValues } from "../../utils/zustand/store";
+import { useState } from "react";
+import { LeaveCalender } from "./LeaveCalender/LeaveCalender";
+
 
 
 interface LeaveFormProps {
@@ -25,8 +28,10 @@ function getDayString(days_later:number){
     return today.toISOString().split('T')[0];
 }
 
+
+
 function inputValidation(inpt:StaffLeaveMutationFields,
-    setError:React.Dispatch<React.SetStateAction<{ name: string, message: string }>>){
+setError:React.Dispatch<React.SetStateAction<{ name: string, message: string }>>){
 
 if(inpt.leave_start>inpt.leave_end){
     setError({name:'',message:'Start date cannot be after end date'})
@@ -44,6 +49,10 @@ setError({name:'',message:''})
 return true
 
 }
+
+
+
+
 
 const mutation = useMutation({
         mutationFn: (input:StaffLeaveMutationFields) => addStaffLeaveRequest(input),
@@ -78,8 +87,26 @@ const mutation = useMutation({
             mutation,
             inputValidation
      })
+    
+    
+const filter_params= ``
+    const query = useQuery({
+        queryKey: ['staff_leaves',filter_params],
+        queryFn: () => getStaffLeavesFullList(filter_params),
+    })
 
+//  console.log("query",query.data)
 
+ const taken_leave_ranges=query.data?.map((leave:StaffLeaveResponse)=>{
+    // if(leave.leave_approved_by!==""&&leave.leave_approved_on!=""){
+    //     return [leave.leave_start,leave.leave_end]
+    // }
+     return [leave.leave_start, leave.leave_end]
+   
+ })
+ 
+
+//  console.log("taken_leave_ranges",taken_leave_ranges)
 
     const leave_type_options = [
     { value: 'annual', label: 'Annual' },
@@ -87,6 +114,8 @@ const mutation = useMutation({
     { value: 'maternity', label: 'Maternity' },
     { value: 'other', label: 'Other' },
     ]
+const [date, setDate] = useState(new Date());
+
 
 
 
@@ -104,10 +133,22 @@ return (
                 input={input}
                 label="Leave Type"
                 prop="leave_type"
-                    select_options={leave_type_options}
+                select_options={leave_type_options}
                 setInput={setInput}
              />
+
+                <LeaveCalender
+                    minDate={new Date()}
+                    maxDate={new Date('2025')}
+                    taken_leave_ranges={taken_leave_ranges}
+                    date={date}
+                    setDate={setDate}
+         
+                />
+
             <div className="w-[100%] p-2 flex items-center justify-center">
+
+
                 <FormInput
                     error={error}
                     handleChange={handleChange}
