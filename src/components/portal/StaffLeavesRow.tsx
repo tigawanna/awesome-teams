@@ -1,17 +1,16 @@
 import { approveLeave, StaffLeaveResponse } from "../../utils/api/staff";
 
-
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 import { AppUser } from "../../utils/types/base";
-
 import { ReactCalender } from "../../shared/extra/ReactCalender";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { concatErrors } from "../../utils/utils";
 import { useStroreValues } from "../../utils/zustand/store";
-import { ReactModalWrapper } from "../../shared/wrappers/ReactModalWrapper";
 import { ConsentModal } from "./ConsentModal";
+
+
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime)
 
 interface StaffLeavesRowProps {
@@ -27,6 +26,9 @@ const [open,setOpen] = useState(false)
 
 const mutation = useMutation({
     mutationFn: (input:StaffLeaveResponse) => approveLeave(input),
+    meta: {
+      invalidates: ['staff_leaves',' ']
+    },
     onSuccess: (data, variables, context) => {
         store.updateNotification({type:"success",message:"leave request successfully approved"})
     },
@@ -80,11 +82,14 @@ return (
             minDate={new Date(leave.leave_start)}
             maxDate={new Date(leave.leave_end)}
             />
-                <button
-                    onClick={() => setOpen(true)}
-                    className="w-fit px-5 py-2 bg-accent rounded-lg text-lg">
-                    aprrove/reject
-                </button>
+            {user?.type==="manager"&&
+                    <button
+                        onClick={() => setOpen(true)}
+                        className="w-fit px-5 py-2 bg-accent rounded-lg text-lg">
+                        aprrove/reject
+                    </button>
+            }
+ 
         </div>
 
 <ConsentModal
@@ -103,12 +108,12 @@ handleAccept={() => {
 handleReject={() => {
     if (user && user.type === "manager") {
         mutation.mutate({ ...leave,leave_request_status:"rejected",
-            leave_rejected_by:user.id,leave_rejected_on: new Date().toISOString() })
+        leave_rejected_by:user.id,leave_rejected_on: new Date().toISOString() })
         setOpen(false)
     }
     else {
         setError({ name: "main", message: "Mangers only can approve/reject leaves" })
-        setOpen(false)
+      
     }
 }}
 open={open}
