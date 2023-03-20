@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { AppUser } from "../../utils/types/base";
 
-import { ReactCalender } from "../../shared/extra/CustomCalender/ReactCalender";
+import { ReactCalender } from "../../shared/extra/ReactCalender";
 dayjs.extend(relativeTime)
 
 interface StaffLeavesRowProps {

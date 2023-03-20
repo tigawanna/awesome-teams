@@ -9,7 +9,7 @@ import { AppUser } from "../../utils/types/base";
 import { PlainFormButton } from "../../shared/form/FormButton";
 import { useStroreValues } from "../../utils/zustand/store";
 import { useState } from "react";
-import { LeaveCalender } from "./LeaveCalender/LeaveCalender";
+import { LeaveCalender } from "./LeaveCalender";
 
 
 

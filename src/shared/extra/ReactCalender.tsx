@@ -1,6 +1,4 @@
 import Calendar, { CalendarTileProperties } from 'react-calendar';
-
-
 import { isSameDay } from "date-fns";
 
 interface ReactCalenderProps {
@@ -12,9 +10,6 @@ export function ReactCalender({minDate,maxDate}:ReactCalenderProps){
 const dateRange = getDateRange(minDate,maxDate);
 
     function tileClassName({ date, view }: CalendarTileProperties) {
-        // console.log("date | view  === ",date,view)
-        // Add class to tiles in month view only
-        // console.log("data  === ", date.getTime() === new Date().getTime())
         if (view === 'month') {
             if (isSameDay(date,minDate)) return 'min-date-tile';
             if (isSameDay(date,maxDate)) return 'max-date-tile';
