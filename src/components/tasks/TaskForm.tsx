@@ -135,6 +135,10 @@ export const TaskForm = ({ updating,user,setOpen }: ToDoFormProps) => {
                     if (e) {
                         // @ts-expect-error
                         setTaskType(e.value)
+                        // @ts-expect-error
+                        setInput((prev) => {
+                            return { ...prev, type: e.value };
+                        })
                     }
                 }}
             />

@@ -1,6 +1,5 @@
 // fetch a paginated records list
 
-import { pb_url } from "../env";
 import { pb } from "../pb/config";
 
 export interface StaffResponse {

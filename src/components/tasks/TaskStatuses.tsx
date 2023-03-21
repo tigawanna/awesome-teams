@@ -1,9 +1,7 @@
 
 import { TaskMutationFields, TasksResponse, updatetask } from "../../utils/api/tasks";
 import { AppUser } from "../../utils/types/base";
-import { ReactModalWrapper } from "../../shared/wrappers/ReactModalWrapper";
 import { useState } from "react";
-import { IconContext } from "react-icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { concatErrors } from "../../utils/utils";
 import { ApprovedStatus, CompletedStatus, CreatedStatus, FundedStatus, InProgressStatus, RejectedStatus } from "./TaskStatusButtons";
