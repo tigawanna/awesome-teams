@@ -72,8 +72,8 @@ useCustomForm<StaffLeaveMutationFields, StaffLeaveResponse>({
                 // user defined
                 leave_type: "annual",
                 leave_reason: "attending to personal matter",
-                leave_start: getDayString(0),
-                leave_end: getDayString(3),
+                leave_start: getDayString(3),
+                leave_end: getDayString(7),
                 // backend defined
                 leave_request_status: "pending",
                 leave_requested_by: user?.id as string,
@@ -146,8 +146,8 @@ return (
                     prop="leave_start"
                     type="date"
                     input_props={{
-                        min: new Date().toISOString().split('T')[0],
-                        max: new Date('2025').toISOString().split('T')[0],
+                        min: getDayString(3),
+                        max: getDayString(30),
                         style: {
                             minWidth: "40%",
                         }
@@ -161,8 +161,8 @@ return (
                     prop="leave_end"
                     type="date"
                     input_props={{
-                        min: new Date().toISOString().split('T')[0],
-                        max: new Date('2025').toISOString().split('T')[0],
+                        min: getDayString(3),
+                        max: getDayString(30),
                         style: {
                             minWidth: "40%",
                         }
