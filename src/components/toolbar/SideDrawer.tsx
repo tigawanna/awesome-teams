@@ -76,7 +76,7 @@ return (
             </div>
 
             <div onClick={(event) => event.stopPropagation()}
-                className="h-full w-[70%] md:w-[8%] bg-slate-200 dark:bg-slate-900
+                className="h-full w-[70%] md:w-[15%] bg-slate-200 dark:bg-slate-900
                 fixed left-0 right-auto top-[10%]  ">
                 {children}
             </div>

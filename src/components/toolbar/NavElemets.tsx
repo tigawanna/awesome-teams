@@ -106,7 +106,7 @@ return (
         </IconContext.Provider>
         </div>
 
-        <div className="h-[35%] w-fit  flex flex-col justify-end items-center">
+        <div className="h-[35%]   flex flex-col justify-end items-center">
 
             <div className="w-fit h-full p-1 mx-5 flex justify-center items-center   ">
                 <TheIcon
