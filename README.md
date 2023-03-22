@@ -576,7 +576,45 @@ it also makes use of React Calender to hightlight the days that have already bee
         />
 ```
 
-### Others
- - you can search through the tasks and staff lists
- - dark mode 
- - 
+## Others
+- [custom hooks](src\utils\hooks)
+- search bars for tasks and staff
+- custom error concatinations
+<details>
+<summary>
+expand code snippet
+</summary>
+
+```ts
+export const concatErrors = (err_res: any) => {
+  const errs = err_res?.data?.data;
+  // //no-console("errs === ",err_res?.data?.message)
+  if (errs && Object.keys(errs).length > 0) {
+    const err_key = Object.keys(errs);
+    // //no-console("errs keys",err_key)
+    let err_str = "";
+    err_key.forEach((key) => {
+      err_str +=
+        " - " + key + ":" + errs[key].message;
+      ("");
+    });
+    return err_str;
+  }
+  if (err_res?.data?.message) {
+    return err_res?.data?.message;
+  }
+  if (err_res.message) return err_res.message;
+
+  return err_res;
+};
+```
+</details>
+
+### References
+
+- [Front-end code](https://github.com/tigawanna/awesome-notes)
+- [Tanstackquery beta V5](https://tanstack.com/query/v5/docs/react/overview)
+- [React calender Recipes](https://github.com/wojtekmaj/react-calendar/wiki/Recipes)
+- [Custom pocketbase backeend code](https://github.com/tigawanna/devhub)
+- [Using pocketbase as a framework](https://pocketbase.io/docs/use-as-framework)
+- [Pocketbase discussions](https://github.com/pocketbase/pocketbase/discussions)
