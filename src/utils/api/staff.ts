@@ -31,7 +31,7 @@ export async function getStaff(props: InjectedQueryFnProps, keyword?: string) {
             sort: '-created',
         
         });
-        console.log("record  ===== ",resultList,props)
+      
         return resultList
     } catch (error) {
         throw error;

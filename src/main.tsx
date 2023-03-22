@@ -13,7 +13,7 @@ import { ListResult, Record } from 'pocketbase';
 const queryClient:QueryClient = new QueryClient({
   mutationCache:new MutationCache({
     onSuccess: async (data, variable, context, mutation) => {
-      // console.group("global success  data,variable,context,mutation==== ",data,variable,context,mutation)
+
       if (Array.isArray(mutation.meta?.invalidates)) {
         return queryClient.invalidateQueries({
           queryKey:mutation.meta?.invalidates
@@ -25,9 +25,7 @@ const queryClient:QueryClient = new QueryClient({
         const update_list_key = mutation.meta?.updatelistitems as string[]
         return queryClient.setQueryData(update_list_key, (oldData?:ListResult<Record>) => {
           const q_data = data as Record
-          console.log("oldData === ",oldData)
-          console.log("context  ===  ",context)
-          console.log("varaibles === ",variable)
+  
           if (q_data.id && oldData) {
             const updatedItems = oldData.items.map((item) => {
               if (item.id === q_data.id) {
@@ -61,10 +59,7 @@ const queryClient:QueryClient = new QueryClient({
         const q_meta = mutation.meta?.infinitelist as unknown as InfiniteListMeta
         return queryClient.setQueryData(q_meta.key, (oldData?: InfiniteData<ListResult<Record>>) => {
           const q_data = data as Record
-          // console.log("oldData === ", oldData)
-          // console.log("context  ===  ", context)
-          // console.log("varaibles === ", variable)
-          if (q_data.id && oldData) {
+        if (q_data.id && oldData) {
             const updatedItems = oldData.pages[q_meta.page].items.map((item) => {
               if (item.id === q_data.id) {
                 // Return the new object if the id matches
@@ -122,3 +117,13 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
   </ErrorBoundary>
 );
+
+const getStuff = async () => {
+  try {
+    const res = await fetch('https://dummyjson.com/todos')
+    const stuff = await res.json()
+    return stuff
+  } catch (error) {
+    throw error
+  }
+}

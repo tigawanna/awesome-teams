@@ -54,7 +54,7 @@ return true
 const mutation = useMutation({
         mutationFn: (input:StaffLeaveMutationFields) => addStaffLeaveRequest(input),
         meta: {
-            invalidates: ['staff_leaves',' ']
+            invalidates: ["staff_leaves", " "]
        },
         onError(error, variables, context) {
             setError({ name: "main", message: concatErrors(error) });
