@@ -576,7 +576,7 @@ it also makes use of React Calender to hightlight the days that have already bee
         />
 ```
 
-### [Custom Form](src\shared\form)
+### [Custom Form Component](src\shared\form)
 Forms can be quite messyy in react , so i made a bunch of custom inputs and a custom hook to tie them all together
 
 community made solutions like [react-hook-form](https://react-hook-form.com/) always had gotchas that would bite you've already migrarted so much of your code to it. it's use of useRef made it bad for instances where i needed it to re-render the page on every keystroke , for example having a button that's disaled until something is typed into an inutbox took me forever to try to implemnt unsuccefully until i just reverted back to useStae based form management and it worked so i don't consider it anymore
