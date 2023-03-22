@@ -31,7 +31,14 @@ working in in property mangement role exposesd som eof the super specific issues
 
 # Models/Interfaces
 
+
+
+
 [staff](src\utils\api\staff.ts)
+
+<details>
+<summary>Expand staff interface </summary>
+
 ```ts
 export interface StaffResponse {
   id: string
@@ -100,7 +107,13 @@ export interface StaffLeaveMutationFields {
 }
 ```
 
+
+</details >
+
 [tasks](src\utils\api\tasks.ts)
+
+<details>
+<summary> Click to expand task interface</summary>
 
 ```ts
 export interface TasksResponse {
@@ -144,6 +157,7 @@ export interface TasksResponse {
 }
 
 ```
+</details>
 
 # Notable moments
 
@@ -229,7 +243,8 @@ const queryClient:QueryClient = new QueryClient({
 
 ```
 
-### react query queries / infinite-queries
+## react query 
+### queries / infinite-queries
 
 Every react-query function needs a queryKey and a queryFn that returns a promise
 
@@ -323,4 +338,245 @@ export async function getStaff(props: InjectedQueryFnProps, keyword?: string) {
 with out writing anymore lofiv hitting the load more button loads cancats your list
 of staff to the existing one for that infinite scroll 
 
-### pocketbase 
+## pocketbase 
+
+### GET requests
+they can be of three types
+
+```ts
+
+// fetch a paginated records list
+const resultList = await pb.collection('tasks').getList(1, 50, {
+    filter: 'created >= "2022-01-01 00:00:00" && someField1 != someField2',
+});
+
+// you can also fetch all records at once via getFullList
+const records = await pb.collection('tasks').getFullList({
+    sort: '-created',
+});
+
+// or fetch only the first record that matches the specified filter
+const record = await pb.collection('tasks').getFirstListItem('someField="test"', {
+    expand: 'relField1,relField2.subRelField',
+})
+```
+all the methods support generics and will give you a typed response which is awesome
+
+
+```ts
+
+interface TaskResponse{
+id:string,
+......
+}
+// fetch a paginated records list
+const resultList = await pb.collection('tasks').getList<TaskResponse>(1, 50, {
+    filter: 'created >= "2022-01-01 00:00:00" && someField1 != someField2',
+});
+
+// you can also fetch all records at once via getFullList
+const records = await pb.collection('tasks').getFullList<TaskResponse>({
+    sort: '-created',
+});
+
+// or fetch only the first record that matches the specified filter
+const record = await pb.collection('tasks').getFirstListItem<TaskResponse>('someField="test"', {
+    expand: 'relField1,relField2.subRelField',
+})
+
+```
+
+- image thumbnail generation: 
+    this is a sidenote but if you have a media heavy app you can use pocketbase's ability to return an image thumbnail by adding thb='100x100' to the query string , thus allows you to load a poor quality image as the placeholder while the main image loads
+
+## App features
+
+### Task management
+You can add a task of type TODO or repair .
+the main difference is that Reairs need approval and funding steps while todos can only be marked complete
+the approve/reject process is reserved for mangers only and funding is for cashiers , the respective buttons will be disabled with messages indicating who can perfom that task
+
+Logged in as caretaker
+![approve reject as caretaker](docs\images\approve_recject.png)
+
+logged in as manager
+![approve reject as manager](docs\images\manager_approve.png)
+
+This is also enforcedin the backed using Pocketbases BeforeUpdateRecordHook
+
+<details>
+<summary>VClick to expand code snippet</summary>
+
+
+```go
+// record_update_handler.go
+
+package main
+
+import (
+	"github.com/pocketbase/pocketbase/apis"
+	"github.com/pocketbase/pocketbase/core"
+	"github.com/pocketbase/pocketbase/models"
+)
+
+
+
+func handleRecordUpdate(e *core.RecordUpdateEvent) error {
+	
+	// ignore checks if an admin is logged in 
+		admin, _ := e.HttpContext.Get(apis.ContextAdminKey).(*models.Admin)
+    	if admin != nil {
+        	return nil
+    	}
+
+	//  before updating tasks  tasks collecton
+	if e.Record.Collection().Name == "tasks" {
+		
+// check for the user logged in 
+	 authRecord, _ := e.HttpContext.Get(apis.ContextAuthRecordKey).(*models.Record)
+		if authRecord == nil {
+			return apis.NewForbiddenError("Only auth records can access this endpoint", nil)
+	 }
+
+
+		// validating that mangers only are approving/rejecting
+		if authRecord.GetString("type") != "manager" && 
+				(e.Record.GetString("status") == "approved" || e.Record.GetString("status") == "rejected") {
+			return apis.NewBadRequestError("Approving/Rejecting is a Manager only action.", nil)
+		}
+		// validating that cashiers only are funding
+		if authRecord.GetString("type") != "cashier" && e.Record.GetString("status") == "funded" {
+			return apis.NewBadRequestError("Funding is a Cashier only action.", nil)
+		}
+	}
+
+	//  checks for staff_details collection
+	if e.Record.Collection().Name == "staff_details" {
+		
+
+	 authRecord, _ := e.HttpContext.Get(apis.ContextAuthRecordKey).(*models.Record)
+		if authRecord == nil {
+			return apis.NewForbiddenError("Only auth records can access this endpoint", nil)
+	 }
+
+
+		// validating that mangers only are approving/rejecting
+		if authRecord.GetString("type") != "manager" && 
+				(e.Record.GetString("leave_request_status") == "approved" || 
+					e.Record.GetString("leave_request_status") == "rejected") {
+			return apis.NewBadRequestError("Approving/Rejecting is a Manager only action.", nil)
+		}
+
+		
+
+	}
+
+	return nil
+}
+
+```
+</details>
+
+
+
+### Staff management (Leave requests)
+ under portal is a staff management page where you can requsets for a leave and your manager aacn then approve/reject it.
+ It stops you from requesting a new leave if you already have a pending request
+
+<details>
+<summary>Click to expand code snippet</summary>
+
+```go
+// record_update_handler.go
+
+package main
+
+import (
+	"github.com/pocketbase/dbx"
+	"github.com/pocketbase/pocketbase"
+	"github.com/pocketbase/pocketbase/apis"
+	"github.com/pocketbase/pocketbase/core"
+	"github.com/pocketbase/pocketbase/models"
+)
+
+func handleRecordCreate(e *core.RecordCreateEvent , app *pocketbase.PocketBase) error {
+	
+	// Ignore checks if an admin is logged in 
+	admin, _ := e.HttpContext.Get(apis.ContextAdminKey).(*models.Admin)
+	if admin != nil {
+		return nil
+	}
+
+	// Check for staff_details collection
+	if e.Record.Collection().Name == "staff_details" {
+		
+		// Check if the user has requested any leaves with status equal to pending
+		authRecord, _ := e.HttpContext.Get(apis.ContextAuthRecordKey).(*models.Record)
+		if authRecord == nil {
+			return apis.NewForbiddenError("Only auth records can access this endpoint", nil)
+		}
+		
+		// Check if the user has requested any leaves with status equal to pending
+		var total int
+		err := app.DB().
+			Select("count(*)").
+			From("staff_details").
+			AndWhere(dbx.HashExp{"leave_request_status": "pending"}).
+			AndWhere(dbx.HashExp{"leave_requested_by":authRecord.GetId()}).
+			Row(&total)
+
+		if err != nil {
+			return err
+		}
+
+		if total > 0 {
+			return apis.NewBadRequestError("User already has pending leave requests", nil)
+		}
+	}
+
+	return nil
+}
+
+```
+</details>
+
+it also makes use of React Calender to hightlight the days that have already been picked and disable them on the calender view
+
+```ts
+        function tileDisabled({ date, view }:CalendarTileProperties) {
+        const disabledRanges=taken_leave_ranges?.map((range)=>{
+            return [new Date(range[0]),new Date(range[1])]
+          })
+
+        if (view === 'month') {
+            if(disabledRanges)
+            return isWithinRanges(date, disabledRanges);
+          
+        }
+        return false
+    }
+
+    function isWithinRange(date:Date, range:Date[]) {
+        return isWithinInterval(date, { start: range[0], end: range[1] });
+    }
+
+    function isWithinRanges(date:Date, ranges:Date[][]){
+        return ranges.some(range => isWithinRange(date, range));
+    }
+```
+
+ then we passit into the calender
+
+```tsx
+        <Calendar
+            value={rngs.dateRange as [Date | null, Date | null]}
+            onChange={rngs.updateDateRange}
+            selectRange={true}
+            tileDisabled={tileDisabled}
+        />
+```
+
+### Others
+ - you can search through the tasks and staff lists
+ - dark mode 
+ - 
