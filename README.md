@@ -397,10 +397,10 @@ the main difference is that Reairs need approval and funding steps while todos c
 the approve/reject process is reserved for mangers only and funding is for cashiers , the respective buttons will be disabled with messages indicating who can perfom that task
 
 Logged in as caretaker
-![approve reject as caretaker](docs\images\approve_recject.png)
+![approve reject as caretaker](https://github.com/tigawanna/awesome-notes/blob/ab801e4d27d5c1f1a0b1f77ceeeeed9ccd4eccb8/docs/images/approve_recject.png)
 
 logged in as manager
-![approve reject as manager](docs\images\manager_approve.png)
+![approve reject as manager](https://github.com/tigawanna/awesome-notes/blob/ab801e4d27d5c1f1a0b1f77ceeeeed9ccd4eccb8/docs/images/manager_approve.png)
 
 This is also enforcedin the backed using Pocketbases BeforeUpdateRecordHook
 
