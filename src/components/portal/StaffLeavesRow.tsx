@@ -38,7 +38,7 @@ const mutation = useMutation({
 })
 function leaveStatusColors(status:StaffLeaveResponse['leave_request_status']){
 if(status==="pending"){
-return "blue"
+return ""
 }
 else if(status==="approved"){
 return "green"

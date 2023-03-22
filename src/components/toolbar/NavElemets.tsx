@@ -43,7 +43,7 @@ return (
                 overlay_right: '0%',
                 overlay_left: '0%',
                 overlay_bottom: '0%',
-                content_bottom: '20%',
+                content_bottom: '10%',
                 content_right: '0%',
                 content_left: '50%',
                 content_top: '0%',

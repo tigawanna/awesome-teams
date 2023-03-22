@@ -36,7 +36,7 @@ return (
 
 { user?<div className="  rounded-md  flex flex-col justify-center items-center m-2">  
 
-    <div className="  rounded-md  flex justify-center items-center w-[200px]  aspect-square m-2">
+    <div className="  rounded-md  flex flex-col justify-center items-center w-[200px]  aspect-square m-2">
         <img
             src={avatar}
             alt={""}
@@ -44,6 +44,12 @@ return (
               border-2 border-slate-900 dark:border-slate-100 aspect-square"
             // onClick={() => setIsOpen(true)}
         />
+
+                <div className="w-full p-2 flex flex-col  justify-start items-start   ">
+                    <h1 className="md:text-xl font-bold ">{user?.name}</h1>
+                    <h1 className="md:text-lg font-serif">{user?.email}</h1>
+                    <h1 className="px-2 border border-slate-400  rounded-lg">{user?.type}</h1>
+                </div>
         </div>
 
         <div className='w-full h-fit flex flex-col justify-center items-center p-2'>
@@ -69,6 +75,8 @@ return (
                 iconAction={toggle}
             />
         </div>
+
+
 
  </div>
 );

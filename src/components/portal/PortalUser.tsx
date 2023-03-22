@@ -36,15 +36,17 @@ return (
                 <h1 className="md:text-xl font-bold ">{user.name}</h1>
                 <h1 className="md:text-lg font-serif">{user.email}</h1>
                 <h1 className="px-2 border border-slate-400  rounded-lg">{user.type}</h1>
-                </div>
-                    <button
-                        onClick={() => setOpen(true)}
-                        className="px-2 py-1 bg-purple-800 text-white rounded-md"
-                    >Request Leave
-                    </button>
+            </div>
+
     </div>
+    
 
     <div className="w-full h-fit p-2 flex flex-wrap items-center border-shadow">
+        <button
+        onClick={() => setOpen(true)}
+                        className="sticky top-4 px-2 py-1 bg-purple-800 text-white rounded-md"
+                    >Request Leave
+                    </button>
         <LeaveList user={user}/>
     </div>
 
