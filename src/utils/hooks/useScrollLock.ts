@@ -10,10 +10,7 @@ function useBodyScrollLock(modal_open: boolean) {
         else{
             document.body.style.overflow = originalStyle;
         }
-        // Prevent scrolling on mount
-      
 
-        // Re-enable scrolling when component unmounts
         return () => {
             document.body.style.overflow = originalStyle;
         };

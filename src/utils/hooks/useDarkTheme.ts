@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { BsFillMoonFill, BsSunFill } from 'react-icons/bs';
 // import { useLocalStoreValues } from "./../store";
 
-export const useDarkMode = () => {
+export const useDarkTheme = () => {
     const [theme, setTheme] = useState<"light"|"dark">(localStorage.theme ?? 'dark');
     // //no-console("theme in hook=== ",theme)
     useEffect(() => {

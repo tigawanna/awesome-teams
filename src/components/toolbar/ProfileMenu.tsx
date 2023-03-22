@@ -1,12 +1,14 @@
 import React from 'react'
 import { BsSunFill,BsFillMoonFill,} from "react-icons/bs";
 
-import { useTheme } from '../../utils/hooks/themeHook';
+
 import { Link } from 'react-router-dom';
 import { TheIcon } from './../../shared/wrappers/TheIcon';
 import { AppUser } from '../../utils/types/base';
 import { makeImageUrl, pb } from '../../utils/pb/config';
 import { useQueryClient } from '@tanstack/react-query';
+import { useDarkTheme } from '../../utils/hooks/useDarkTheme';
+
 
 interface ProfileMenuProps {
 user?:AppUser
@@ -15,11 +17,9 @@ setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 
 export const ProfileMenu = ({user,setIsOpen}: ProfileMenuProps) => {
 
-    const queryClient = useQueryClient();
-const theme = useTheme();
-    const nextTheme = theme.theme === "dark" ? "light" : "dark";
-    const mode = theme.theme === "dark" ? BsSunFill : BsFillMoonFill;
-    const toggle = () => { theme.setTheme(nextTheme) };
+const queryClient = useQueryClient();
+const theme = useDarkTheme()
+
     const logout = () => {
         pb.authStore.clear();
         localStorage.removeItem('provider')
@@ -70,9 +70,9 @@ return (
 
         <div className="w-fit p-1 mx-5 flex justify-center items-center   ">
             <TheIcon
-                Icon={mode}
+                Icon={theme.modeIcon}
                 size={"30"}
-                iconAction={toggle}
+                iconAction={theme.toggleTheme}
             />
         </div>
 

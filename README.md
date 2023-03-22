@@ -576,8 +576,76 @@ it also makes use of React Calender to hightlight the days that have already bee
         />
 ```
 
+### [Custom Form](src\shared\form)
+Forms can be quite messyy in react , so i made a bunch of custom inputs and a custom hook to tie them all together
+
+community made solutions like [react-hook-form](https://react-hook-form.com/) always had gotchas that would bite you've already migrarted so much of your code to it. it's use of useRef made it bad for instances where i needed it to re-render the page on every keystroke , for example having a button that's disaled until something is typed into an inutbox took me forever to try to implemnt unsuccefully until i just reverted back to useStae based form management and it worked so i don't consider it anymore
+
+```ts
+import { UseMutationResult } from "@tanstack/react-query";
+import { useState } from "react";
+
+
+
+interface UseCustomFormProps<T,R> {
+    initialValues:T;
+    mutation:UseMutationResult<R, Error,T, unknown>
+    inputValidation(inpt: T, setError: React.Dispatch<React.SetStateAction<{
+        name: string;
+        message: string;
+    }>>): boolean
+}
+
+export function useCustomForm<T,R>({initialValues,mutation,inputValidation}:UseCustomFormProps<T,R>){
+    const [input, setInput] = useState<T>(initialValues);
+    const [error, setError] = useState({ name: "", message: "" })
+    const [success, setSuccess] = useState<R|undefined>()
+    
+    function handleChange(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>){
+        setInput((prev) => {
+            return { ...prev, [e.target.id]: e.target.value };
+        });
+        if (error.message !== "" || error.name !== "") {
+            setError({ name: "", message: "" });
+        }
+    };
+    function handleSubmit(e: React.ChangeEvent<HTMLFormElement>){
+        e.preventDefault();
+        if(inputValidation(input,setError)){
+          mutation.mutate(input, {
+                onSuccess(data, variables, context) {
+                    setSuccess(data)
+                },
+            });
+        }
+ 
+     
+    };
+    return { handleChange,handleSubmit,input, error, setError, setInput,success };
+}
+
+```
+with this simple hook i got all the fuctionality i need for a simple form , 
+as it turns out the more generic a solution the worse it can be for edge cases.
+
+the hook also takes in a generic type just like react hoo form to give you typesafety
+
 ## Others
 - [custom hooks](src\utils\hooks)
+  notable mentions :
+   - [useAuthGuard](src\utils\hooks\useAuthGuard.ts)
+   This hook is used on the route layout level , to redirect to the login page if the user is not logged in.
+   it also stores their initial destination in a query param that will be used to redirect them back to whre they were headed before 
+    - [useDebouncedvalues](src\utils\hooks\useDebouncedValue.ts)
+    this hook is sued on the search bar input to delay the value change to avoid new network requests on every value changes
+    -[useScrollToTop](src\utils\hooks\useScrollToTop.ts)
+    this hook is used to scroll the view back to the top , this comes in handy in cases where one scrolls down a very long list and clicks on a link that takes them to another page with content spanning more than a the pages viewport, the browser will attempt to restore scroll position to the bottom on the page . this hook undoes that forcing the page to scroll to the top
+    - [useDarkTheme](src\utils\hooks\useDarkTheme.ts)
+    this hook helps to toggle darkmode on and off by adding/removing the "dark" class to the documnet
+    - [useScrollLock](src\utils\hooks\useScrollLock.ts)
+    used in modals to prevent the background page the modal is on top of ftom scrolling while the modal is open
+
+
 - search bars for tasks and staff
 - custom error concatinations
 <details>

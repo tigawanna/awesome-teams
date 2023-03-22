@@ -10,8 +10,9 @@ import { MdOutlineDashboard } from 'react-icons/md';
 import { RiTeamFill } from 'react-icons/ri';
 import { IconContext } from 'react-icons';
 import { GrTest } from 'react-icons/gr';
-import { useDarkMode } from '../../utils/hooks/useTheemeMode';
-import { useDisclosure } from '@mantine/hooks';
+import { useDarkTheme } from '../../utils/hooks/useDarkTheme';
+
+
 
 
 
@@ -22,9 +23,11 @@ closeModal?: () => void
 
 export const NavElemets = ({user,closeModal}:NavElemetsProps) => {
 
+
+
 const [isOpen, setIsOpen] = useState(false);
 const avatar = makeImageUrl('staff', user?.id as string, user?.avatar as string);
-const {modeIcon,theme,toggleTheme} = useDarkMode()
+const {modeIcon,theme,toggleTheme} = useDarkTheme()
 
 return (
     <div className='w-full mx-5 h-screen dark:text-white
