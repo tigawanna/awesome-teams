@@ -55,6 +55,7 @@ return (
         <div className='w-full h-fit flex flex-col justify-center items-center p-2'>
             <button
                 onClick={() => logout()}
+                aria-label="logout-user"
                 className='p-2  font-semibold rounded-lg
                     border border-slate-900 dark:border-slate-100
                    hover:scale-110 hover:bg-slate-700 hover:text-slate-100'

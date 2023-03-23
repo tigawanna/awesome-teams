@@ -131,6 +131,7 @@ return (
                     <img
                         src={avatar}
                         alt={""}
+                        aria-label="avatar-image"
                         className="rounded-full  h-[40px] hover:border-accent
                         border-2 border-slate-900 dark:border-slate-100 aspect-square"
                         onClick={() => setIsOpen(true)}
