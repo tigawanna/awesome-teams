@@ -1,7 +1,7 @@
 import { MdDone } from "react-icons/md";
-import { Staff, TasksResponse, statusColors } from "../../utils/api/tasks";
-import { AppUser } from "../../utils/types/base";
-import { DateOutput } from "../../shared/extra/DateOutput";
+import { Staff, TasksResponse, statusColors } from "../../../utils/api/tasks";
+import { AppUser } from "../../../utils/types/base";
+import { DateOutput } from "../../../shared/extra/DateOutput";
 
 interface CreatedStatusProps {
     task: TasksResponse

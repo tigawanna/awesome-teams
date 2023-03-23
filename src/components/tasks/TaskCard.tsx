@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { TasksResponse, statusColors } from "../../utils/api/tasks";
 import dayjs from "dayjs";
-import { TaskStatuses } from "./TaskStatuses";
-import { TaskDeadline } from "./TaskDeadline";
+import { TaskStatuses } from "./task-status/TaskStatuses";
+import { TaskDeadline } from "./task-status/TaskDeadline";
 import { AppUser } from "../../utils/types/base";
 
 interface TaskCardProps {
