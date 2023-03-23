@@ -125,13 +125,14 @@ return (
                         size={"25"}
                         color={""}
                         iconAction={() => setIsOpen(true)}
+                        aria_label="open-user-menu"
                     />
 
                 ) : (
                     <img
                         src={avatar}
                         alt={""}
-                        aria-label="avatar-image"
+                        aria-label="open-user-menu"
                         className="rounded-full  h-[40px] hover:border-accent
                         border-2 border-slate-900 dark:border-slate-100 aspect-square"
                         onClick={() => setIsOpen(true)}
