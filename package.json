@@ -10,11 +10,11 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
-    "page": "node ./scripts/newRoute.cjs"
+    "page": "node ./scripts/newRoute.cjs",
+    "cypress": "npx cypress open",
+    "test-ct": "playwright test -c playwright-ct.config.ts"
   },
   "dependencies": {
-    "@mantine/core": "^6.0.0",
-    "@mantine/hooks": "^6.0.0",
     "@tanem/react-nprogress": "^5.0.30",
     "@tanstack/react-query": "^5.0.0-alpha.5",
     "@tanstack/react-query-devtools": "^5.0.0-alpha.5",
@@ -33,7 +33,8 @@
     "zustand": "^4.3.4"
   },
   "devDependencies": {
-    "@playwright/test": "^1.31.2",
+    "@playwright/experimental-ct-react": "^1.32.0",
+    "@playwright/test": "^1.32.0",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tailwindcss/typography": "^0.5.9",
     "@testing-library/jest-dom": "^5.16.5",
@@ -46,6 +47,7 @@
     "@vitest/ui": "^0.29.1",
     "autoprefixer": "^10.4.13",
     "colors": "^1.4.0",
+    "cypress-dark": "^1.8.3",
     "jsdom": "^21.1.0",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
