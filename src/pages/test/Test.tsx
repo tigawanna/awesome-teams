@@ -8,7 +8,8 @@ export default function Test({user}:TestProps){
     
 return (
  <div className='w-full h-full min-h-screen flex items-center justify-center'>
-    test
+        <h1>tretest</h1>
+
  </div>
 );
 }
