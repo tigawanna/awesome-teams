@@ -34,6 +34,7 @@ export const FormTextArea = <T,>({
       <textarea
       {...input_props}
         id={prop as string}
+        data-testid={prop}
         style={{ borderColor: isError(error, prop) ? "red" : "" }}
         className="w-[90%] min-h-[150px] md:h-[30%] scroll-bar
                     m-2 p-2  

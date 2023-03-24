@@ -79,6 +79,7 @@ export const ImageInput = <T,>({
         type="file"
         multiple
         max={img_arr?.length}
+        data-testid={prop}
         onChange={handleChange}
       />
 

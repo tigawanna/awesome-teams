@@ -41,6 +41,7 @@ export const FormCheckBox = <T,>({
 
       <input
        {...input_props}
+        data-testid={prop}
         style={{ borderColor: isError(error, prop) ? "red" : "" }}
         className="w-5 p-2 m-1 border border-black 
                 dark:border-white h-10 rounded-sm   dark:bg-slate-700

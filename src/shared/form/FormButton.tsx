@@ -14,6 +14,7 @@ export const PlainFormButton = ({
   return (
     <button
       type="submit"
+      data-testid={'submit-button'}
       disabled={disabled || isSubmitting}
       style={{ opacity: disabled ? "20%" : "100%" }}
       className="p-2 w-[60%] md:w-[30%]

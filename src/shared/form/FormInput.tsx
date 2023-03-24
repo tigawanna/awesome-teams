@@ -38,6 +38,7 @@ export const FormInput = <T,>({
 
       <input
        {...input_props}
+        data-testid={prop}
         style={{ borderColor: isError(error, prop) ? "red" : "" }}
         className="w-[90%] p-[6px] m-1 
         border border-black dark:border-white h-10 rounded-sm dark:bg-slate-700
