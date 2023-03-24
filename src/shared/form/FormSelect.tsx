@@ -36,7 +36,7 @@ export const FormSelect = <T,>({ error,prop,input,label,setInput,select_options,
                 {label}
             </label>
             <Select
-                data-testid={label}
+                aria-label={label}
                 options={select_options}
                 defaultValue={select_options[0]}
                 className="w-[90%] p-[6px] m-1 text-black

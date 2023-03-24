@@ -126,7 +126,7 @@ export const TaskForm = ({ updating,user,setOpen }: ToDoFormProps) => {
             <div className="text-4xl font-bold p-5 text-accent">Task Form</div>
 
             <Select
-                data-testid="task-type-select"
+                aria-label="task-type-select"
                 options={task_type_options}
                 defaultValue={task_type_options[0]}
                 className="w-full md:w-[45%]  p-[6px] m-1 text-black

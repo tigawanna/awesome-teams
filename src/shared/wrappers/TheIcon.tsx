@@ -7,7 +7,7 @@ interface TheIconProps {
     color?: string;
     iconstyle?: string;
     iconAction?: () => any;
-    aria_label?:string
+   data_testid?:string
 }
 
 export const TheIcon = (
@@ -17,7 +17,7 @@ export const TheIcon = (
         iconAction,
         iconstyle,
         size,
-        aria_label
+        data_testid
     }: TheIconProps
 ) => {
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -29,7 +29,7 @@ export const TheIcon = (
         <IconContext.Provider value={{
             size, color, className: iconstyle
         }}>
-           <button type="button" aria-label={aria_label} onClick={handleClick}>
+           <button type="button" data-testid={data_testid} onClick={handleClick}>
                 <Icon  />
            </button>
            
