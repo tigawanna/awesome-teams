@@ -40,9 +40,12 @@ const value = useDebouncedValue(keyword, 2000);
 
        <div className=' w-[90%] min-h-screen flex flex-col  items-center justify-start p-5'>
 
-        <SearchBox keyword={keyword} handleChage={handleChage}/>
+           <SearchBox keyword={keyword} handleChage={handleChage} data-testid="tasks-search-bar" />
 
-           <div className='w-[95%] lg:w-[75%] flex flex-wrap items-start  gap-2 mt-14 '>
+           <div 
+           aria-label="list-of-tasks"
+            data-testid="list-of-items"
+           className='w-[95%] lg:w-[75%] flex flex-wrap items-start  gap-2 mt-14 '>
             <QueryStateWrapper query={query}>
                {tasks?.pages.map((page, page_idx) => 
                {

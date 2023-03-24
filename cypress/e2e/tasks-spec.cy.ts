@@ -6,7 +6,7 @@ describe('Tasks spec', () => {
 
     it('load tasks', () => {
         // login
-      
+        cy.get('[aria-label="add-new-task"]').should('exist')
 
 
     })

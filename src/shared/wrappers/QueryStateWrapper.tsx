@@ -26,7 +26,9 @@ export const QueryStateWrapper = (
 
     if (query?.isPending ) {
           return (
-                <div className="w-full  flex items-center justify-center">
+                <div 
+                data-testid="query-state-wrapper-loading"
+                className="w-full  flex items-center justify-center">
                     <div className="w-[100%] h-full flex items-center justify-center  ">
                         {loader ? loader : <LoaderElipse />}
                     </div>
@@ -37,7 +39,9 @@ export const QueryStateWrapper = (
 
     if (query?.isError) {
         return (
-            <div className="w-full flex items-center justify-center  ">
+            <div 
+            data-testid="query-state-wrapper-error"
+            className="w-full flex items-center justify-center  ">
                 <div className="max-w-[90%] w-fit h-fit p-2 flex items-center justify-center 
                  text-red-700 bg-red-100 border border-red-900  text-base rounded-lg">
                     {/* @ts-expect-error */}
@@ -49,6 +53,6 @@ export const QueryStateWrapper = (
 
 
     return (
-        <>{children}</>
+        <React.Fragment data-testid="query-state-wrapper-loading">{children}</React.Fragment>
     );
 }

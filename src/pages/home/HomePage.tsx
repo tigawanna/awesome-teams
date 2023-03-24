@@ -17,12 +17,12 @@ const [open,setOpen]=useState(false);
 return (
     <div className='w-full h-full min-h-screen  flex items-center justify-center'>
          {/* <TaskForm/> */}
-         <Tasks user={user}/>
+        <Tasks user={user} data-testid="tasks-component" />
         <div 
         className='flex items-center justify-center rounded-full aspect-square  
         p-2 bg-accent text-white hover:bg-[#c09b35] 
         fixed bottom-[10%] right-[5%]'>
-        <TheIcon Icon={FaPlus} size={'40'} iconAction={()=>setOpen(true)}/>
+        <TheIcon Icon={FaPlus} size={'40'} iconAction={()=>setOpen(true)} aria_label="add-new-task"/>
         </div>
 
         <ReactModalWrapper
