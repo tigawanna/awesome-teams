@@ -44,10 +44,10 @@ describe('Tasks spec', () => {
 it('approve-task', function() {
     cy.login('manager1@staff.com', 'caretaker')
 
-    cy.get('[href="/0symxp6k4cht63n?page_idx=0"] > .h-full.flex-col > .w-\\[96\\%\\]').click();
-    cy.get(':nth-child(1) > .px-5 > .text-lg').click();
-    cy.get('.shadow-lg').click();
-
+    // cy.get('[href="/0symxp6k4cht63n?page_idx=0"] > .h-full.flex-col > .w-\\[96\\%\\]').click();
+    // cy.get(':nth-child(1) > .px-5 > .text-lg').click();
+    // cy.get('.shadow-lg').click();
+    cy.get('[  data-testid="task-card-link-type"]').contains('repair').click()
 })
 
 

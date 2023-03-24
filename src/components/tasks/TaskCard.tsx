@@ -33,7 +33,9 @@ export const TaskCard = ({ task,page_idx,user }: TaskCardProps) => {
                 </div>
 
                     <div className="w-full p-1 flex flex-col items-end justify-end">
-                    <h1 className='px-1 text-accent font-bold'>{task.type}</h1>
+                    <h1 
+                    data-testid="task-card-link-type"
+                    className='px-1 text-accent font-bold'>{task.type}</h1>
                     <h1 className='px-1 text-xs'>{dayjs(task.created).format('dddd DD-MMM-YYYY')}</h1>
                     </div>
                 </div>
