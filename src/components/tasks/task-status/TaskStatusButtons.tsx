@@ -248,8 +248,10 @@ return (
             onClick={() => toggleModal(is_last, next_state, statusMap[next_state])}
             className=' px-5 py-[1px]  flex items-center justify-center rounded-lg border       
                 hover:border-green-500 hover:bg-green-600 hover:text-white '
+            data-testid="task-status-button"
         >
-        <h1 className="text-lg">{statusMap[next_state]}</h1><MdDone />
+        <h1 className="text-lg">{statusMap[next_state]}</h1>
+        <MdDone />
         </button>
            <h3 className="text-xs">
               {!canChangeStatus(next_state, user?.type as string) ? `${has_authority} only action` : user?.name}

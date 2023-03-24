@@ -48,6 +48,7 @@ it('approve-task', function() {
     // cy.get(':nth-child(1) > .px-5 > .text-lg').click();
     // cy.get('.shadow-lg').click();
     cy.get('[  data-testid="task-card-link-type"]').contains('repair').click()
+    cy.get('[data-testid="task-status-button"]').contains('Approve').click()
 })
 
 
