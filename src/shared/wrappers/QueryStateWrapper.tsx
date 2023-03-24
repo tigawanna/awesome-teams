@@ -20,10 +20,6 @@ export const QueryStateWrapper = (
 ) => {
 
 
-    
-
-
-
     if (query?.isPending ) {
           return (
                 <div 

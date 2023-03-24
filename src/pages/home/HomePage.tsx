@@ -17,7 +17,7 @@ const [open,setOpen]=useState(false);
 return (
     <div className='w-full h-full min-h-screen  flex items-center justify-center'>
          {/* <TaskForm/> */}
-        <Tasks user={user} data-testid="tasks-component" />
+        <Tasks user={user}  />
         <div 
         className='flex items-center justify-center rounded-full aspect-square  
         p-2 bg-accent text-white hover:bg-[#c09b35] 

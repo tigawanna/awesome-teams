@@ -38,12 +38,14 @@ const value = useDebouncedValue(keyword, 2000);
     // console.log("tasks ==== ",tasks )
    return (
 
-       <div className=' w-[90%] min-h-screen flex flex-col  items-center justify-start p-5'>
+       <div 
+        data-testid="tasks-component"
+       className='w-[90%] min-h-screen flex flex-col  items-center justify-start p-5'>
 
            <SearchBox keyword={keyword} handleChage={handleChage} data-testid="tasks-search-bar" />
 
            <div 
-           aria-label="list-of-tasks"
+            aria-label="list-of-tasks"
             data-testid="list-of-items"
            className='w-[95%] lg:w-[75%] flex flex-wrap items-start  gap-2 mt-14 '>
             <QueryStateWrapper query={query}>
@@ -51,7 +53,7 @@ const value = useDebouncedValue(keyword, 2000);
                {
                 
                 return (
-                       <React.Fragment key={page_idx}>
+                    <React.Fragment key={page_idx} data-testid="tasks-pagibated-page">
                   
                            {
                                tasks && page.items.map((task) => {

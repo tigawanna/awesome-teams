@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { TasksResponse, statusColors } from "../../utils/api/tasks";
 import dayjs from "dayjs";
-import { TaskStatuses } from "./task-status/TaskStatuses";
 import { TaskDeadline } from "./task-status/TaskDeadline";
 import { AppUser } from "../../utils/types/base";
 
@@ -18,6 +17,7 @@ export const TaskCard = ({ task,page_idx,user }: TaskCardProps) => {
         <Link
             to={{ pathname:`/${task.id}`,search:`?page_idx=${page_idx}`}}
             style={{ border: `1px solid ${statusColors[task.status]}` }}
+            data-testid="task-card-link"
             className='h-full p-2 rounded-lg w-[95%] md:w-[40%] gap-2 
              flex flex-col flex-grow justify-center  border-shadow'>
 
