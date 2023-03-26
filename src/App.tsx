@@ -17,7 +17,7 @@ const query = useQuery({queryKey:['user'],queryFn:getUser});
         <div className=" dark:bg-slate-900 h-full dark:text-white dark:shadow-white ">
           <RouterProvider router={appRoutes(query.data)} />
         </div>
-      <div className="w-full fixed left-[20%] bottom-[3%] flex items-center justify-center z-50">
+      <div className="w-full fixed left-[5%] right-[5%] bottom-[3%] flex items-center justify-center z-50">
         <Notification />
       </div>
       </QueryStateWrapper>

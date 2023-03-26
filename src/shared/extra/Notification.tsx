@@ -19,7 +19,7 @@ export const Notification = ({}:NotificationProps) => {
  }  
 
 return (
- <div className='w-[40%]  h-full '>
+ <div className='w-[90%] md:w-[40%]  h-full '>
         <div className="w-full  flex  flex-col items-center justify-center 
         animate-in fade-in slide-in-from-right 
      

@@ -25,27 +25,23 @@ return (
 
 
         <div
-            className={` h-full p-2 flex ${isHovered ? 'flex-row' : 'flex-col'}  gap-2 absolute right-0
-            animate-in fade-in
-            `}
-
-        >
+            className={` h-full p-2 flex ${isHovered ? 'flex-row' : 'flex-col'}  gap-2 absolute right-0`}>
             <TheIcon Icon={CiMenuKebab} size='20'
                 iconAction={() => setIsHovered(true)}
-                iconstyle={`${isHovered ? 'hidden' : 'flex'} items-center justify-center `} />
+                iconstyle={`h-full ${isHovered ? 'hidden' : 'flex'} items-center justify-center `} />
            
-            <div className={`w-fit h-full flex ${isHovered ? 'flex-row' : 'hidden p-1'} items-center justify-center`}>
-             <TheIcon Icon={FaTimes} size='20' 
-              iconAction={() => setIsHovered(false)}
-                />
+
+
+            <div className={`w-fit h-full flex ${isHovered ? 'flex-row' : 'hidden '} gap-2   animate-in fade-in`}>
+                
+                <div className={`w-fit h-full flex ${isHovered ? 'flex-row' : 'hidden p-1'} items-center justify-center`}>
+                    <TheIcon Icon={FaTimes} size='20'color="orange" iconAction={() => setIsHovered(false)}/>
+                </div>
+      
+            {user?.id === task.created_by && <DeleteOption task={task} setIsHovered={setIsHovered}/>}
+
             </div>
 
-            <div className={`w-fit h-full flex ${isHovered ? 'flex-row' : 'hidden '} `}>
-                {user?.id === task.created_by && <DeleteOption task={task} setIsHovered={setIsHovered}/>}
-            </div>
-            <div className={`w-fit h-full flex ${isHovered ? 'flex-row' : 'hidden '} `}>
-                {user?.id === task.created_by && <DeleteOption task={task} setIsHovered={setIsHovered} />}
-            </div>
  
  
         </div>
