@@ -4,7 +4,7 @@ describe('Leave spec', () => {
 
 function dateNumber(gap:number){
     const date = new Date();
-    const month = date.getMonth() + 1;
+    date.getMonth() + 1;
     const day = date.getDate()+gap
 
     return day
