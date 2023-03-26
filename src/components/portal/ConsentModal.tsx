@@ -8,13 +8,13 @@ interface ConsentModalProps {
     prompt: string
     handleAccept: (item:any) => void
     handleReject: (item:any) => void
-    error:{name:string,message:string}
-    accept_buytton_label?:string
-    reject_buytton_label?:string
+    error?:{name:string,message:string}
+    accept_button_label?:string
+    reject_button_label?:string
 }
 
 export function ConsentModal({
-    prompt,handleAccept,handleReject,open,setOpen,error,accept_buytton_label,reject_buytton_label
+    prompt,handleAccept,handleReject,open,setOpen,error,accept_button_label,reject_button_label
 }:ConsentModalProps){
 
 
@@ -39,14 +39,14 @@ return (
                                 className="px-6 py-1 text-2xl  rounded-full 
                                 shadow-green-400 shadow capitalize bg-slate-300
                                 border border-green-600 hover:bg-green-500 hover:text-white">
-                                {accept_buytton_label ?? "confirm"}
+                                {accept_button_label ?? "confirm"}
                             </button>
                             <button
                                 onClick={handleReject}
                                 data-testid="consent-modal-reject"
                                 className="px-6 py-1 text-2xl  capitalize
                                 rounded-full bg-red-600 hover:bg-red-500 text-white">
-                                {reject_buytton_label??"reject"}
+                                {reject_button_label??"reject"}
                             </button>
                         </div>
 
@@ -56,7 +56,7 @@ return (
                                     className="m-1 w-full text-center  line-clamp-4 p-2 bg-red-100 border-2 
                         border-red-800 text-red-900  rounded-xl"
                                 >
-                                    {error.message}
+                                    {error?.message}
                                 </div>
                             ) : null}
                         </div>

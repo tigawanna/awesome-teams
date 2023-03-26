@@ -13,8 +13,9 @@ import { ListResult, Record } from 'pocketbase';
 const queryClient:QueryClient = new QueryClient({
   mutationCache:new MutationCache({
     onSuccess: async (data, variable, context, mutation) => {
-
+      console.log('invalidates', mutation.meta?.invalidates)
       if (Array.isArray(mutation.meta?.invalidates)) {
+
         return queryClient.invalidateQueries({
           queryKey:mutation.meta?.invalidates
         })

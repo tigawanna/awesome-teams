@@ -10,7 +10,7 @@ import { Notification } from './shared/extra/Notification';
 function App() {
 
 const query = useQuery({queryKey:['user'],queryFn:getUser});
-  console.log("user  === ",query.data);
+  // console.log("user  === ",query.data);
   return (
 
       <QueryStateWrapper query={query} loader={<LoaderElipse />}>

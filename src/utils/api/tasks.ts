@@ -154,3 +154,12 @@ try {
   throw error;
 }
 }
+
+
+export async function deleteTask (task_id:TasksResponse['id']) {
+  try {
+    return await pb.collection('tasks').delete(task_id);
+  } catch (error) {
+    throw error;
+  }
+}
