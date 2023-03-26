@@ -37,9 +37,9 @@
 // }
 
 
-Cypress.Commands.add('login', (email,password) => {
-    cy.visit('/auth');
-    cy.get('#email').type(email);
+Cypress.Commands.add('login', (email,password,destination) => {
+    cy.visit(destination??'auth')
+     cy.get('#email').type(email);
     cy.get('#password').type(password);
     cy.get('button[type="submit"]').click();
 })
