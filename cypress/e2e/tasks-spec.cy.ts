@@ -30,27 +30,51 @@ describe('Tasks spec', () => {
 
 //     });
 
-//   it('add-repair-task', function() {
-    // cy.login('caretaker1@staff.com', 'caretaker')
-//       cy.get('[data-testid="add-new-task"] > svg').click();
-//       cy.get('.md\\:w-\\[45\\%\\] > .css-13cymwt-control > .css-art2ul-ValueContainer2').click();
-//       cy.get('#react-select-3-option-1').click();
-//      cy.get('[data-testid="title"]').type('Test Repairs creation');
-//      cy.get('[data-testid="description"]').type('Test Repairs creation , testing with cypress E2E');
-//     cy.get('[data-testid="submit-button"').click();
+  it('add-repair-task', function() {
+    cy.login('caretaker1@staff.com', 'caretaker')
+      cy.get('[data-testid="add-new-task"] > svg').click();
+      cy.get('.md\\:w-\\[45\\%\\] > .css-13cymwt-control > .css-art2ul-ValueContainer2').click();
+      cy.get('#react-select-3-option-1').click();
+     cy.get('[data-testid="title"]').type('Test Repairs creation');
+     cy.get('[data-testid="description"]').type('Test Repairs creation , testing with cypress E2E');
+    cy.get('[data-testid="submit-button"').click();
 
-//   })
+  })
 
-it('approve-task', function() {
-    cy.login('manager1@staff.com', 'caretaker')
+    it('approve-task', function () {
+        cy.login('manager1@staff.com', 'caretaker')
+        cy.contains('[data-testid="task-card-link-status"]', 'created')
+            .parents('[data-testid="task-card-link"]')
+            .contains('repair')
+            .click()
+        cy.get('[data-testid="task-status-button"]').contains('Approve').click()
+        cy.get('[data-testid="consent-modal-accept"]').click()
 
-    // cy.get('[href="/0symxp6k4cht63n?page_idx=0"] > .h-full.flex-col > .w-\\[96\\%\\]').click();
-    // cy.get(':nth-child(1) > .px-5 > .text-lg').click();
-    // cy.get('.shadow-lg').click();
-    cy.get('[  data-testid="task-card-link-type"]').contains('repair').click()
-    cy.get('[data-testid="task-status-button"]').contains('Approve').click()
+    })
+
+
+it('fund-task', function() {
+    cy.login('cashier1@staff.com', 'caretaker')
+    cy.get('[data-testid="task-card-link-status"]').contains('approved').click()
+    cy.get('[data-testid="task-status-button"]').contains('Fund').click()
+    cy.get('[data-testid="consent-modal-accept"]').click()
+
 })
 
+    it('mark_task_in_progress', function () {
+        cy.login('caretaker1@staff.com', 'caretaker')
+        cy.get('[data-testid="task-card-link-status"]').contains('funded').click()
+        cy.get('[data-testid="task-status-button"]').contains('Mark in progress').click()
+        cy.get('[data-testid="consent-modal-accept"]').click()
 
+    })
+
+    it('mark_task_completed', function () {
+        cy.login('caretaker1@staff.com', 'caretaker')
+        cy.get('[data-testid="task-card-link-status"]').contains('in_progress').click()
+        cy.get('[data-testid="task-status-button"]').contains('Mark Complete').click()
+        cy.get('[data-testid="consent-modal-accept"]').click()
+
+    })
 
 })

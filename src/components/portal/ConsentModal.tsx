@@ -28,20 +28,24 @@ return (
                     <div className="w-full md:w-[60%] h-full md:min-hh-fit md:max-h-[60%]   flex flex-col items-center justify-evenly 
                          rounded-2xl shadow-xl bg-slate-500 bg-opacity-60">
 
-                        <h1 className="w-full p-2  text-semi bold  flex flex-col items-center justify-center">
+                        <h1 className="w-[95%] p-2  text-2xl text-white  flex flex-col items-center justify-center">
                             {prompt}
                         </h1>
 
                         <div className="flex  items-center justify-center gap-5">
                             <button
                                 onClick={handleAccept}
-                                className="px-6 py-1 text-2xl text-white  rounded-full shadow-lg 
-                                border-2 hover:bg-green-500 hover:text-white">
+                                data-testid="consent-modal-accept"
+                                className="px-6 py-1 text-2xl  rounded-full 
+                                shadow-green-400 shadow capitalize bg-slate-300
+                                border border-green-600 hover:bg-green-500 hover:text-white">
                                 {accept_buytton_label ?? "confirm"}
                             </button>
                             <button
                                 onClick={handleReject}
-                                className="px-6 py-1 text-2xl  rounded-full bg-red-600 hover:bg-red-500 text-white">
+                                data-testid="consent-modal-reject"
+                                className="px-6 py-1 text-2xl  capitalize
+                                rounded-full bg-red-600 hover:bg-red-500 text-white">
                                 {reject_buytton_label??"reject"}
                             </button>
                         </div>

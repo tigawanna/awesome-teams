@@ -102,10 +102,7 @@ export const TaskUpdateStatusModal = ({ open, setOpen, new_status, task, user, p
         mutationFn: (variables: TaskMutationFields) => updatetask(variables),
 
         meta: {
-            infinitelist: {
-                key: ['tasks', " "],
-                page: page_idx
-            }
+            invalidates:['tasks', " "]
         },
 
         onError(error, variables, context) {

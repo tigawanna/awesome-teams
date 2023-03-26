@@ -44,7 +44,9 @@ export const TaskCard = ({ task,page_idx,user }: TaskCardProps) => {
             <div
                 style={{ color: statusColors[task.status] }}
                 className={''}>
-                <p className=' px-1 rounded-xl font-bold font-mono '>{task.status}</p>
+                <p 
+                data-testid="task-card-link-status"
+                className=' px-1 rounded-xl font-bold font-mono '>{task.status}</p>
             </div>
      
             <TaskDeadline task={task} />
