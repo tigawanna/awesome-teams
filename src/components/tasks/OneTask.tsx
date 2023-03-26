@@ -8,6 +8,7 @@ import { TaskDeadline } from "./task-status/TaskDeadline";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { DateOutput } from "../../shared/extra/DateOutput";
+import { useDocumentTitle } from "../../utils/hooks/useDocumentTitle";
 dayjs.extend(relativeTime)
 
 interface OneTaskProps {
@@ -23,8 +24,9 @@ const page_idx = parseInt(searchparams.get("page_idx") as string)
 const query = useQuery({
     queryKey: ["tasks", param.id],
     queryFn:() =>getOneTask(param.id)
-    
 })
+
+    useDocumentTitle(`${query.data?.title}`)
 
 if(query.isPending){
 return(

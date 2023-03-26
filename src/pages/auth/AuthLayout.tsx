@@ -1,6 +1,7 @@
 import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 import { AppUser } from '../../utils/types/base';
 import { useEffect } from 'react';
+import { useDocumentTitle } from '../../utils/hooks/useDocumentTitle';
 
 
 interface AuthLayoutProps {
@@ -8,7 +9,7 @@ interface AuthLayoutProps {
 }
 
 export const AuthLayout = ({user}: AuthLayoutProps) => {
-  
+  useDocumentTitle('Auth')
   const [searchBarParams, setSearchBarParams] = useSearchParams();
   const navigate = useNavigate();
   const navigate_to = searchBarParams.get('callbackUrl')

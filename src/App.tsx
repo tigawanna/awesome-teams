@@ -9,6 +9,13 @@ import { Notification } from './shared/extra/Notification';
 
 function App() {
 
+  function hideSplashScreen() {
+    const splashScreen = document.getElementById('splash-screen');
+    if (splashScreen) {
+      splashScreen.style.display = 'none';
+    }
+  }
+  hideSplashScreen()
 const query = useQuery({queryKey:['user'],queryFn:getUser});
   // console.log("user  === ",query.data);
   return (

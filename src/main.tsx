@@ -106,6 +106,9 @@ const queryClient:QueryClient = new QueryClient({
   },
 });
 
+
+
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <ErrorBoundary>
   <QueryClientProvider client={queryClient}>
@@ -118,12 +121,4 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   </ErrorBoundary>
 );
 
-const getStuff = async () => {
-  try {
-    const res = await fetch('https://dummyjson.com/todos')
-    const stuff = await res.json()
-    return stuff
-  } catch (error) {
-    throw error
-  }
-}
+

@@ -68,6 +68,7 @@ export const appRoutes=(user:AppUser)=>{
             },
             {
               path: '/staff',
+      
               element: 
                 <Suspense fallback={<LoaderElipse />}>
                   <StaffLayout user={user} />
