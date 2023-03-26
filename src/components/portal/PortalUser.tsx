@@ -44,8 +44,9 @@ return (
     <div className="w-full h-fit p-2 flex flex-wrap items-center border-shadow">
         <button
         onClick={() => setOpen(true)}
-                        className="sticky top-4 px-2 py-1 bg-purple-800 text-white rounded-md"
-                    >Request Leave
+        data-testid="request-leave--button"
+        className="sticky top-4 px-2 py-1 bg-purple-800 text-white rounded-md"
+        >Request Leave
                     </button>
         <LeaveList user={user}/>
     </div>

@@ -37,7 +37,7 @@ describe('Tasks spec', () => {
       cy.get('#react-select-3-option-1').click();
      cy.get('[data-testid="title"]').type('Test Repairs creation');
      cy.get('[data-testid="description"]').type('Test Repairs creation , testing with cypress E2E');
-    cy.get('[data-testid="submit-button"').click();
+    cy.get('[data-testid="submit-button-Submit"').click();
 
   })
 

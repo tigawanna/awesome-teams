@@ -119,6 +119,7 @@ return (
     
     <div className="w-[100%] md:w-[60%] h-full dark:text-white">
     <form onSubmit={handleSubmit}
+    data-testid="leave-form"
     className="w-full h-full flex flex-col items-center justify-center p-2 ">
     
         <FormSelect<StaffLeaveMutationFields>
@@ -181,7 +182,7 @@ return (
                 <PlainFormButton
                     disabled={mutation.isPending}
                     isSubmitting={mutation.isPending}
-                    label="Submit"
+                    label="Request Leave"
                 />
 
                 <div className="m-1 w-[90%] flex  flex-col items-center justify-center">

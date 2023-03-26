@@ -49,6 +49,6 @@ export const QueryStateWrapper = (
 
 
     return (
-        <React.Fragment data-testid="query-state-wrapper-loading">{children}</React.Fragment>
+        <>{children}</>
     );
 }
