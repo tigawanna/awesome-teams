@@ -34,7 +34,7 @@ export const StaffList = ({}:StaffListProps) => {
 const staff = query.data
 return (
     <div className='w-full min-h-screen flex flex-col  items-center justify-start '>
-    <SearchBox keyword={keyword} handleChage={handleChage} />
+    <SearchBox keyword={keyword} handleChage={handleChage} placeholder='filter for staff by name'/>
 
         <div className='w-full flex flex-wrap items-start justify-center gap-2 m-5 mt-14 '>
             <QueryStateWrapper query={query}>

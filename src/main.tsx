@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { InfiniteData, MutationCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
-// import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import App from './App';
 import './index.css';
@@ -13,7 +12,7 @@ import { ListResult, Record } from 'pocketbase';
 const queryClient:QueryClient = new QueryClient({
   mutationCache:new MutationCache({
     onSuccess: async (data, variable, context, mutation) => {
-      console.log('invalidates', mutation.meta?.invalidates)
+
       if (Array.isArray(mutation.meta?.invalidates)) {
 
         return queryClient.invalidateQueries({
