@@ -13,6 +13,7 @@ import { OneTask } from '../components/tasks/OneTask';
 
 import { Suspense, lazy } from 'react';
 import { LoaderElipse } from '../shared/loaders/Loaders';
+import OneLeave from '../pages/portal/OneLeave';
 
 const Portal = lazy(() => import('../pages/portal/Portal'));
 const PortalLayout = lazy(() => import('../pages/portal/PortalLayout'));
@@ -102,6 +103,14 @@ export const appRoutes=(user:AppUser)=>{
                   </Suspense>
                   // loader: deferredBlogPostsLoader,
                 },
+                 {
+                   path:':id',
+                   element:
+                     <Suspense fallback={<LoaderElipse />}>
+                       <OneLeave user={user} />
+                     </Suspense>
+                   // loader: deferredBlogPostsLoader,
+                 },
 
               ],
             },

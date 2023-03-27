@@ -141,7 +141,7 @@ export async function addStaffLeaveRequest(data: StaffLeaveMutationFields) {
    }
 }
 
-export async function getStaffLeaveRequest(data : StaffLeaveResponse) {
+export async function updateStaffLeaveRequest(data : StaffLeaveResponse) {
     try {
         const record = await pb.collection('staff_details').update<StaffLeaveResponse>(data.id, data);
         return record
@@ -150,10 +150,10 @@ export async function getStaffLeaveRequest(data : StaffLeaveResponse) {
     }
 }
 
-export async function searchForRequestedStaffLeave(staff:StaffResponse) {
+export async function searchForRequestedStaffLeave(staff_id:string) {
     try {
         const record = await pb.collection('staff_details')
-            .getFirstListItem<StaffLeaveResponse>(`leave_requested_by="${staff.id}"`, {
+            .getFirstListItem<StaffLeaveResponse>(`leave_requested_by="${staff_id}"`, {
                 sort: '-created',
                 expand:'leave_approved_by,leave_requested_by'
         });
@@ -163,6 +163,18 @@ export async function searchForRequestedStaffLeave(staff:StaffResponse) {
     }
 }
 
+export async function getStaffLeaveByID(leave_id: string) {
+    try {
+        const record = await pb.collection('staff_details')
+            .getFirstListItem<StaffLeaveResponse>(`id="${leave_id}"`, {
+                sort: '-created',
+                expand: 'leave_approved_by,leave_requested_by'
+            });
+        return record
+    } catch (error) {
+        throw error;
+    }
+}
 export async function getStaffLeaves(props:InjectedQueryFnProps,filter_params:string) {
     try{
         const resultList = await pb.collection('staff_details').getList<StaffLeaveResponse>(props.pageParam, 50, {

@@ -11,6 +11,7 @@ import { ConsentModal } from "./ConsentModal";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { Link } from "react-router-dom";
 dayjs.extend(relativeTime)
 
 interface StaffLeavesRowProps {
@@ -19,10 +20,11 @@ interface StaffLeavesRowProps {
     user:AppUser
 }
 
-export function StaffLeavesRow({leave,user}:StaffLeavesRowProps){
- const [error,setError] = useState<{name:string,message:string}>({name:'',message:''})
+export function StaffLeaveCard({leave,user}:StaffLeavesRowProps){
+
+const [error,setError] = useState<{name:string,message:string}>({name:'',message:''})
 const [open,setOpen] = useState(false)
- const store = useStroreValues()
+const store = useStroreValues()
 
 const mutation = useMutation({
     mutationFn: (input:StaffLeaveResponse) => approveLeave(input),
@@ -52,39 +54,44 @@ return (
  <div 
   className = {
     user?.id === leave.leave_requested_by ?
-    `w-full h-full text-lg
+    `w-full  h-full text-lg
     flex items-center justify-center border border-accent
-    shadow-md shadow-accent`
-    :`w-full h-full flex items-center justify-center border border-shadow `
+    shadow-md shadow-accent  `
+    :`w-full h-full flex items-center justify-center border border-shadow 
+    
+    `
     }
 
  >
     
-    <div className='w-full flex flex-wrap items-start justify-start gap-2 m-2'>
-        
-            <div className="w-[45%] h-full border shadow-lg flex items-center justify-center gap-1 p-1 rounded-lg">
+        <div className='w-full flex flex-wrap items-start justify-start gap-2 m-2'>
+        <Link to={`${leave.id}`} 
+                className="hover:outline hover:outline-purple-500 rounded-lg 
+                w-full   h-full flex flex-wrap items-start justify-start gap-2 m-2">
+
+            <div className=" h-full border shadow-lg flex items-center justify-center gap-1 p-1 rounded-lg">
                 <h3 className="text-sm font-bold">Type:</h3>
                 <h3 className="">{leave.leave_type}</h3>
             </div>
 
-            <div className="w-[50%] h-full  border shadow-lg flex items-center justify-center gap-1 p-1 rounded-lg">
+                <div className=" h-full  border shadow-lg flex items-center justify-center gap-1 p-1 rounded-lg">
                 <h3 className="text-sm font-bold">By:</h3>
                 <h3 className="">{leave.expand.leave_requested_by.name}</h3>
             </div>
 
-            <div className="border flex items-center justify-center gap-1 p-1 rounded-lg">
+                <div className="border flex items-center justify-center gap-1 p-1 rounded-lg">
                 <h3 className="text-xs md:text-sm font-bold">Created:</h3>
                 <h1 className='text-xs'>{dayjs(leave.created).format('dddd DD-MMM-YYYY')}</h1>
                 <h1 className='text-xs'>{dayjs().to(dayjs(leave.created))}</h1>
             </div>
 
-            <div className="border flex items-center justify-center gap-1 p-1 rounded-lg">
+                <div className="border flex items-center justify-center gap-1 p-1 rounded-lg">
                 <h3 className="text-xs md:text-sm font-bold">From:</h3>
                 <h1 className='text-xs'>{dayjs(leave.leave_start).format('dddd DD-MMM-YYYY')}</h1>
                 <h1 className='text-xs'>{dayjs().to(dayjs(leave.leave_start))}</h1>
             </div>
 
-            <div className="border flex items-center justify-center gap-1 p-1 rounded-lg">
+                <div className=" border flex items-center justify-center gap-1 p-1 rounded-lg">
                 <h3 className="text-xs md:text-sm font-bold">To:</h3>
                 <h1 className='text-xs'>{dayjs(leave.leave_end).format('dddd DD-MMM-YYYY')}</h1>
                 <h1 className='text-xs'>{dayjs().to(dayjs(leave.leave_end))}</h1>
@@ -92,18 +99,21 @@ return (
 
             <div 
             style={{
-            background:leaveStatusColors(leave.leave_request_status)
+            backgroundColor:leaveStatusColors(leave.leave_request_status)
             }}
-            className="w-[45%] h-full border shadow-lg flex items-center justify-center gap-1 p-1 rounded-lg">
+            className="min-w-[20%] h-full border shadow-lg flex items-center justify-center gap-1 p-1 rounded-lg">
                 <h3 className="text-sm font-bold">Status:</h3>
                 <h3 className="">{leave.leave_request_status}</h3>
             </div>
+        </Link> 
 
          <div className="w-full  dark:text-black flex flex-col items-center justify-center gap-1 p-1 rounded-lg">
           <ReactCalender 
             minDate={new Date(leave.leave_start)}
             maxDate={new Date(leave.leave_end)}
             />
+
+          
             {user?.type==="manager"&& leave.leave_request_status==="pending" &&
                     <button
                         onClick={() => setOpen(true)}
@@ -144,8 +154,7 @@ setOpen={setOpen}
 
 />
  
-    
-    </div>
+</div>
 
  </div>
 );

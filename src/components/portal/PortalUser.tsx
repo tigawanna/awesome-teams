@@ -47,7 +47,7 @@ return (
         data-testid="request-leave--button"
         className="sticky top-4 px-2 py-1 bg-purple-800 text-white rounded-md"
         >Request Leave
-                    </button>
+        </button>
         <LeaveList user={user}/>
     </div>
 

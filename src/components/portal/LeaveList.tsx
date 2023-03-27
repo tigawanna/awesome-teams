@@ -5,7 +5,7 @@ import { getStaffLeaves } from "../../utils/api/staff";
 import { AppUser } from "../../utils/types/base";
 import { QueryStateWrapper } from "../../shared/wrappers/QueryStateWrapper";
 import React from "react";
-import { StaffLeavesRow } from "./StaffLeavesRow";
+import { StaffLeaveCard } from "./StaffLeaveCard";
 import { LoadMoreButton } from "../../shared/extra/LoadMoreButton";
 import { useDebouncedValue } from "../../utils/hooks/useDebouncedValue";
 
@@ -44,7 +44,7 @@ return (
                             {
                                 staff_leaves && page.items.map((leave) => {
                                     return (
-                                        <StaffLeavesRow key={leave.id} leave={leave} page_idx={page_idx} user={user} />
+                                    <StaffLeaveCard key={leave.id} leave={leave} page_idx={page_idx} user={user} />
                                     )
                                 })
                             }
