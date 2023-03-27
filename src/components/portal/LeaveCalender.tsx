@@ -37,6 +37,7 @@ export function LeaveCalender({taken_leave_ranges,rngs}:LeaveCalenderProps){
 return (
     <div className='w-full h-full flex dark:text-black  flex-col items-center justify-center gap-1'>
         <Calendar
+            
             value={rngs.dateRange as [Date | null, Date | null]}
             onChange={rngs.updateDateRange}
             selectRange={true}
