@@ -15,8 +15,10 @@ export const HomePage = ({user}:HomePageProps) => {
     
 const [open,setOpen]=useState(false);
 return (
-    <div className='w-full h-full min-h-screen  flex items-center justify-center'>
+    <div className='w-full h-full min-h-screen  flex flex-col items-center justify-center'>
          {/* <TaskForm/> */}
+
+
         <Tasks user={user}  />
         <div 
         className='flex items-center justify-center rounded-full aspect-square  

@@ -95,7 +95,7 @@ return (
          hover:text-blue-700">
                     <Link
                         className='w-fit h-fit flex items-center justify-center gap-2'
-                        to="/portal"><MdNotifications />
+                        to="/notification"><MdNotifications />
                         <h3 className='text-sm font-normal'>Alerts</h3>
                     </Link>
                 </div>

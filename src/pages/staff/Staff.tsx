@@ -8,6 +8,7 @@ user:AppUser
 export default function Staff({}:StaffProps){
   return (
     <div className='w-full h-full '>
+
      <StaffList/>
     </div>
   );
