@@ -72,12 +72,7 @@ const {value,isDebouncing} = useDebouncedValue(keyword, 2000);
 
            </div>
          <LoadMoreButton query={query}/>
-    
-
-
-
-
-        </div>
+    </div>
 
     );
 }
