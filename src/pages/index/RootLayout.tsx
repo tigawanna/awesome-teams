@@ -7,6 +7,7 @@ import { NavElemets } from '../../components/toolbar/NavElemets';
 import { useState } from 'react';
 import { SideDrawer } from '../../components/toolbar/SideDrawer';
 import { HeaderToggle } from '../../components/index/HeaderToggle';
+import { useRealTime } from '../../utils/api/notifications';
 
 
 
@@ -19,6 +20,8 @@ export const RootLayout = ({user}: RootLayoutProps) => {
 useAuthGuard(user,false)
 const navigation = useNavigation()
 const location = useLocation()
+
+useRealTime()
 
 const [open,setOpen]=useState(false)
   // useBodyScrollLock(open)

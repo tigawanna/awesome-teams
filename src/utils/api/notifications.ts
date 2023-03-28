@@ -1,5 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { pb } from "../pb/config";
+import { useAlertStore } from "../zustand/alert";
 
 
 export interface NotificationInfiniteResponse {
@@ -91,8 +93,18 @@ try {
 
 export function useRealTime() {
 const queryClient = useQueryClient()
-    pb.realtime.subscribe('notifications', (data: RealTimeBNotificationRoot) => {
-        queryClient.invalidateQueries({queryKey:['notifications']})
-    })
+const alerts = useAlertStore()
 
+useEffect(() => {
+    const unsubscribePromise = pb.realtime.subscribe('notifications', (data: RealTimeBNotificationRoot) => {
+        queryClient.invalidateQueries({queryKey:['notifications']})
+        alerts.increase(1)
+        // console.log("alert sent ", data)
+    })
+        return () => {
+            (async () => {
+                (await unsubscribePromise)();
+            })();
+        };
+    },[]);
 }

@@ -21,7 +21,8 @@ export function EventsNotification({}:EventsNotificationProps){
                 return lastPage.page + 1
         },
     })
-    useRealTime()
+    
+    // useRealTime()
     if (query.isFetching) {
         return (
             <div className='w-full h-full flex items-center justify-center'>

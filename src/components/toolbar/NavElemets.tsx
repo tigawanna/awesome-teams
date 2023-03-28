@@ -11,6 +11,7 @@ import { RiTeamFill } from 'react-icons/ri';
 import { IconContext } from 'react-icons';
 import { GrTest } from 'react-icons/gr';
 import { useDarkTheme } from '../../utils/hooks/useDarkTheme';
+import { useAlertStore } from '../../utils/zustand/alert';
 
 
 
@@ -28,6 +29,10 @@ export const NavElemets = ({user,closeModal}:NavElemetsProps) => {
 const [isOpen, setIsOpen] = useState(false);
 const avatar = makeImageUrl('staff', user?.id as string, user?.avatar as string);
 const {modeIcon,theme,toggleTheme} = useDarkTheme()
+
+const alerts  = useAlertStore()
+
+console.log("alerts in navbar ==== ",alerts.alerts)
 
 return (
     <div className='w-full mx-5 h-screen dark:text-white
@@ -94,8 +99,10 @@ return (
                 <div className="w-full  flex justify-center items-center
          hover:text-blue-700">
                     <Link
-                        className='w-fit h-fit flex items-center justify-center gap-2'
-                        to="/notification"><MdNotifications />
+                        className='w-fit h-fit flex items-center justify-center gap-1'
+                        to="/notification">
+                            <MdNotifications />
+                         {alerts.alerts > 0 ?<div>{alerts.alerts}</div>:null}
                         <h3 className='text-sm font-normal'>Alerts</h3>
                     </Link>
                 </div>
