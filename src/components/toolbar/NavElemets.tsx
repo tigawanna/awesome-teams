@@ -32,7 +32,7 @@ const {modeIcon,theme,toggleTheme} = useDarkTheme()
 
 const alerts  = useAlertStore()
 
-console.log("alerts in navbar ==== ",alerts.alerts)
+
 
 return (
     <div className='w-full mx-5 h-screen dark:text-white
