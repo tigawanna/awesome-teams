@@ -2,6 +2,7 @@ import { useInfiniteQuery  } from "@tanstack/react-query";
 import React from "react";
 import { LoadMoreButton } from "../../shared/extra/LoadMoreButton";
 import { getNotifications, useRealTime } from "../../utils/api/notifications";
+import { NotificationCard } from "./NotificationCard";
 
 interface EventsNotificationProps {
 
@@ -56,8 +57,8 @@ export function EventsNotification({}:EventsNotificationProps){
 const notifications  = query.data
 // console.log("notification  ",notifications)
 return (
- <div className='w-full min-h-full flex items-center justify-center'>
-        <div className='w-[95%] h-full flex flex-col items-center justify-start gap-2'>
+ <div className='md:w-[95%] min-h-full flex items-center justify-end '>
+        <div className='w-full md:w-[80%] h-full flex flex-col items-center justify-end  gap-5 p-2 m-2'>
         {notifications?.pages.map((page, page_idx) => {
 
             return (
@@ -65,11 +66,7 @@ return (
                     {
                         notifications && page.items.map((event) => {
                             return (
-                                <div 
-                                key={event.id}
-                                className='w-full h-full flex items-center justify-center border-shadow p-2'>
-                                    {event.name}
-                                </div>
+                            <NotificationCard key={event.id} event={event}/>
 
                             )
                         })

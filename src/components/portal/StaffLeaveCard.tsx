@@ -40,7 +40,7 @@ const mutation = useMutation({
 })
 function leaveStatusColors(status:StaffLeaveResponse['leave_request_status']){
 if(status==="pending"){
-return ""
+return "purple"
 }
 else if(status==="approved"){
 return "green"
@@ -67,7 +67,7 @@ return (
         <div className='w-full flex flex-wrap items-start justify-start gap-2 m-2'>
         <Link to={`${leave.id}`} 
                 className="hover:outline hover:outline-purple-500 rounded-lg 
-                w-full   h-full flex flex-wrap items-start justify-start gap-2 m-2">
+                w-full   h-full flex flex-wrap items-start justify-start gap-2 p-2 m-2">
 
             <div className=" h-full border shadow-lg flex items-center justify-center gap-1 p-1 rounded-lg">
                 <h3 className="text-sm font-bold">Type:</h3>
@@ -101,7 +101,7 @@ return (
             style={{
             backgroundColor:leaveStatusColors(leave.leave_request_status)
             }}
-            className="min-w-[20%] h-full border shadow-lg flex items-center justify-center gap-1 p-1 rounded-lg">
+            className="min-w-[20%] h-full text-white border shadow-lg flex items-center justify-center gap-1 p-1 rounded-lg">
                 <h3 className="text-sm font-bold">Status:</h3>
                 <h3 className="">{leave.leave_request_status}</h3>
             </div>

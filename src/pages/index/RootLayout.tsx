@@ -51,7 +51,8 @@ return (
      </SideDrawer>
 
 
-      <main className=" w-full min-h-screen z-20 h-full mt-[15%] sm:ml-[8%] sm:mt-[10%] md:mt-[8%]">
+
+      <main className=" w-full  min-h-screen z-20 h-full mt-[15%] sm:ml-[8%] sm:mt-[10%] md:mt-[8%]">
         <Outlet />
         </main>
 

@@ -57,7 +57,7 @@ body::-webkit-scrollbar-thumb {
 .border-shadow{
   @apply border rounded-xl dark:border-0
     shadow-md shadow-slate-400
-   dark:shadow-slate-500 dark:shadow-md
+   dark:shadow-slate-500 dark:shadow-md hover:shadow-purple-400 hover:text-purple-400
 }
 
 
@@ -71,7 +71,7 @@ body::-webkit-scrollbar-thumb {
 .react-calendar {
   width: 350px;
   max-width: 100%;
-  background: white;
+  background: rgb(228, 214, 171);
   border: 1px solid #a0a096;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
@@ -156,11 +156,13 @@ body::-webkit-scrollbar-thumb {
   background: none;
   text-align: center;
   line-height: 16px;
-}
+ }
 
 .react-calendar__tile:disabled {
-  opacity: 0.4;
-  filter: brightness(30%);
+  opacity: 0.7;
+  filter: brightness(90%);
+  background-color: rgb(231, 226, 226);
+
 }
 
 .react-calendar__tile:enabled:hover,

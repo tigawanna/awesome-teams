@@ -50,6 +50,7 @@ try {
     // fetch a paginated records list
     const resultList = await pb.collection('notifications').getList<NotificationResponse>(page.pageParam, 50, {
         filter: '',
+        sort:'-created'
 
     });
     return resultList

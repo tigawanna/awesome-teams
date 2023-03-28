@@ -83,17 +83,17 @@ return (
     <div
         className={
             user?.id === leave.leave_requested_by ?
-    `w-full  h-full text-lg
+    `w-[90%]  h-full text-lg m-5
     flex items-center justify-center 
-    shadow-md shadow-accent  `
-                : `w-full h-full flex items-center justify-center 
+    shadow-md shadow-accent `
+    : `w-[90%] h-full flex items-center justify-center m-5
     
     `
         }
 
     >
 
-        <div className='md:w-[60%] w-full flex flex-wrap  items-start justify-start gap-2 m-2 '>
+        <div className='md:w-[60%] w-[95%] flex flex-wrap  items-start justify-center gap-2 m-2 '>
      
 
                 <div className=" h-full border shadow-lg flex flex-grow items-center justify-center gap-1 p-1 rounded-lg">
