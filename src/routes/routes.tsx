@@ -14,6 +14,8 @@ import { OneTask } from '../components/tasks/OneTask';
 import { Suspense, lazy } from 'react';
 import { LoaderElipse } from '../shared/loaders/Loaders';
 import OneLeave from '../pages/portal/OneLeave';
+import NotificationLayout from '../pages/notification/NotificationLayout';
+import Notification from '../pages/notification/Notification';
 
 const Portal = lazy(() => import('../pages/portal/Portal'));
 const PortalLayout = lazy(() => import('../pages/portal/PortalLayout'));
@@ -127,6 +129,24 @@ export const appRoutes=(user:AppUser)=>{
                   element: 
                   <Suspense fallback={<LoaderElipse />}>
                   <Test user={user} />
+                  </Suspense>,
+                  // loader: deferredBlogPostsLoader,
+                },
+              ],
+            },
+
+            {
+              path: '/notification',
+              element:
+                <Suspense fallback={<LoaderElipse />}> 
+              <NotificationLayout user={user} />
+              </Suspense>,
+              children: [
+                {
+                  index: true,
+                  element: 
+                  <Suspense fallback={<LoaderElipse />}>
+                  <Notification user={user} />
                   </Suspense>,
                   // loader: deferredBlogPostsLoader,
                 },

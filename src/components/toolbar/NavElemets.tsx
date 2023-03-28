@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { FaTasks, FaUserCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { makeImageUrl } from '../../utils/pb/config';
-import { MdOutlineDashboard } from 'react-icons/md';
+import { MdNotifications, MdOutlineDashboard } from 'react-icons/md';
 import { RiTeamFill } from 'react-icons/ri';
 import { IconContext } from 'react-icons';
 import { GrTest } from 'react-icons/gr';
@@ -91,9 +91,17 @@ return (
                         <h3 className='text-sm font-normal'>Portal</h3>
                 </Link>
             </div>
+                <div className="w-full  flex justify-center items-center
+         hover:text-blue-700">
+                    <Link
+                        className='w-fit h-fit flex items-center justify-center gap-2'
+                        to="/portal"><MdNotifications />
+                        <h3 className='text-sm font-normal'>Alerts</h3>
+                    </Link>
+                </div>
 
             <div className="w-full  flex justify-center items-center 
-      hover:text-rose-700">
+              hover:text-rose-700">
             <Link 
             className='w-fit h-fit flex items-center justify-center gap-2'
             to="/test"><GrTest/>
