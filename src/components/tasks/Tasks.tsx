@@ -16,7 +16,7 @@ user:AppUser
 export const Tasks = ({user}: TasksProps) => {
 
 const [keyword, setKeyword] = useState(" ");
-const value = useDebouncedValue(keyword, 2000);
+const {value,isDebouncing} = useDebouncedValue(keyword, 2000);
 
 
 // const query = useQuery({ queryKey: ['tasks', value], queryFn: () => getTasks(value),})
@@ -42,7 +42,8 @@ const value = useDebouncedValue(keyword, 2000);
         data-testid="tasks-component"
        className='w-[90%] min-h-screen flex flex-col  items-center justify-start p-5'>
 
-           <SearchBox keyword={keyword} handleChage={handleChage} placeholder='filter for staff by name' />
+        <SearchBox keyword={keyword} handleChage={handleChage} placeholder='filter for tasks by title or description' 
+        loading={isDebouncing||query.isFetching} />
            
 
            <div 

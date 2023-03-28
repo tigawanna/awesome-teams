@@ -13,7 +13,7 @@ interface StaffListProps {
 
 export const StaffList = ({}:StaffListProps) => {
     const [keyword, setKeyword] = useState("");
-    const value = useDebouncedValue(keyword, 2000);
+    const {value,isDebouncing} = useDebouncedValue(keyword, 2000);
 
 
 
@@ -34,7 +34,9 @@ export const StaffList = ({}:StaffListProps) => {
 const staff = query.data
 return (
     <div className='w-full min-h-screen flex flex-col  items-center justify-start '>
-    <SearchBox keyword={keyword} handleChage={handleChage} placeholder='filter for staff by name'/>
+    <SearchBox keyword={keyword} handleChage={handleChage} placeholder='filter for staff by name'
+            loading={isDebouncing || query.isFetching} 
+    />
 
         <div className='w-full flex flex-wrap items-start justify-center gap-2 m-5 mt-14 '>
             <QueryStateWrapper query={query}>
