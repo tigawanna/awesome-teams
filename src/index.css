@@ -57,7 +57,7 @@ body::-webkit-scrollbar-thumb {
 .border-shadow{
   @apply border rounded-xl dark:border-0
     shadow-md shadow-slate-400
-   dark:shadow-slate-500 dark:shadow-md hover:shadow-purple-400 hover:text-purple-400
+   dark:shadow-slate-500 dark:shadow-md hover:shadow-purple-800 dark:hover:text-purple-400
 }
 
 
