@@ -22,13 +22,13 @@ export function ConsentModal({
 return (
     <ReactModalWrapper
         child={
-            <div className="w-full  h-full flex flex-col items-center justify-center ">
+            <div className="w-full  h-full flex flex-col items-center justify-center font-serif">
 
                 <IconContext.Provider value={{ size: "40px" }}>
                     <div className="w-full md:w-[60%] h-full md:min-hh-fit md:max-h-[60%]   flex flex-col items-center justify-evenly 
-                         rounded-2xl shadow-xl bg-slate-500 bg-opacity-60">
+                         rounded-2xl shadow-xl bg-slate-900 bg-opacity-70">
 
-                        <h1 className="w-[95%] p-2  text-2xl text-white  flex flex-col items-center justify-center">
+                        <h1 className="w-[95%] p-2  text-xl  text-white  flex flex-col items-center justify-center">
                             {prompt}
                         </h1>
 

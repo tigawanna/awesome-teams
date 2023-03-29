@@ -92,7 +92,6 @@ try {
 // }
 
 export function useRealTime() {
-
 const queryClient = useQueryClient()
 const alerts = useAlertStore()
 useEffect(() => {
@@ -101,10 +100,7 @@ useEffect(() => {
         alerts.increase(1)
         if(alerts.has_read){
             alerts.setLastAlert(data.record.created)
-        }
-            
-        // console.log("alert sent ", data)
-    })
+        }})
         return () => {
             (async () => {
                 (await unsubscribePromise)();

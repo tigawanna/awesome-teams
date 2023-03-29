@@ -19,7 +19,7 @@ working in in property mangement role exposesd som eof the super specific issues
    - playwringth ror E2E tests
 
  Back-end is in [Pocketbase](https://pocketbase.io/) and open source BAAS written in Go , with JS and  Flutter SDKS.
- it's fast highly extensible with the hooks thye expose and has it all databse/storage/authentication + ouath provoders ...
+ it's fast highly extensible with the hooks thye expose and has it all databse/storage/authentication + ouath providers ...
 
 # [Pages](src\routes\routes.tsx)
 - [Home route](src\pages\home) : the default route , tasks will be loaded here
@@ -630,6 +630,98 @@ as it turns out the more generic a solution the worse it can be for edge cases.
 
 the hook also takes in a generic type just like react hoo form to give you typesafety
 
+## In App notifications
+- [zustnad config](src\utils\zustand) 
+  - [notifications api files](https://github.com/tigawanna/awesome-notes/blob/5b92f1cf83d48b5bbeb8abec41e011c706b763e7/src/utils/api/notifications.ts)
+ using zustand i managed global state and handled in coming notifications that , i listen to using pocketbase realtime endpoint
+
+ ```ts
+export function useRealTime() {
+const queryClient = useQueryClient()
+const alerts = useAlertStore()
+useEffect(() => {
+    const unsubscribePromise = pb.realtime.subscribe('notifications', (data: RealTimeBNotificationRoot) => {
+        queryClient.invalidateQueries({queryKey:['notifications']})
+        alerts.increase(1)
+        if(alerts.has_read){
+            alerts.setLastAlert(data.record.created)
+        }})
+        return () => {
+            (async () => {
+                (await unsubscribePromise)();
+            })();
+        };
+    },[]);
+}
+``` 
+It also persists the notification counts and clears them out when you navigate to the alerts route tov view them , unread comments also glow orange and auto mark themselves as read after a delay.
+
+These notifications appear when the app was closed and activities happened in your abscence
+
+this also involved a custom pocketbase endpoint to get the notification count and last alert
+
+
+<details>
+<summary>Click to expand code</summary>
+
+```go
+package custom
+
+import (
+	"net/http"
+
+	"github.com/labstack/echo/v5"
+	"github.com/pocketbase/dbx"
+	"github.com/pocketbase/pocketbase"
+	"github.com/pocketbase/pocketbase/apis"
+)
+
+
+func CustomNotificationsRoute(app *pocketbase.PocketBase) echo.Route {
+	return echo.Route{
+		Method: http.MethodGet,
+		Path:   "/custom_notifications",
+		Handler: func(c echo.Context) error {
+            
+    var result struct {
+				Count          int    `db:"count" json:"count"`
+                Created        string `bd:"created" json:"created"`
+				Details        string `db:"details" json:"details"`
+				ID             string `db:"id" json:"id"`
+				ItemID         string `json:"item_id"`
+				Name           string `db:"name" json:"name"`
+				Source         string `db:"source" json:"source"`
+				Type           string `db:"type" json:"type"`
+				Updated        string `db:"updated" json:"updated"`
+			}
+
+
+
+
+			err := app.Dao().DB().NewQuery(`
+            SELECT COUNT(*) AS count, * FROM notifications WHERE created > {:created} ORDER BY created DESC LIMIT 1;
+            `).Bind(dbx.Params{
+				"created": c.QueryParam("created"),
+			}).One(&result)
+
+			if err != nil {
+				return apis.NewBadRequestError("Failed to count most recent notifications", err)
+			}
+			return c.JSON(200, result)
+		},
+		Middlewares: []echo.MiddlewareFunc{apis.ActivityLogger(app)},
+		Name:        "",
+	}
+}
+
+```
+
+
+</details>
+
+
+
+
 ## Others
 - [custom hooks](src\utils\hooks)
   notable mentions :
@@ -677,6 +769,21 @@ export const concatErrors = (err_res: any) => {
 };
 ```
 </details>
+
+## conclusion
+Pocketbase is awesome in many ways but my personal favorites were
+- The SDK supports generics on all the query/mutation methods
+- The SDK also has a `send` method to query custom endpoints
+- The extensibility of the go package is very powerful with hooks that let you do everything form creaate custom    
+routes , query the logedin user to do backend validation and so server-side tranformations/validation
+- The best admin dashboard i've used in a while and the team is actively improving and polishing it 
+- 
+In modern React land we now have more options including server components and SSR streaming , but using the right tool for the job will become a valuable skill.
+
+A Signup component was deliberately left out since the staff can ba manually entered using the admin dashboard for more securuty
+
+Emails notifications and a chat syatem were on the raod map but those will  be deffered for now
+
 
 ### References
 
