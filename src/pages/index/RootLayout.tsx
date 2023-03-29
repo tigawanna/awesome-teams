@@ -19,19 +19,17 @@ interface RootLayoutProps {
 }
 
 export const RootLayout = ({user}: RootLayoutProps) => {
+
 useAuthGuard(user,false)
 const navigation = useNavigation()
 const location = useLocation()
 const alert_store = useAlertStore()
-console.log("alert store  ===== ",alert_store)
 useUnreadNotications()
-
 useRealTime()
 useScrollToTopOnRouteChange()
 
 const [open,setOpen]=useState(false)
-  // useBodyScrollLock(open)
-  // const [opened, { open, close }] = useDisclosure(false);
+
 return (
     <div className="w-full min-h-screen  dark:bg-slate-900 flex ">
     
