@@ -1,7 +1,8 @@
 import { useInfiniteQuery  } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect } from "react";
 import { LoadMoreButton } from "../../shared/extra/LoadMoreButton";
 import { getNotifications, useRealTime } from "../../utils/api/notifications";
+import { useAlertStore } from "../../utils/zustand/alert";
 import { NotificationCard } from "./NotificationCard";
 
 interface EventsNotificationProps {
@@ -9,6 +10,15 @@ interface EventsNotificationProps {
 }
 
 export function EventsNotification({}:EventsNotificationProps){
+
+    const alerts = useAlertStore()
+    useEffect(() => {
+        return () => {
+            alerts.clearNotification()
+      
+        }
+    }, [])
+
 
 
 
@@ -55,6 +65,7 @@ export function EventsNotification({}:EventsNotificationProps){
         )
     }
 
+ 
 const notifications  = query.data
 // console.log("notification  ",notifications)
 return (
@@ -65,9 +76,9 @@ return (
             return (
                 <React.Fragment key={page_idx}>
                     {
-                        notifications && page.items.map((event) => {
+                        notifications && page.items.map((event,idx) => {
                             return (
-                            <NotificationCard key={event.id} event={event}/>
+                            <NotificationCard key={event.id} event={event} is_unread={idx<alerts.temp_alert_count} />
 
                             )
                         })

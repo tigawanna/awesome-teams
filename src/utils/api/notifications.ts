@@ -1,5 +1,5 @@
-import { useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { pb } from "../pb/config";
 import { useAlertStore } from "../zustand/alert";
 
@@ -92,13 +92,17 @@ try {
 // }
 
 export function useRealTime() {
+
 const queryClient = useQueryClient()
 const alerts = useAlertStore()
-
 useEffect(() => {
     const unsubscribePromise = pb.realtime.subscribe('notifications', (data: RealTimeBNotificationRoot) => {
         queryClient.invalidateQueries({queryKey:['notifications']})
         alerts.increase(1)
+        if(alerts.has_read){
+            alerts.setLastAlert(data.record.created)
+        }
+            
         // console.log("alert sent ", data)
     })
         return () => {
@@ -107,4 +111,50 @@ useEffect(() => {
             })();
         };
     },[]);
+}
+
+
+export interface UnreadAlert {
+    count: number;
+    created: string;
+    details: string;
+    id: string;
+    item_id: string;
+    name: string;
+    source: string;
+    type: string;
+    updated: string;
+}
+
+
+export function useUnreadNotications(){
+    const alerts = useAlertStore()
+    const [load,setLoad] = useState(true)
+    const unread_alerts = useQuery({
+        queryKey: ['unread-notification-count'],
+        queryFn: () => notificationCount(alerts?.last_alert as string),
+        enabled:load,
+        onSuccess: (data) => {
+            alerts.setInitialCount(data.count)
+            alerts.setLastAlert(data.created)
+            console.log("on success  === ",data)
+            setLoad(false)
+        }
+    })
+    // console.log("unread_alerts",unread_alerts.data)
+
+}
+
+export async function notificationCount(created:string){
+
+    try {
+        const result = await pb.send<UnreadAlert>('/custom_notifications', {
+            params: {created}
+        })
+        console.log("getting last alert  === ",result)
+        return result
+    } catch (error:any) {
+        console.log("error getting notification count", error.message)
+        throw error;
+    }
 }

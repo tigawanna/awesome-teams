@@ -7,7 +7,9 @@ import { NavElemets } from '../../components/toolbar/NavElemets';
 import { useState } from 'react';
 import { SideDrawer } from '../../components/toolbar/SideDrawer';
 import { HeaderToggle } from '../../components/index/HeaderToggle';
-import { useRealTime } from '../../utils/api/notifications';
+import { useRealTime, useUnreadNotications } from '../../utils/api/notifications';
+import { useAlertStore } from '../../utils/zustand/alert';
+import useScrollToTopOnRouteChange from '../../utils/hooks/useScrollToTop';
 
 
 
@@ -20,8 +22,12 @@ export const RootLayout = ({user}: RootLayoutProps) => {
 useAuthGuard(user,false)
 const navigation = useNavigation()
 const location = useLocation()
+const alert_store = useAlertStore()
+console.log("alert store  ===== ",alert_store)
+useUnreadNotications()
 
 useRealTime()
+useScrollToTopOnRouteChange()
 
 const [open,setOpen]=useState(false)
   // useBodyScrollLock(open)

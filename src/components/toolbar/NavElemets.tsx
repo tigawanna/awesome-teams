@@ -102,7 +102,7 @@ return (
                         className='w-fit h-fit flex items-center justify-center gap-1'
                         to="/notification">
                             <MdNotifications />
-                         {alerts.alerts > 0 ?<div>{alerts.alerts}</div>:null}
+                         {alerts.alert_count > 0 ?<div>{alerts.alert_count}</div>:null}
                         <h3 className='text-sm font-normal'>Alerts</h3>
                     </Link>
                 </div>
