@@ -107,14 +107,14 @@ return (
                     </Link>
                 </div>
 
-            <div className="w-full  flex justify-center items-center 
+            {/* <div className="w-full  flex justify-center items-center 
               hover:text-rose-700">
             <Link 
             className='w-fit h-fit flex items-center justify-center gap-2'
             to="/test"><GrTest/>
             <h3 className='text-sm font-normal'>Test</h3>
             </Link>
-            </div>
+            </div> */}
 
 
             {/* <div className="w-full  h-full flex justify-center items-center 
