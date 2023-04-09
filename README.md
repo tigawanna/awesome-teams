@@ -1,4 +1,6 @@
-# Affirm
+# Awesome Teams
+
+![project](https://user-images.githubusercontent.com/72096712/230766145-aefc3189-9f46-444d-91a6-e67b4d08ce28.jpg)
 
 A task management toolf for small teams or small companies
 The current implemenation is based on the the needs of a property management team but can be made as generic as needed
